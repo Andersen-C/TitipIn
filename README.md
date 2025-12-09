@@ -13,11 +13,15 @@ Cara berkontribusi pada project TitipIn
 ```
 git clone https://github.com/Andersen-C/TitipIn.git
 ```
-2. Buat file .env baru
-3. Copy isi file .env.example ke file .env baru
-4. Jalankan Apache dan MySQL pada XAMPP
-5. Buat database dengan nama yang sesuai pada .env
-6. lakukan migration dan seeder
+2. install seluruh dependencies
+```
+composer install
+```
+3. Buat file .env baru
+4. Copy isi file .env.example ke file .env baru
+5. Jalankan Apache dan MySQL pada XAMPP
+6. Buat database dengan nama yang sesuai pada .env
+7. lakukan migration dan seeder
 ```
 php artisan migrate
 php artisan db:seed
