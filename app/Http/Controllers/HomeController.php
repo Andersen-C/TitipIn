@@ -58,6 +58,10 @@ class HomeController extends Controller
         return view('admin.adminHome', compact('users', 'activeRunner', 'menus', 'orders', 'dates', 'chartLabels', 'orderTotals', 'orderAmountTotal', 'topThreeRunner', 'topThreeMenu'));
     }
 
+    public function manage() {
+        return view('admin.manage');
+    }
+
     public function titiperHome()
     {
         // Ambil pesanan terbaru user yg login (titiper/pembeli)
