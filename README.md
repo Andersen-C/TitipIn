@@ -19,28 +19,32 @@ composer install
 ```
 3. Buat file .env baru
 4. Copy isi file .env.example ke file .env baru
-5. Jalankan Apache dan MySQL pada XAMPP
-6. Buat database dengan nama yang sesuai pada .env
-7. lakukan migration dan seeder
+5. Generate App Key
+```
+php artisan key:generate
+```
+6. Jalankan Apache dan MySQL pada XAMPP
+7. Buat database dengan nama yang sesuai pada .env
+8. lakukan migration dan seeder
 ```
 php artisan migrate
 php artisan db:seed
 ```
-8. Install Tailwindcss v4.1 dan Daisy UI
+9. Install Tailwindcss v4.1 dan Daisy UI
 ```
 npm install -D tailwindcss postcss autoprefixer
 npm install daisyui
 ```
-9. Jalankan npm
+10. Jalankan npm
 ```
 npm run dev
 ```
-10. Jalankan local development laravel
+11. Jalankan local development laravel
 ```
 php artisan serve
 ```
-11. buka localhost pada browser
-12. silahkan kerjakan
+12. buka localhost pada browser
+13. silahkan kerjakan
 
 ## Panduan Kontribusi
 1. Buat branch baru (**JANGAN LANGSUNG DI MAIN BRANCH**)
