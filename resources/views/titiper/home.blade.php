@@ -149,7 +149,7 @@
                                 </div>
 
                                 <div class="mt-4">
-                                    <a href="{{ url('menu') }}"
+                                    <a href="{{ url('titiper/menu') }}"
                                         class="w-full block text-center bg-sky-600 text-white py-3 rounded-full">Selengkapnya</a>
                                 </div>
                             </div>
