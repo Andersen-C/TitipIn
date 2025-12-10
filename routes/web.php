@@ -25,6 +25,7 @@ Route::post('/logout', [LogoutController::class, 'logout'])->middleware('auth')-
 
 Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/', [HomeController::class, 'adminHome'])->name('admin.dashboard');
+    Route::get('/manage', [HomeController::class, 'manage'])->name('admin.manage');
     Route::resource('users', ManageUserController::class);
     Route::resource('menus', ManageMenuController::class);
     Route::resource('categories', ManageCategoryController::class);

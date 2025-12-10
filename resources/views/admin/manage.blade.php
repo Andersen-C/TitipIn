@@ -3,6 +3,6 @@
 
 @section('Content')
 <div class="min-h-screen">
-
+    
 </div>
 @endsection
