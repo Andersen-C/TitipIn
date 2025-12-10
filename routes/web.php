@@ -69,7 +69,7 @@ Route::prefix('titiper')->middleware(['auth', 'role:user', 'mode:titiper'])->gro
 });
 
 Route::prefix('runner')->middleware(['auth', 'role:user', 'mode:runner'])->group(function () {
-    Route::get('/', [HomeController::class, 'Runnerhome'])->name('runner.home');
+    Route::get('/', [HomeController::class, 'runnerhome'])->name('runner.home');
 
     Route::get('/orders', [OrderController::class, 'runnerIndex'])->name('runner.orders.index');
     Route::get('/orders/{id}', [OrderController::class, 'runnerShow'])->name('runner.orders.show');

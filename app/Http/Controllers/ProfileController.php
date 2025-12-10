@@ -21,10 +21,14 @@ class ProfileController extends Controller
 
     public function showRunner()
     {
+        $user = Auth::user();
+        $reviews = $user->reviewsGotten()->with('reviewer')->latest()->get();
+
         return view('profile.show', [
-            'user'   => Auth::user(),
-            'layout' => 'template.afterLogin.RunnerAfterLogin',
-            'mode'   => 'runner'
+            'user'    => $user,
+            'layout'  => 'template.afterLogin.RunnerAfterLogin',
+            'mode'    => 'runner',
+            'reviews' => $reviews
         ]);
     }
 
@@ -33,22 +37,22 @@ class ProfileController extends Controller
         $user = Auth::user();
 
         $request->validate([
-            'name'        => 'required|string|max:255',
-            'email'       => 'required|string|email|max:255|unique:users,email,' . $user->id,
+            'name'         => 'required|string|max:255',
+            'email'        => 'required|string|email|max:255|unique:users,email,' . $user->id,
             'phone_number' => 'required|numeric|min_digits:10',
         ], [
-            'phone_number.numeric' => 'Nomor telepon harus berupa angka.',
+            'phone_number.numeric'    => 'Nomor telepon harus berupa angka.',
             'phone_number.min_digits' => 'Nomor telepon minimal 10 digit.',
-            'phone_number.required' => 'Nomor telepon wajib diisi.',
-            'name.required' => 'Nama wajib diisi.',
-            'email.required' => 'Email wajib diisi.',
-            'email.email' => 'Format email tidak valid.',
+            'phone_number.required'   => 'Nomor telepon wajib diisi.',
+            'name.required'           => 'Nama wajib diisi.',
+            'email.required'          => 'Email wajib diisi.',
+            'email.email'             => 'Format email tidak valid.',
         ]);
 
         /** @var \App\Models\User $user */
         $user->update([
-            'name'        => $request->name,
-            'email'       => $request->email,
+            'name'         => $request->name,
+            'email'        => $request->email,
             'phone_number' => $request->phone_number,
         ]);
 
@@ -76,24 +80,33 @@ class ProfileController extends Controller
         return back()->with('success', 'Password berhasil diubah.');
     }
 
-
     public function managePhoto(Request $request)
     {
         $request->validate([
-            'photo' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'photo' => [
+                'required',
+                'image',
+                'mimes:png,jpg,jpeg',
+                'max:2048'
+            ],
+        ], [
+            'photo.required' => 'Anda belum memilih foto untuk diunggah.',
+            'photo.image' => 'File yang diunggah harus berupa gambar.',
+            'photo.mimes' => 'Format foto harus berupa PNG, JPG, atau JPEG.',
+            'photo.max' => 'Ukuran foto maksimal adalah 2MB.',
         ]);
 
         $user = Auth::user();
 
         if ($request->hasFile('photo')) {
-            if ($user->profile_photo_path && Storage::disk('public')->exists($user->profile_photo_path)) {
-                Storage::disk('public')->delete($user->profile_photo_path);
+            if ($user->profile_pic && Storage::disk('public')->exists($user->profile_pic)) {
+                Storage::disk('public')->delete($user->profile_pic);
             }
 
             $path = $request->file('photo')->store('profile-photos', 'public');
 
             /** @var \App\Models\User $user */
-            $user->update(['profile_photo_path' => $path]);
+            $user->update(['profile_pic' => $path]);
         }
 
         return back()->with('success', 'Foto profil berhasil diperbarui.');
