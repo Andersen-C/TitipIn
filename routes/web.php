@@ -34,11 +34,11 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
 });
 
 Route::middleware(['auth', 'role:user'])->group(function () {
-    Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
+    // Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
     Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
     Route::post('/profile/password', [ProfileController::class, 'managePassword'])->name('profile.password.manage');
     Route::post('/profile/photo', [ProfileController::class, 'managePhoto'])->name('profile.photo.manage');
-    Route::post('/profile/switch-mode', [ProfileController::class, 'switchMode'])->name('profile.switch-mode');
+    Route::get('/switch/{mode}', [ProfileController::class, 'switch'])->name('user.switch.mode');
 });
 
 Route::prefix('titiper')->middleware(['auth', 'role:user', 'mode:titiper'])->group(function () {
@@ -47,11 +47,11 @@ Route::prefix('titiper')->middleware(['auth', 'role:user', 'mode:titiper'])->gro
     Route::get('/menu', [MenuController::class, 'index'])->name('titiper.menu.index');
     Route::get('/menu/{menuId}', [MenuController::class, 'show'])->name('titiper.menu.show');
     Route::post('/menu/{menuId}/orders', [MenuController::class, 'createOrderFromMenu'])->name('titiper.menu.createOrder');
-    
+
     Route::get('/orders', [OrderController::class, 'index'])->name('titiper.orders.index');
     Route::get('/orders/create', [OrderController::class, 'create'])->name('titiper.orders.create');
     Route::post('/orders', [OrderController::class, 'store'])->name('titiper.orders.store');
-    
+
     Route::get('/orders/{id}', [OrderController::class, 'show'])->name('titiper.orders.show');
     Route::get('/orders/{id}/edit', [OrderController::class, 'edit'])->name('titiper.orders.edit');
     Route::put('/orders/{id}', [OrderController::class, 'update'])->name('titiper.orders.update');
@@ -65,6 +65,8 @@ Route::prefix('titiper')->middleware(['auth', 'role:user', 'mode:titiper'])->gro
     Route::get('/reviews/{id}/edit', [ReviewController::class, 'edit'])->name('titiper.reviews.edit');
     Route::put('/reviews/{id}', [ReviewController::class, 'update'])->name('titiper.reviews.update');
     Route::delete('/reviews/{id}', [ReviewController::class, 'destroy'])->name('titiper.reviews.destroy');
+
+    Route::get('/profile', [ProfileController::class, 'showTitiper'])->name('titiper.profile');
 });
 
 Route::prefix('runner')->middleware(['auth', 'role:user', 'mode:runner'])->group(function () {
@@ -77,4 +79,6 @@ Route::prefix('runner')->middleware(['auth', 'role:user', 'mode:runner'])->group
     Route::post('/orders/{id}/pickup', [OrderController::class, 'pickup'])->name('runner.orders.pickup');
     Route::post('/orders/{id}/deliver', [OrderController::class, 'deliver'])->name('runner.orders.deliver');
     Route::post('/orders/{id}/complete', [OrderController::class, 'complete'])->name('runner.orders.complete');
+
+    Route::get('/profile', [ProfileController::class, 'showRunner'])->name('runner.profile');
 });

@@ -6,39 +6,40 @@ use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    public function landing() {
+    public function landing()
+    {
         return view('beforeLogin.landing');
     }
 
-    public function adminHome() {
+    public function adminHome()
+    {
         return view('admin.adminHome');
     }
-        
+
     public function titiperHome()
-{
-    // Ambil pesanan terbaru user yg login (titiper/pembeli)
-    $latestOrders = \App\Models\Order::with(['menu', 'user'])
-        ->where('titiper_id', auth()->id())
-        ->latest()
-        ->take(4)
-        ->get();
+    {
+        // Ambil pesanan terbaru user yg login (titiper/pembeli)
+        $latestOrders = \App\Models\Order::with(['menu', 'user'])
+            ->where('titiper_id', auth()->id())
+            ->latest()
+            ->take(4)
+            ->get();
 
-    // Menu terlaris / fallback ke menu terbaru
-    
-
-    // Rekomendasi menu (6 item)
-    $recommended = \App\Models\Menu::latest()->take(6)->get();
-
-    return view('titiper.titiperHome', compact(
-        'latestOrders',
-        'recommended'
-    ));
-}
+        // Menu terlaris / fallback ke menu terbaru
 
 
-    public function runnerHome() {
-        return view('runner.runnerHome');
+        // Rekomendasi menu (6 item)
+        $recommended = \App\Models\Menu::latest()->take(6)->get();
+
+        return view('titiper.home', compact(
+            'latestOrders',
+            'recommended'
+        ));
     }
 
-    
+
+    public function runnerHome()
+    {
+        return view('runner.home');
+    }
 }
