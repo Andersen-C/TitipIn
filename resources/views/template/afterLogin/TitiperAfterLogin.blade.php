@@ -13,7 +13,7 @@
 
     @include('template.afterLogin.navbarTitiperAfterLogin')
 
-    <main class="flex-grow w-full">
+    <main class="grow w-full">
         @yield('Content')
     </main>
 

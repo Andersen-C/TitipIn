@@ -25,6 +25,7 @@ Route::post('/logout', [LogoutController::class, 'logout'])->middleware('auth')-
 
 Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/', [HomeController::class, 'adminHome'])->name('admin.dashboard');
+    Route::get('/manage', [HomeController::class, 'manage'])->name('admin.manage');
     Route::resource('users', ManageUserController::class);
     Route::resource('menus', ManageMenuController::class);
     Route::resource('categories', ManageCategoryController::class);
@@ -34,7 +35,6 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
 });
 
 Route::middleware(['auth', 'role:user'])->group(function () {
-    // Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
     Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
     Route::post('/profile/password', [ProfileController::class, 'managePassword'])->name('profile.password.manage');
     Route::post('/profile/photo', [ProfileController::class, 'managePhoto'])->name('profile.photo.manage');
@@ -70,7 +70,7 @@ Route::prefix('titiper')->middleware(['auth', 'role:user', 'mode:titiper'])->gro
 });
 
 Route::prefix('runner')->middleware(['auth', 'role:user', 'mode:runner'])->group(function () {
-    Route::get('/', [HomeController::class, 'Runnerhome'])->name('runner.home');
+    Route::get('/', [HomeController::class, 'runnerhome'])->name('runner.home');
 
     Route::get('/orders', [OrderController::class, 'runnerIndex'])->name('runner.orders.index');
     Route::get('/orders/{id}', [OrderController::class, 'runnerShow'])->name('runner.orders.show');
