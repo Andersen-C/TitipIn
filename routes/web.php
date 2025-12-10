@@ -34,7 +34,6 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
 });
 
 Route::middleware(['auth', 'role:user'])->group(function () {
-    // Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
     Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
     Route::post('/profile/password', [ProfileController::class, 'managePassword'])->name('profile.password.manage');
     Route::post('/profile/photo', [ProfileController::class, 'managePhoto'])->name('profile.photo.manage');
