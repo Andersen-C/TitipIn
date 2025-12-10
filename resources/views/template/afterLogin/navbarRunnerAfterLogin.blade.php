@@ -21,7 +21,7 @@
                 </a>
             </li>
 
-            <li><a href="#" class="px-5 py-2 hover:bg-transparent hover:text-blue-700">Pesanan</a></li>
+            <li><a href="{{ route('runner.orders.index') }}" class="px-5 py-2 hover:bg-transparent hover:text-blue-700 {{ request()->routeIs('runner.orders.index') ? 'bg-blue-600 text-white rounded-full hover:!bg-blue-700 hover:!text-white' : '' }}">Pesanan</a></li>
 
             <li><a href="#" class="px-5 py-2 hover:bg-transparent hover:text-blue-700">Histori</a></li>
 
@@ -54,7 +54,8 @@
                     </a>
                 </li>
 
-                <li><a href="#">Pesanan</a></li>
+                <li><a href="{{ route('runner.orders.index') }}"
+                        class="{{ request()->routeIs('runner.orders.index') ? 'active bg-blue-600 text-white' : '' }}">Pesanan</a></li>
                 <li><a href="#">Histori</a></li>
 
                 <li>
