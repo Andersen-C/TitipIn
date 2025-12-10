@@ -59,23 +59,23 @@
                         </div>
 
                         <!-- Right area (title Rekomendasi) visible inline on lg
-                  <div class="hidden lg:block w-80">
-                    <h3 class="text-lg font-semibold text-slate-800 mb-4 center">Rekomendasi Menu</h3>
-                    <div class="space-y-4">
-                      @foreach ($recommended->take(3) as $menuCard)
+                      <div class="hidden lg:block w-80">
+                        <h3 class="text-lg font-semibold text-slate-800 mb-4 center">Rekomendasi Menu</h3>
+                        <div class="space-y-4">
+                          @foreach ($recommended->take(3) as $menuCard)
     <div class="bg-white rounded-xl shadow p-3 flex items-center gap-3">
-                          <div class="w-16 h-16 bg-slate-100 rounded-md overflow-hidden flex-shrink-0">
-                            <img src="{{ $menuCard->image ?? 'https://via.placeholder.com/64' }}" alt="" class="w-full h-full object-cover">
-                          </div>
-                          <div class="flex-1">
-                            <div class="text-sm font-medium">{{ $menuCard->name }}</div>
-                            <div class="text-xs text-slate-500">Rp. {{ number_format($menuCard->price ?? 0, 0, ',', '.') }}</div>
-                            <a href="{{ url('menu/' . $menuCard->id ?? '#') }}" class="mt-2 inline-block px-3 py-1 bg-sky-600 text-white rounded text-xs">Titip</a>
-                          </div>
-                        </div>
+                              <div class="w-16 h-16 bg-slate-100 rounded-md overflow-hidden flex-shrink-0">
+                                <img src="{{ $menuCard->image ?? 'https://via.placeholder.com/64' }}" alt="" class="w-full h-full object-cover">
+                              </div>
+                              <div class="flex-1">
+                                <div class="text-sm font-medium">{{ $menuCard->name }}</div>
+                                <div class="text-xs text-slate-500">Rp. {{ number_format($menuCard->price ?? 0, 0, ',', '.') }}</div>
+                                <a href="{{ url('menu/' . $menuCard->id ?? '#') }}" class="mt-2 inline-block px-3 py-1 bg-sky-600 text-white rounded text-xs">Titip</a>
+                              </div>
+                            </div>
     @endforeach
-                    </div>
-                  </div> -->
+                        </div>
+                      </div> -->
                     </div>
 
                     <!-- Cards row -->
