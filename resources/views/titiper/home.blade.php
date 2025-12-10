@@ -17,33 +17,33 @@
                 ],
                 (object) ['menu_name' => 'Kopi Hitam', 'status' => 'Selesai', 'time' => '12:10', 'note' => 'Selesai'],
             ]);
-        $bestMenu = $bestMenu ?? (object) ['name' => 'Sushi Jepun', 'price' => 25000, 'image' => null];
-        $recommended =
-            $recommended ??
-            collect([
-                (object) ['id' => 1, 'name' => 'Nasi Goreng', 'price' => 15000, 'image' => null],
-                (object) ['id' => 2, 'name' => 'Mie Goreng', 'price' => 20000, 'image' => null],
-                (object) ['id' => 3, 'name' => 'Bakmie Effata', 'price' => 22000, 'image' => null],
-                (object) ['id' => 4, 'name' => 'Bakmie Effata', 'price' => 22000, 'image' => null],
-                (object) ['id' => 5, 'name' => 'Nasi Goreng', 'price' => 15000, 'image' => null],
-                (object) ['id' => 6, 'name' => 'Mie Goreng', 'price' => 20000, 'image' => null],
-            ]);
+
+        // gunakan $recommended dari controller bila ada, else fallback sample
+        $recommended = $recommended ?? collect([
+            (object) ['id' => 1, 'name' => 'Nasi Goreng', 'price' => 15000, 'image' => null],
+            (object) ['id' => 2, 'name' => 'Mie Goreng', 'price' => 20000, 'image' => null],
+            (object) ['id' => 3, 'name' => 'Bakmie Effata', 'price' => 22000, 'image' => null],
+            (object) ['id' => 4, 'name' => 'Pisang Goreng', 'price' => 8000, 'image' => null],
+        ]);
     @endphp
 
     <main class="max-w-7xl mx-auto px-6 py-10">
         <div class="bg-white rounded-lg p-8 shadow-sm border">
-            <div class="grid lg:grid-cols-3 gap-8 items-start">
-                <!-- LEFT: hero + cards -->
-                <div class="lg:col-span-12">
-                    <div class="flex items-start gap-8">
-                        <div class="flex-1">
-                            <!-- Logo kecil -->
+
+            {{-- Grid: left = main (2 cols), right = rekomendasi (1 col) --}}
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+
+                {{-- LEFT: hero + cards (mengisi 2 kolom di layar besar) --}}
+                <div class="lg:col-span-2">
+                    <div class="flex flex-col gap-6">
+                        <div>
+                            {{-- Logo kecil --}}
                             <div class="mb-4">
                                 <span class="text-2xl font-extrabold text-sky-700">Titip<span
                                         class="text-yellow-400">In</span></span>
                             </div>
 
-                            <!-- Hero heading -->
+                            {{-- Hero heading --}}
                             <h1 class="text-5xl font-extrabold leading-tight text-sky-700">
                                 Selamat Datang <br> di Titip<span class="text-yellow-400">In</span>
                             </h1>
@@ -58,103 +58,101 @@
                             </div>
                         </div>
 
-                        <!-- Right area (title Rekomendasi) visible inline on lg
-                  <div class="hidden lg:block w-80">
-                    <h3 class="text-lg font-semibold text-slate-800 mb-4 center">Rekomendasi Menu</h3>
-                    <div class="space-y-4">
-                      @foreach ($recommended->take(3) as $menuCard)
-    <div class="bg-white rounded-xl shadow p-3 flex items-center gap-3">
-                          <div class="w-16 h-16 bg-slate-100 rounded-md overflow-hidden flex-shrink-0">
-                            <img src="{{ $menuCard->image ?? 'https://via.placeholder.com/64' }}" alt="" class="w-full h-full object-cover">
-                          </div>
-                          <div class="flex-1">
-                            <div class="text-sm font-medium">{{ $menuCard->name }}</div>
-                            <div class="text-xs text-slate-500">Rp. {{ number_format($menuCard->price ?? 0, 0, ',', '.') }}</div>
-                            <a href="{{ url('menu/' . $menuCard->id ?? '#') }}" class="mt-2 inline-block px-3 py-1 bg-sky-600 text-white rounded text-xs">Titip</a>
-                          </div>
-                        </div>
-    @endforeach
-                    </div>
-                  </div> -->
-                    </div>
-
-                    <!-- Cards row -->
-                    <div class="mt-8 grid md:grid-cols-2 gap-6">
-                        <!-- Pesanan Terbaru -->
-                        <div class="bg-white rounded-xl shadow p-5 border">
-                            <div class="flex items-center justify-between mb-4">
-                                <div>
-                                    <h4 class="text-md font-semibold text-slate-800">Pesanan Terbaru <span
-                                            class="text-sm text-slate-400">({{ $latestOrders->count() }})</span></h4>
-                                    <p class="text-xs text-slate-500">Ringkasan pesanan terbaru kamu</p>
-                                </div>
-                                <div class="text-sm text-slate-400"> </div>
-                            </div>
-
-                            <div class="space-y-3">
-                                @foreach ($latestOrders as $o)
-                                    <div class="flex items-center justify-between">
-                                        <div>
-                                            <div class="text-sm font-medium">
-                                                {{ $o->menu_name ?? ($o->menu->name ?? 'Menu') }}</div>
-                                            <div class="text-xs text-slate-500">{{ $o->note ?? '' }}</div>
-                                        </div>
-                                        <div class="text-right">
-                                            <div class="text-xs text-slate-400">
-                                                {{ $o->time ?? optional($o->created_at)->format('H:i') }}</div>
-                                            <div class="mt-1">
-                                                @if (($o->status ?? '') == 'Pending' || ($o->status ?? '') == 'pending')
-                                                    <span
-                                                        class="px-2 py-1 rounded-full text-xs bg-yellow-100 text-yellow-800">Pending</span>
-                                                @else
-                                                    <span
-                                                        class="px-2 py-1 rounded-full text-xs bg-slate-100 text-slate-700">{{ ucfirst($o->status ?? 'Selesai') }}</span>
-                                                @endif
-                                            </div>
-                                        </div>
+                        {{-- Cards row --}}
+                        <div class="mt-8 grid md:grid-cols-2 gap-6">
+                            {{-- Pesanan Terbaru --}}
+                            <div class="bg-white rounded-xl shadow p-5 border">
+                                <div class="flex items-center justify-between mb-4">
+                                    <div>
+                                        <h4 class="text-md font-semibold text-slate-800">Pesanan Terbaru <span
+                                                class="text-sm text-slate-400">({{ $latestOrders->count() }})</span></h4>
+                                        <p class="text-xs text-slate-500">Ringkasan pesanan terbaru kamu</p>
                                     </div>
-                                @endforeach
-                            </div>
+                                </div>
 
-                            <div class="mt-5 text-center">
-                                <a href="{{ url('orders') }}"
-                                    class="inline-block px-4 py-2 border rounded-md text-sky-600">Lihat Detail</a>
-                            </div>
-                        </div>
-
-
-                        <!-- RIGHT: rekomendasi grid & tombol -->
-                        <aside class="space-y-12">
-                            <div class="bg-white rounded-xl shadow p-4">
-                                <h3 class="text-lg font-semibold text-slate-800 mb-4">Rekomendasi Menu</h3>
-
-                                <div class="grid grid-cols-1 gap-8">
-                                    @foreach ($recommended as $menu)
-                                        <div class="bg-slate-50 rounded-xl p-3 shadow-sm flex items-center gap-3">
-                                            <div class="w-20 h-20 bg-white rounded-lg overflow-hidden flex-shrink-0">
-                                                <img src="{{ $menu->image ?? 'https://via.placeholder.com/120' }}"
-                                                    alt="" class="w-full h-full object-cover">
+                                <div class="space-y-3">
+                                    @foreach ($latestOrders as $o)
+                                        <div class="flex items-center justify-between">
+                                            <div>
+                                                <div class="text-sm font-medium text-slate-800">
+                                                    {{ $o->menu_name ?? ($o->menu->name ?? 'Menu') }}</div>
+                                                <div class="text-xs text-slate-500">{{ $o->note ?? '' }}</div>
                                             </div>
-                                            <div class="flex-1">
-                                                <div class="font-medium text-sm">{{ $menu->name }}</div>
-                                                <div class="text-xs text-slate-500">Rp.
-                                                    {{ number_format($menu->price ?? 0, 0, ',', '.') }}</div>
-                                                <div class="mt-2">
-                                                    <a href="{{ url('menu/' . $menu->id ?? '#') }}"
-                                                        class="px-3 py-1 bg-sky-600 text-white rounded text-xs">Titip</a>
+                                            <div class="text-right">
+                                                <div class="text-xs text-slate-400">
+                                                    {{ $o->time ?? optional($o->created_at)->format('H:i') }}</div>
+                                                <div class="mt-1">
+                                                    @if (($o->status ?? '') == 'Pending' || ($o->status ?? '') == 'pending')
+                                                        <span
+                                                            class="px-2 py-1 rounded-full text-xs bg-yellow-100 text-yellow-800">Pending</span>
+                                                    @else
+                                                        <span
+                                                            class="px-2 py-1 rounded-full text-xs bg-slate-100 text-slate-700">{{ ucfirst($o->status ?? 'Selesai') }}</span>
+                                                    @endif
                                                 </div>
                                             </div>
                                         </div>
                                     @endforeach
                                 </div>
 
-                                <div class="mt-4">
-                                    <a href="{{ url('titiper/menu') }}"
-                                        class="w-full block text-center bg-sky-600 text-white py-3 rounded-full">Selengkapnya</a>
+                                <div class="mt-5 text-center">
+                                    <a href="{{ url('orders') }}"
+                                        class="inline-block px-4 py-2 border rounded-md text-sky-600">Lihat Detail</a>
                                 </div>
                             </div>
-                        </aside>
+
+                            {{-- (Opsional card lain di kiri bawah, kosongkan atau ganti sesuai kebutuhan) --}}
+                            <div class="bg-slate-200 rounded-xl p-6 border border-slate-300 text-center select-none cursor-not-allowed">
+    <div class="flex justify-center mb-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-slate-500" fill="none"
+            viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
+                d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8m-2 8H5a2 2 0 01-2-2V8a2 2 0 012-2h14a2 2 0 012 2v6a2 2 0 01-2 2z" />
+        </svg>
+    </div>
+    <p class="text-slate-600 text-sm font-medium">Voucher belum tersedia</p>
+</div>
+                        </div>
                     </div>
                 </div>
+
+                {{-- RIGHT: rekomendasi (di atas, maksimal 3 item) --}}
+                <aside class="space-y-6">
+                    <div class="bg-white rounded-xl shadow p-4">
+                        <h3 class="text-lg font-semibold text-slate-800 mb-4">Rekomendasi Menu</h3>
+
+                        <div class="space-y-4">
+                            @foreach ($recommended->take(3) as $menu)
+                                <div class="flex items-center gap-3 p-3 rounded-lg bg-slate-50">
+                                    <div class="w-20 h-20 bg-white rounded-lg overflow-hidden flex-shrink-0">
+                                        <img src="{{ $menu->image ?? 'https://via.placeholder.com/120' }}"
+                                            alt="{{ $menu->name }}" class="w-full h-full object-cover">
+                                    </div>
+
+                                    <div class="flex-1">
+                                        <div class="text-slate-800 font-semibold text-sm leading-tight">
+                                            {{ $menu->name }}
+                                        </div>
+                                        <div class="text-xs text-slate-500 mt-1">
+                                            Rp. {{ number_format($menu->price ?? 0, 0, ',', '.') }}
+                                        </div>
+
+                                        <div class="mt-2">
+                                            <a href="{{ url('menu/' . ($menu->id ?? '#')) }}"
+                                                class="inline-block px-3 py-1 bg-sky-600 text-white rounded text-xs">Titip</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+
+                        <div class="mt-4">
+                            <a href="{{ route('titiper.menu.index') }}"
+                                class="w-full block text-center bg-sky-600 text-white py-3 rounded-full">Selengkapnya</a>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </div>
     </main>
 @endsection
