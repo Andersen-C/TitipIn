@@ -10,7 +10,7 @@
     <ul class="menu menu-horizontal px-4 gap-x-8 font-bold text-xl">
 
       <li><a href="{{ route('admin.dashboard') }}">Home</a></li>
-      <li><a href="{{ route('users.index') }}">Manage</a></li>
+      <li><a href="{{ route('admin.manage') }}">Manage</a></li>
 
       <li class="dropdown dropdown-bottom">
         <a tabindex="0" class="justify-between">
@@ -45,7 +45,7 @@
       </label>
       <ul tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52 text-white">
         <li><a href="{{ route('admin.dashboard') }}">Home</a></li>
-        <li><a href="#">Manage</a></li>
+        <li><a href="{{ route('admin.manage') }}">Manage</a></li>
 
         {{-- Mobile Localization Dropdown (FIXED STRUCTURE) --}}
         <li class="dropdown dropdown-left">
