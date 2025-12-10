@@ -8,7 +8,7 @@ class ManageUserController extends Controller
 {
     public function index()
     {
-        // menampilkan semua data
+        return view('admin.manageUser');
     }
 
     public function create()

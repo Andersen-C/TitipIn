@@ -9,7 +9,7 @@
     @vite('resources/css/app.css')
 </head>
 
-<body class='bg-white min-h-screen flex flex-col'>
+<body class='bg-gray-50 min-h-screen flex flex-col'>
 
     @include('template.afterLogin.navbarTitiperAfterLogin')
 
