@@ -8,10 +8,10 @@
     @vite('resources/css/app.css')
 </head>
 <body class='bg-white'>
-    @include('template.beforeLogin.navbarBeforeLogin');
+    @include('template.beforeLogin.navbarBeforeLogin')
 
     @yield('Content')
 
-    @include('template.beforeLogin.footerBeforeLogin');
+    @include('template.beforeLogin.footerBeforeLogin')
 </body>
 </html>
