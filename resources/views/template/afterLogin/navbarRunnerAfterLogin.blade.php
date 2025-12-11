@@ -1,7 +1,6 @@
 <div class="navbar shadow-sm bg-white px-8 text-black font-bold">
     <div class="navbar-start">
-        <a href="{{ route('runner.home') }}"
-            class="btn btn-ghost normal-case px-2 bg-transparent hover:bg-transparent active:bg-transparent focus:bg-transparent border-none shadow-none">
+        <a href="{{ route('runner.home') }}"class="btn btn-ghost text-3xl font-extrabold tracking-tight">
 
             <span class="text-sky-700">Titip</span><span class="text-yellow-400 -ml-1.5">In</span>
 
