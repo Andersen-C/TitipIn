@@ -33,45 +33,33 @@
                 {{-- INFO PESANAN --}}
                 <div class="flex flex-col sm:w-1/2 ml-0 p-6">
                     
-                    {{-- 1. PERBAIKAN: MENGAMBIL NAMA MENU DARI RELASI ORDER ITEMS --}}
+                    {{-- NAMA MENU (GROUPING) --}}
                     <h3 class="text-black font-bold text-xl">
                         @php
-                            // 1. Kita kelompokkan item berdasarkan nama menu-nya
                             $groupedItems = $order->orderItems->groupBy(function($item) {
                                 return $item->menu->name ?? $item->name ?? 'Unknown';
                             });
                         @endphp
 
                         @foreach($groupedItems as $name => $items)
-                            {{-- 2. Tampilkan: "Jumlah x Nama Menu" (Contoh: 3x Es Jeruk) --}}
-                            
                             <span class="block sm:inline">
                                 {{ $items->count() }}x {{ $name }}
                             </span>
-
-                            {{-- Tambahkan koma jika bukan item terakhir --}}
                             @if(!$loop->last), @endif
                         @endforeach
                     </h3>
                 
-                {{-- BAGIAN HARGA --}}
-                <p class="text-black text-lg">
-                    Rp. {{ number_format($order->total_price, 0, ',', '.') }}
-                </p>
+                    {{-- HARGA --}}
+                    <p class="text-black text-lg">
+                        Rp. {{ number_format($order->total_price, 0, ',', '.') }}
+                    </p>
                     
-                    {{-- 3. PERBAIKAN: LOKASI DARI RELASI LOCATION --}}
+                    {{-- LOKASI --}}
                     <p class="text-gray-600 mt-4 sm:mt-auto">
-                        {{-- Mengambil nama lokasi pickup --}}
                         <span class="font-semibold">{{ $order->pickupLocation->name ?? 'Lokasi Awal' }}</span> 
                         &rarr; 
-                        {{-- Mengambil nama lokasi delivery --}}
                         <span class="font-semibold">{{ $order->deliveryLocation->name ?? 'Lokasi Tujuan' }}</span>
                     </p>
-
-                    {{-- Menampilkan Catatan/Notes jika ada --}}
-                    @if($order->notes)
-                        <p class="text-xs text-gray-500 mt-1 italic">"{{ $order->notes }}"</p>
-                    @endif
                 </div>
                 
                 {{-- BAGIAN KANAN (STATUS & TOMBOL) --}}
@@ -84,8 +72,15 @@
                                 <h2>New Order</h2>
                             </div>
                         @elseif($order->runner_id == Auth::id())
+                            {{-- LOGIKA 1: GANTI STATUS JADI PENDING (KUNING) --}}
                             <div class="flex flex-col px-3 border-2 text-yellow-600 font-semibold border-yellow-400 bg-yellow-100 rounded-md">
-                                <h2>Sedang Diantar</h2>
+                                <h2 class="flex items-center gap-1">
+                                    {{-- Icon Jam Kecil --}}
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                    Pending
+                                </h2>
                             </div>
                         @endif
                     </div>
@@ -95,18 +90,13 @@
                         <div class="flex flex-col">
                             @if($order->runner_id == null)
                                 
-                                {{-- TOMBOL LAMA (DIMENTION DULU BIAR AMAN) --}}
-                                {{-- 
+                                {{-- LOGIKA 2: TOMBOL TERIMA DIAKTIFKAN KEMBALI --}}
                                 <form action="{{ route('runner.orders.accept', $order->id) }}" method="POST">
                                     @csrf
-                                    <button type="submit" class="text-green-600 ...">Terima</button>
-                                </form> 
-                                --}}
-
-                                {{-- TOMBOL BARU (NON-AKTIF / DISABLED) --}}
-                                <button type="button" disabled class="bg-gray-300 text-gray-500 border-2 border-gray-300 rounded-md px-3 py-1 font-bold text-lg cursor-not-allowed">
-                                    Terima (Maintenance)
-                                </button>
+                                    <button type="submit" class="bg-white text-blue-600 hover:bg-blue-50 border border-blue-600 rounded-lg px-4 py-1 font-bold text-lg transition duration-200">
+                                        Terima
+                                    </button>
+                                </form>
 
                             @else
                                 <span class="text-gray-400 px-2 py-1 font-semibold text-sm italic">Milik Anda</span>
@@ -114,7 +104,6 @@
                         </div>
 
                         <div class="flex flex-col justify-end">
-                            {{-- Gunakan # dulu jika route show belum dibuat --}}
                             <a href="#" class='text-blue-800 hover:bg-blue-900 hover:text-white transition duration-200 font-semibold border-2 border-blue-800 rounded-md px-3 py-1'>
                                 Detail
                             </a>
@@ -131,4 +120,5 @@
 
     </div>   
 </div>
+
 @endsection
