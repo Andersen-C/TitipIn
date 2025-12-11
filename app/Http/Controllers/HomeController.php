@@ -86,6 +86,17 @@ class HomeController extends Controller
 
     public function runnerHome()
     {
-        return view('runner.home');
+        // Ambil user yang sedang login
+        $user = auth()->user();
+
+        // Syarat: runner_id adalah user ini DAN status order sudah completed
+        $totalEarnings = Order::where('runner_id', $user->id)
+            ->where('status', 'completed')
+            ->sum('service_fee');
+
+        // Mengambil dari kolom avg_rating di tabel users, default 0 jika null
+        $rating = $user->avg_rating ?? 0;
+
+        return view('runner.home', compact('totalEarnings', 'rating', 'user'));
     }
 }
