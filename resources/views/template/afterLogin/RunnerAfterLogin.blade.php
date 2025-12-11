@@ -7,7 +7,7 @@
     <title>@yield('Title')</title>
     @vite('resources/css/app.css')
 </head>
-<body class='bg-gray-50'>
+<body class='bg-gray-50 text-black'>
     @include('template.afterLogin.navbarRunnerAfterLogin')
 
     @yield('Content')
