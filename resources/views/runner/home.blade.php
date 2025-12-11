@@ -28,10 +28,10 @@
                     <div class="h-8 w-8 mr-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <span class="text-blue-600 text-3xl">📋</span>
                     </div>
-                    <h3 class="text-xl font-medium text-black">Lihat Pesanan</h3>
+                    <h3 class="text-xl font-medium text-black" hr>Lihat Pesanan</h3>
                 </div>
                 
-                <a href="#" class='w-full bg-blue-700 hover:bg-blue-800 text-white font-medium py-2 rounded-lg text-center transition duration-200 mt-4'>
+                <a href="{{ route('runner.orders.index') }}" class='w-full bg-blue-700 hover:bg-blue-800 text-white font-medium py-2 rounded-lg text-center transition duration-200 mt-4'>
                     Klik disini
                 </a>
             </div>
@@ -49,13 +49,12 @@
                     </p>
                 </div>
 
+                {{--  --}}
                 <div class="flex gap-3 mt-4">
                     <a href="#" class="flex-1 bg-blue-700 hover:bg-blue-800 text-white font-medium py-2 rounded-lg text-center transition duration-200">
                         Detail
                     </a>
-                    <a href="#" class="flex-1 bg-white border border-blue-700 text-blue-500 hover:bg-blue-50 font-medium py-2 rounded-lg text-center transition duration-200">
-                        Cairkan
-                    </a>
+            
                 </div>
             </div>
 
