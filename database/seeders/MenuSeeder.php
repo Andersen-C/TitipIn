@@ -61,7 +61,7 @@ class MenuSeeder extends Seeder
                 'price' => $menu['price'],
                 'description' => $menu['description'],
                 'availability' => true,
-                'image' => $faker->imageUrl(640, 480, 'animals', true)
+                'image' => $faker->imageUrl()
             ]);
         }
     }
