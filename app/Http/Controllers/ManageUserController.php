@@ -40,6 +40,10 @@ class ManageUserController extends Controller
     public function update(Request $request, $id)
     {
         // update data
+        $rules = [];
+        $message = [];
+
+        $user = User::findOrFail($id);
     }
 
     public function destroy($id)

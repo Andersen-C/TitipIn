@@ -3,13 +3,13 @@
 
 @section('Content')
 <div class="p-12 min-h-screen">
-    <h1 class="text-3xl font-bold mb-4 text-blue-800">Hi, Admin</h1>
+    <h1 class="text-3xl font-bold mb-4 text-blue-700">Hi, Admin</h1>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 w-full">
 
         {{-- Total User Card --}}
         <div class="p-3 sm:p-4 bg-white shadow-lg hover:shadow-xl duration-200 rounded-2xl border border-gray-100 flex flex-col sm:flex-row items-center sm:items-start gap-3">
-            <div class="p-3 bg-black text-white rounded-xl">
+            <div class="p-3 bg-blue-700 text-white rounded-xl">
                 <i class="fa-solid fa-user text-xl sm:text-2xl"></i>
             </div>
             <div class="text-center sm:text-left">
@@ -20,7 +20,7 @@
 
         {{-- Total Active Runner Card --}}
         <div class="p-3 sm:p-4 bg-white shadow-lg hover:shadow-xl duration-200 rounded-2xl border border-gray-100 flex flex-col sm:flex-row items-center sm:items-start gap-3">
-            <div class="p-3 bg-black text-white rounded-xl ">
+            <div class="p-3 bg-blue-700 text-white rounded-xl ">
                 <i class="fa-solid fa-user text-xl sm:text-2xl"></i>
             </div>
             <div class="text-center sm:text-left">
@@ -31,7 +31,7 @@
 
         {{-- Total Menu Card --}}
         <div class="p-3 sm:p-4 bg-white shadow-lg hover:shadow-xl duration-200 rounded-2xl border border-gray-100 flex flex-col sm:flex-row items-center sm:items-start gap-3">
-            <div class="p-3 bg-black text-white rounded-xl">
+            <div class="p-3 bg-blue-700 text-white rounded-xl">
                 <i class="fa-solid fa-utensils text-xl sm:text-2xl"></i>
             </div>
             <div class="text-center sm:text-left">
@@ -42,7 +42,7 @@
 
         {{-- Total Order Card --}}
         <div class="p-3 sm:p-4 bg-white shadow-lg hover:shadow-xl duration-200 rounded-2xl border border-gray-100 flex flex-col sm:flex-row items-center sm:items-start gap-3">
-            <div class="p-3 bg-black text-white rounded-xl">
+            <div class="p-3 bg-blue-700 text-white rounded-xl">
                 <i class="fa-solid fa-cart-shopping text-xl sm:text-2xl"></i>
             </div>
             <div class="text-center sm:text-left">

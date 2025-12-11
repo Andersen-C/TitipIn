@@ -5,7 +5,7 @@
 <div class="p-4 sm:p-6 lg:p-12 min-h-screen">
 
     {{-- Tombol Back dan Judul --}}
-    <div class="relative mb-4 flex items-center">
+    <div class="relative mb-8 flex items-center">
         <a href="{{ route('users.index') }}" 
            class="btn btn-secondary rounded-xl text-sm sm:text-lg z-10">
             <i class="fa-solid fa-backward"></i>
