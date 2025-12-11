@@ -101,17 +101,17 @@
                                 </div>
                             </div>
 
-                            {{-- (Opsional card lain di kiri bawah, kosongkan atau ganti sesuai kebutuhan) --}}
+                            {{-- Voucher / Promo (disabled) --}}
                             <div class="bg-slate-200 rounded-xl p-6 border border-slate-300 text-center select-none cursor-not-allowed">
-    <div class="flex justify-center mb-2">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-slate-500" fill="none"
-            viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
-                d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8m-2 8H5a2 2 0 01-2-2V8a2 2 0 012-2h14a2 2 0 012 2v6a2 2 0 01-2 2z" />
-        </svg>
-    </div>
-    <p class="text-slate-600 text-sm font-medium">Voucher belum tersedia</p>
-</div>
+                                <div class="flex justify-center mb-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-slate-500" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
+                                            d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8m-2 8H5a2 2 0 01-2-2V8a2 2 0 012-2h14a2 2 0 012 2v6a2 2 0 01-2 2z" />
+                                    </svg>
+                                </div>
+                                <p class="text-slate-600 text-sm font-medium">Voucher belum tersedia</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -138,7 +138,8 @@
                                         </div>
 
                                         <div class="mt-2">
-                                            <a href="{{ url('menu/' . ($menu->id ?? '#')) }}"
+                                            {{-- Titip now -> direct to detail page --}}
+                                            <a href="{{ route('titiper.menu.show', $menu->id) }}"
                                                 class="inline-block px-3 py-1 bg-sky-600 text-white rounded text-xs">Titip</a>
                                         </div>
                                     </div>
