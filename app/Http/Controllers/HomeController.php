@@ -75,7 +75,7 @@ class HomeController extends Controller
 
 
         // Rekomendasi menu (6 item)
-        $recommended = \App\Models\Menu::latest()->take(6)->get();
+        $recommended = \App\Models\Menu::latest()->take(3)->get();
 
         return view('titiper.home', compact(
             'latestOrders',
