@@ -18,12 +18,12 @@
                         
                     </div>
                     
-                    <div class="flex flex-col w-1/2 ml-0 p-6">
+                    <div class="flex flex-col sm:w-1/2 ml-0 p-6">
                         <h3 class="text-black">kantin pisang - kweitau</h3>
                         
                         <p class="text-black">RP. 10,000</p>
                         
-                        <p class="text-black mt-4 sm:mt-2">dari lantai 2 -> lantai 5</p>
+                        <p class="text-black mt-4 sm:mt-auto">dari lantai 2 -> lantai 5</p>
                     </div>
                     
                     <div class="flex flex-col  sm:w-1/4 justify-between sm:items-end">
@@ -38,13 +38,14 @@
                                 
                                 <div class="flex flex-col">
                                     {{-- ini terima/pending teks aja kalau kelar dii hidden --}}
-                                    <button  class="text-green px-2 py-1 font-semibold -sm:items-start">Terima</button>
+                                    <button  class="text-green px-2 py-1 font-semibold -sm:items-start ">Terima</button>
                                 </div>
                                 <div class="flex flex-col justify-end ml-auto">
-                                    {{-- <button class='text-blue-800  font-semibold border-2 rounded-md px-3 py-1'>Detail</button> --}}
+                                    <a href="#" class='text-blue-800  hover:bg-blue-900 hover:text-white transition duration-200 font-semibold border-2 rounded-md px-3 py-1'>Detail</a>
                                     
                                     {{-- yang bawah untuk yang selesai --}}
-                                    <button class="text-white font-bold bg-green-500  border-2 rounded-md px-3 py-1">Selesai</button>
+                                    {{-- <a href="#" class="text-white font-bold bg-green-500  border-2 rounded-md px-3 py-1">Selesai</a> --}}
+
                                 </div>
                             </div>
                     </div>
