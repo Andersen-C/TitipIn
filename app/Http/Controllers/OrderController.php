@@ -56,6 +56,6 @@ class OrderController extends Controller
         
         // Pastikan kamu nanti membuat file view: resources/views/runner/show.blade.php
         // Jika belum ada, sementara arahkan ke runner.order dulu tidak apa-apa untuk tes
-        return view('runner.show', compact('order'));
+        return view('runner.orderdetail', compact('order'));
     }
 }
