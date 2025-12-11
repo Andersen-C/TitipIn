@@ -3,9 +3,7 @@
         <a href="{{ route('runner.home') }}"
             class="btn btn-ghost normal-case px-2 bg-transparent hover:bg-transparent active:bg-transparent focus:bg-transparent border-none shadow-none">
 
-            <span class="text-3xl font-extrabold text-sky-700 tracking-tight">
-                Titip<span class="text-yellow-400">In</span>
-            </span>
+            <span class="text-sky-700">Titip</span><span class="text-yellow-400 -ml-1.5">In</span>
 
         </a>
     </div>

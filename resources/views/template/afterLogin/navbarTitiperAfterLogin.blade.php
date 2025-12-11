@@ -1,13 +1,12 @@
 <div class="navbar shadow-sm bg-white px-8 text-black font-bold">
     <div class="navbar-start">
-        <a href="{{ route('titiper.home') }}"
-            class="btn btn-ghost normal-case px-2 bg-transparent hover:bg-transparent active:bg-transparent focus:bg-transparent border-none shadow-none">
+        <a href="{{ route('titiper.home') }}" class="btn btn-ghost text-3xl font-extrabold tracking-tight">
+    <span class="text-sky-700">Titip</span><span class="text-yellow-400 -ml-1.5">In</span>
+</a>
 
-            <span class="text-3xl font-extrabold text-sky-700 tracking-tight">
-                Titip<span class="text-yellow-400">In</span>
-            </span>
 
-        </a>
+
+
     </div>
 
     <div class="navbar-end hidden lg:flex">
@@ -22,7 +21,7 @@
             </li>
 
             <li>
-                <a href="#"
+                <a href="{{route('titiper.menu.index')}}"
                     class="px-5 py-2 hover:bg-transparent hover:text-blue-700
                    {{ request()->routeIs('titiper.menu.*') ? 'bg-blue-600 text-white rounded-full hover:!bg-blue-700 hover:!text-white' : '' }}">
                     Menu
