@@ -5,49 +5,44 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Menu;
 use App\Models\Category;
-use Illuminate\Support\Collection;
+use App\Models\Order;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class MenuController extends Controller
 {
+    /**
+     * MENU LIST PAGE
+     */
     public function index(Request $request)
     {
         $q = $request->query('q', null);
-        $group = $request->query('group', null);          // optional: 'Makanan', 'Minuman', dll
-        $categoryParam = $request->query('category', null); // bisa berupa category_id (int) atau nama/slug (string)
+        $group = $request->query('group', null);
+        $categoryParam = $request->query('category', null);
 
-        // Ambil semua kategori jika model ada, else fallback ke daftar nama kategori dari table menus
-        if (class_exists(\App\Models\Category::class)) {
+        // Ambil kategori
+        if (class_exists(Category::class)) {
             $allCategories = Category::orderBy('name')->get();
-            // groups berdasarkan kolom 'group' di tabel categories (null safe)
             $groups = $allCategories->pluck('group')->unique()->filter()->values();
         } else {
-            // fallback: ambil distinct category string dari tabel menus
             $names = Menu::select('category')->distinct()->pluck('category')->filter()->values();
-            // buat collection objek sederhana supaya view tetap konsisten (id = name)
-            $allCategories = $names->map(function ($n) {
-                return (object) ['id' => $n, 'name' => $n, 'group' => null];
-            });
+            $allCategories = $names->map(fn($n) => (object)[
+                'id' => $n, 'name' => $n, 'group' => null
+            ]);
             $groups = collect();
         }
 
-        // Tentukan sub-categories yang akan ditampilkan (berdasarkan group jika dipilih)
-        // IMPORTANT: hanya tampilkan subCategories ketika user memilih group (menghindari duplikat)
+        // Subkategori (hanya muncul jika group dipilih)
         if ($group && $groups->isNotEmpty()) {
-            $subCategories = $allCategories->filter(function ($c) use ($group) {
-                return isset($c->group) && $c->group == $group;
-            })->values();
+            $subCategories = $allCategories->filter(
+                fn($c) => $c->group == $group
+            )->values();
         } else {
-            // jika tidak memilih group -> jangan tampilkan subkategori
-            $subCategories = collect();
+            $subCategories = collect(); // kosong
         }
 
-        // Query menu
-        $menusQuery = Menu::query();
-
-        // optional: eager load category relation jika Model Menu punya relation category()
-        if (method_exists(new Menu(), 'category')) {
-            $menusQuery = $menusQuery->with('category');
-        }
+        // Query Menu
+        $menusQuery = Menu::query()->with('category');
 
         // Search
         if ($q) {
@@ -57,55 +52,107 @@ class MenuController extends Controller
             });
         }
 
-        // Filtering logic:
-        if (class_exists(\App\Models\Category::class)) {
-            // Prefer filter by category_id (recommended)
-            if ($categoryParam) {
-                if (is_numeric($categoryParam)) {
-                    // kalau numeric, anggap id
-                    $menusQuery->where('category_id', (int) $categoryParam);
-                } else {
-                    // kalau string: coba cari category by slug atau name
-                    $cat = Category::where('slug', $categoryParam)
-                                   ->orWhere('name', $categoryParam)
-                                   ->first();
-                    if ($cat) {
-                        $menusQuery->where('category_id', $cat->id);
-                    } else {
-                        // fallback: tidak ada filter jika category tidak ditemukan
-                    }
-                }
-            } elseif ($group) {
-                // jika memilih group tapi belum pilih subcategory -> filter semua category_id di group tersebut
-                $idsInGroup = $allCategories->filter(function ($c) use ($group) {
-                    return isset($c->group) && $c->group == $group;
-                })->pluck('id')->toArray();
+        // Filter kategori
+        if ($categoryParam && class_exists(Category::class)) {
 
-                if (!empty($idsInGroup)) {
-                    $menusQuery->whereIn('category_id', $idsInGroup);
+            if (is_numeric($categoryParam)) {
+                $menusQuery->where('category_id', (int)$categoryParam);
+
+            } else {
+                $cat = Category::where('slug', $categoryParam)
+                               ->orWhere('name', $categoryParam)
+                               ->first();
+
+                if ($cat) {
+                    $menusQuery->where('category_id', $cat->id);
                 }
             }
-        } else {
-            // fallback lama: filter by menu.category (string)
-            if ($categoryParam) {
-                $menusQuery->where('category', $categoryParam);
+
+        } elseif ($group) {
+            $idsInGroup = $allCategories->filter(
+                fn($c) => $c->group == $group
+            )->pluck('id')->toArray();
+
+            if (!empty($idsInGroup)) {
+                $menusQuery->whereIn('category_id', $idsInGroup);
             }
-            // NOTE: group tidak didukung di fallback karena tidak ada kolom group di categories
         }
 
-        // Ambil menu (paginate dan pertahankan query string)
+        // Pagination
         $menus = $menusQuery->orderBy('created_at', 'desc')
                             ->paginate(12)
                             ->withQueryString();
 
         return view('titiper.menu.index', [
-            'menus' => $menus,
-            'categories' => $allCategories,
-            'groups' => $groups,
+            'menus'         => $menus,
+            'categories'    => $allCategories,
+            'groups'        => $groups,
             'subCategories' => $subCategories,
-            'q' => $q,
-            'group' => $group,
-            'category' => $categoryParam,
+            'q'             => $q,
+            'group'         => $group,
+            'category'      => $categoryParam,
         ]);
+    }
+
+    /**
+     * DETAIL MENU PAGE
+     */
+    public function show($menuId)
+    {
+        // findOrFail agar otomatis 404 jika tidak ditemukan
+        $menu = Menu::with('category')->findOrFail($menuId);
+
+        // Fallback rating & estimasi waktu
+        $rating = $menu->rating ?? 4.8;
+        $estMinutes = $menu->prep_time ?? 20;
+
+        return view('titiper.menu.show', [
+            'menu'       => $menu,
+            'rating'     => $rating,
+            'estMinutes' => $estMinutes
+        ]);
+    }
+
+    /**
+     * CREATE ORDER FROM MENU DETAIL
+     */
+    public function createOrderFromMenu(Request $request, $menuId)
+    {
+        // validasi input, batasi qty atas agar konsisten dengan UI
+        $data = $request->validate([
+            'qty'  => 'required|integer|min:1|max:99',
+            'note' => 'nullable|string|max:300',
+        ]);
+
+        // pastikan menu ada
+        $menu = Menu::findOrFail($menuId);
+
+        DB::beginTransaction();
+        try {
+            // pastikan model Order memiliki $fillable yang sesuai
+            $order = Order::create([
+                'user_id'     => auth()->id(),
+                'menu_id'     => $menu->id,
+                'qty'         => $data['qty'],
+                'note'        => $data['note'] ?? null,
+                'status'      => 'pending',
+                'total_price' => ($menu->price ?? 0) * $data['qty'],
+            ]);
+
+            DB::commit();
+
+            return redirect()
+                ->route('titiper.orders.show', $order->id)
+                ->with('success', 'Pesanan berhasil dibuat!');
+        } catch (\Throwable $e) {
+            DB::rollBack();
+            Log::error('createOrderFromMenu error: ' . $e->getMessage(), [
+                'user_id' => auth()->id(),
+                'menu_id' => $menu->id ?? null,
+                'payload' => $data
+            ]);
+
+            return back()->withInput()->withErrors('Terjadi masalah saat membuat pesanan. Silakan coba lagi.');
+        }
     }
 }
