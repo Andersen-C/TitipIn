@@ -67,8 +67,19 @@
           <!-- Image (clickable to detail) -->
           <a href="{{ route('titiper.menu.show', $menu->id) }}" class="block mb-3">
             <div class="w-full h-36 bg-slate-100 rounded overflow-hidden">
-              <img src="{{ $menu->image ?? 'https://via.placeholder.com/400x300' }}"
-                   class="w-full h-full object-cover" alt="{{ $menu->name }}">
+              @php
+                $img = $menu->image ?? null;
+                $placeholder = 'https://via.placeholder.com/400x300?text=No+Image';
+                // cek apakah $img sudah URL absolute
+                $isAbsolute = $img ? \Illuminate\Support\Str::startsWith($img, ['http://','https://']) : false;
+                if ($img) {
+                  $imgUrl = $isAbsolute ? $img : asset('storage/' . ltrim($img, '/'));
+                } else {
+                  $imgUrl = $placeholder;
+                }
+              @endphp
+
+              <img src="{{ $imgUrl }}" class="w-full h-full object-cover" alt="{{ $menu->name }}">
             </div>
           </a>
 
