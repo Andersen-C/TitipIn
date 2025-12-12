@@ -3,183 +3,204 @@
 @section('Title', 'Create Menu')
 
 @section('Content')
-{{-- dibungkus dengan max width agar card tidak full width (mirip Create User) --}}
-<div class="max-w-4xl mx-auto p-6">
+<div class="p-8 flex justify-center">
+  <div class="w-full max-w-3xl">
 
-    <div class="flex items-center justify-between mb-6 gap-2">
-        <a href="{{ route('menus.index') }}" class="btn btn-secondary rounded-xl text-sm sm:text-base px-3 sm:px-4">
-            <i class="fa-solid fa-backward"></i>
-            <span class="hidden sm:inline">Back</span>
-        </a>
+    {{-- Header (Back + Title) — OUTSIDE card --}}
+    <div class="relative mb-6 flex items-center justify-center">
+      {{-- Back button pinned to the far left --}}
+      <a href="{{ route('menus.index') }}"
+         class="absolute left-0 inline-flex items-center gap-2 bg-pink-500 hover:bg-pink-600 text-white px-4 py-2 rounded-full shadow">
+        <i class="fa-solid fa-backward"></i>
+        <span class="hidden sm:inline font-medium">Back</span>
+      </a>
 
-        <h1 class="text-lg sm:text-2xl md:text-3xl font-bold text-blue-800 text-center flex-1">
-            Create Menu
-        </h1>
-
-        <div class="w-40"></div>
+      {{-- Title centered --}}
+      <h1 class="text-center text-2xl sm:text-3xl font-bold text-blue-700">
+        Create Menu
+      </h1>
     </div>
 
-    <div class="bg-white rounded-xl p-8 shadow">
-        {{-- validation errors --}}
-        @if($errors->any())
-            <div class="mb-4 p-4 bg-red-50 border border-red-100 text-red-700 rounded">
-                <strong>Periksa input:</strong>
-                <ul class="mt-2 list-disc list-inside">
-                    @foreach($errors->all() as $err)
-                        <li>{{ $err }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
+    {{-- Card --}}
+    <div class="bg-white shadow-lg rounded-2xl p-8">
 
-        <form action="{{ route('menus.store') }}" method="POST" enctype="multipart/form-data" class="space-y-4">
-            @csrf
+      {{-- Validation errors --}}
+      @if($errors->any())
+        <div class="mb-4 p-4 bg-red-50 border border-red-100 text-red-700 rounded-xl">
+          <strong>Periksa input:</strong>
+          <ul class="mt-2 list-disc list-inside">
+            @foreach($errors->all() as $err)
+              <li>{{ $err }}</li>
+            @endforeach
+          </ul>
+        </div>
+      @endif
 
-            {{-- Nama --}}
-            <div>
-                <label class="block mb-1 font-medium text-black">Nama</label>
-                <input type="text" name="name" value="{{ old('name') }}" class="input w-full" required>
-                @error('name') <div class="text-sm text-red-600 mt-1">{{ $message }}</div> @enderror
-            </div>
+      <form action="{{ route('menus.store') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
+        @csrf
 
-            {{-- Harga --}}
-            <div>
-                <label class="block mb-1 font-medium text-black">Harga (Rp)</label>
-                <input type="number" name="price" value="{{ old('price') }}" step="0.01" class="input w-full" required>
-                @error('price') <div class="text-sm text-red-600 mt-1">{{ $message }}</div> @enderror
-            </div>
+        {{-- Nama --}}
+        <div>
+          <label class="block mb-2 text-sm font-semibold text-gray-700">Nama Makanan</label>
+          <input type="text" name="name" value="{{ old('name') }}"
+                 placeholder="Masukkan Nama Makanan"
+                 class="input-light w-full rounded-xl px-4 py-3"
+                 required aria-label="Nama menu">
+          @error('name') <div class="text-sm text-red-600 mt-2">{{ $message }}</div> @enderror
+        </div>
 
-            {{-- Category & Location --}}
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                    <label class="block mb-1 font-medium text-black">Kategori</label>
-                    <select name="category_id" class="input w-full">
-                        <option value="">-- Pilih Kategori --</option>
-                        @isset($categories)
-                            @foreach($categories as $cat)
-                                <option value="{{ $cat->id }}" {{ old('category_id') == $cat->id ? 'selected' : '' }}>
-                                    {{ $cat->name }}
-                                </option>
-                            @endforeach
-                        @endisset
-                    </select>
-                    @error('category_id') <div class="text-sm text-red-600 mt-1">{{ $message }}</div> @enderror
-                </div>
+        {{-- Harga --}}
+        <div>
+          <label class="block mb-2 text-sm font-semibold text-gray-700">Harga (Rp)</label>
+          <input type="number" step="0.01" name="price" value="{{ old('price') }}"
+                 placeholder="Masukkan Harga"
+                 class="input-light w-full rounded-xl px-4 py-3"
+                 required aria-label="Harga menu">
+          @error('price') <div class="text-sm text-red-600 mt-2">{{ $message }}</div> @enderror
+        </div>
 
-                <div>
-                    <label class="block mb-1 font-medium text-black">Nama Kantin / Lokasi</label>
-                    <select name="location_id" class="input w-full">
-                        <option value="">-- Pilih Kantin --</option>
-                        @foreach($locations as $loc)
-                            <option value="{{ $loc->id }}" {{ old('location_id') == $loc->id ? 'selected' : '' }}>
-                                {{ $loc->name }}
-                            </option>
-                        @endforeach
-                    </select>
-                    @error('location_id') <div class="text-sm text-red-600 mt-1">{{ $message }}</div> @enderror
-                </div>
-            </div>
+        {{-- Category & Location (two columns) --}}
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="block mb-2 text-sm font-semibold text-gray-700">Kategori</label>
+            <select name="category_id" class="input-light w-full rounded-xl px-4 py-3" aria-label="Kategori">
+              <option value="">-- Pilih Kategori --</option>
+              @isset($categories)
+                @foreach($categories as $cat)
+                  <option value="{{ $cat->id }}" {{ old('category_id') == $cat->id ? 'selected' : '' }}>
+                    {{ $cat->name }}
+                  </option>
+                @endforeach
+              @endisset
+            </select>
+            @error('category_id') <div class="text-sm text-red-600 mt-2">{{ $message }}</div> @enderror
+          </div>
 
-            {{-- Deskripsi --}}
-            <div>
-                <label class="block mb-1 font-medium text-black">Deskripsi</label>
-                <textarea name="description" class="input w-full" rows="3">{{ old('description') }}</textarea>
-                @error('description') <div class="text-sm text-red-600 mt-1">{{ $message }}</div> @enderror
-            </div>
+          <div>
+            <label class="block mb-2 text-sm font-semibold text-gray-700">Nama Kantin / Lokasi</label>
+            <select name="location_id" class="input-light w-full rounded-xl px-4 py-3" aria-label="Nama Kantin">
+              <option value="">-- Pilih Kantin --</option>
+              @isset($locations)
+                @foreach($locations as $loc)
+                  <option value="{{ $loc->id }}" {{ old('location_id') == $loc->id ? 'selected' : '' }}>
+                    {{ $loc->name }}
+                  </option>
+                @endforeach
+              @endisset
+            </select>
+            @error('location_id') <div class="text-sm text-red-600 mt-2">{{ $message }}</div> @enderror
+          </div>
+        </div>
 
-            {{-- Gambar --}}
-            <div>
-                <label class="block mb-1 font-medium text-black">Gambar</label>
+        {{-- Deskripsi --}}
+        <div>
+          <label class="block mb-2 text-sm font-semibold text-gray-700">Deskripsi</label>
+          <textarea name="description" rows="4"
+                    placeholder="Masukkan Deskripsi"
+                    class="input-light w-full rounded-xl px-4 py-3"
+                    aria-label="Deskripsi">{{ old('description') }}</textarea>
+          @error('description') <div class="text-sm text-red-600 mt-2">{{ $message }}</div> @enderror
+        </div>
 
-                {{-- custom upload control --}}
-                <div class="flex items-center gap-3">
-                    <label for="imageInput"
-                           class="inline-flex items-center gap-2 cursor-pointer bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg shadow">
-                        <i class="fa-solid fa-image"></i>
-                        <span>Pilih Gambar</span>
-                    </label>
+        {{-- Upload Gambar (custom, filename + button) --}}
+        <div>
+          <label class="block mb-2 text-sm font-semibold text-gray-700">Upload Gambar</label>
 
-                    <span id="fileName" class="text-gray-700 truncate max-w-[60%]">
-                        Belum ada file dipilih
-                    </span>
-                </div>
-
-                {{-- actual hidden input --}}
-                <input type="file" name="image" id="imageInput" accept="image/*" class="hidden" aria-label="Upload gambar menu">
-
-                {{-- preview + clear --}}
-                <div id="previewWrap" class="mt-3 hidden flex items-center gap-3">
-                    <img id="imagePreview" src="#" alt="Preview" class="w-40 h-28 object-cover rounded shadow border">
-                    <div>
-                        <div class="flex gap-2">
-                            <button type="button" id="clearPreview" class="btn btn-ghost text-red-600 hover:text-red-800">
-                                Hapus
-                            </button>
-                        </div>
-                        <p class="text-xs text-gray-500 mt-2">Preview file yang dipilih</p>
-                    </div>
-                </div>
-
-                @error('image') <div class="text-sm text-red-600 mt-1">{{ $message }}</div> @enderror
+          <div class="file-wrap flex items-center justify-between border border-gray-300 rounded-xl overflow-hidden">
+            {{-- left text --}}
+            <div id="fileLabel" class="flex-1 px-4 py-3 text-gray-500">
+              Tidak ada File
             </div>
 
-            {{-- submit --}}
-            <div class="flex items-center gap-3">
-                <button type="submit" class="btn btn-primary px-6">Simpan</button>
-            </div>
-        </form>
+            {{-- button on right --}}
+            <label for="profileFileInput" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-r-xl cursor-pointer">
+              Pilih File
+            </label>
+
+            {{-- hidden actual input --}}
+            <input id="profileFileInput" type="file" name="image" accept="image/*" class="hidden" />
+          </div>
+
+          @error('image') <div class="text-sm text-red-600 mt-2">{{ $message }}</div> @enderror
+        </div>
+
+        {{-- Buttons (Submit centered) --}}
+        <div class="flex justify-center pt-4">
+          <button type="submit" class="btn-submit px-6 py-2 rounded-xl text-white font-semibold shadow">
+            Submit
+          </button>
+        </div>
+
+      </form>
     </div>
+  </div>
 </div>
 
-{{-- Inline script (langsung dieksekusi; tidak butuh @stack di layout) --}}
+{{-- Styles to match screenshot --}}
+<style>
+/* light rounded inputs */
+.input-light {
+  background: #f8fafc; /* very light */
+  border: 1.5px solid #0f1724; /* dark thin border to match screenshot */
+  color: #0f1724;
+  box-shadow: none;
+  transition: box-shadow .15s, border-color .15s;
+}
+
+/* inner rounded border a bit larger */
+.input-light:focus {
+  outline: none;
+  box-shadow: 0 3px 10px rgba(2,6,23,0.06);
+  border-color: #0f1724;
+}
+
+/* file wrapper */
+.file-wrap {
+  background: #f8fafc;
+  border-right: none; /* right side covered by button */
+}
+
+/* ensure the right-side button is visually connected */
+.file-wrap label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 92px;
+  border-left: 1px solid rgba(255,255,255,0.06);
+}
+
+/* submit button */
+.btn-submit {
+  background: linear-gradient(180deg,#2563eb,#1e40af); /* blue gradient */
+  padding: 10px 26px;
+  border-radius: 12px;
+  box-shadow: 0 6px 14px rgba(37,99,235,0.18);
+}
+
+/* small devices make spacing comfortable */
+@media (max-width: 640px) {
+  .file-wrap { flex-direction: row; }
+  .file-wrap #fileLabel { padding-left: 12px; padding-right: 8px; }
+}
+</style>
+
+{{-- JS to update filename text when user picks a file --}}
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    const input = document.getElementById('imageInput');
-    const fileName = document.getElementById('fileName');
-    const previewWrap = document.getElementById('previewWrap');
-    const imgPreview = document.getElementById('imagePreview');
-    const clearBtn = document.getElementById('clearPreview');
+document.addEventListener('DOMContentLoaded', function () {
+  const input = document.getElementById('profileFileInput');
+  const label = document.getElementById('fileLabel');
 
-    if (!input) {
-        console.warn('imageInput not found on page');
-        return;
+  if (!input || !label) return;
+
+  input.addEventListener('change', function (e) {
+    const f = e.target.files && e.target.files[0];
+    if (!f) {
+      label.textContent = 'Tidak ada File';
+      return;
     }
 
-    input.addEventListener('change', function(e) {
-        const file = e.target.files && e.target.files[0];
-
-        if (!file) {
-            if (fileName) fileName.textContent = "Belum ada file dipilih";
-            if (previewWrap) previewWrap.classList.add('hidden');
-            return;
-        }
-
-        // show filename
-        if (fileName) fileName.textContent = file.name;
-
-        // preview only if image
-        if (file.type && file.type.startsWith('image/')) {
-            const url = URL.createObjectURL(file);
-            if (imgPreview) {
-                imgPreview.src = url;
-                imgPreview.alt = file.name;
-            }
-            if (previewWrap) previewWrap.classList.remove('hidden');
-        } else {
-            // non-image: show filename but hide preview
-            if (imgPreview) imgPreview.src = '#';
-            if (previewWrap) previewWrap.classList.add('hidden');
-        }
-    });
-
-    if (clearBtn) {
-        clearBtn.addEventListener('click', function() {
-            input.value = "";
-            if (fileName) fileName.textContent = "Belum ada file dipilih";
-            if (previewWrap) previewWrap.classList.add('hidden');
-            if (imgPreview) imgPreview.src = '#';
-        });
-    }
+    label.textContent = f.name;
+  });
 });
 </script>
 

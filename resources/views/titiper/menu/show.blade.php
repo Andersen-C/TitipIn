@@ -13,7 +13,27 @@
       {{-- LEFT: IMAGE --}}
       <div class="lg:col-span-1">
         <div class="bg-white rounded-lg p-4 border shadow-sm">
-          <img src="{{ $menu->image ?? 'https://via.placeholder.com/800x600' }}"
+          @php
+            $placeholder = 'https://via.placeholder.com/800x600';
+            $imgUrl = $placeholder;
+
+            if (!empty($menu->image)) {
+                // full absolute URL?
+                if (\Illuminate\Support\Str::startsWith($menu->image, ['http://', 'https://'])) {
+                    $imgUrl = $menu->image;
+                }
+                // already contains /storage or storage/
+                elseif (\Illuminate\Support\Str::startsWith($menu->image, ['/storage/', 'storage/'])) {
+                    $imgUrl = asset(ltrim($menu->image, '/'));
+                }
+                else {
+                    // assume stored on public disk (storage/app/public/...)
+                    $imgUrl = asset('storage/' . ltrim($menu->image, '/'));
+                }
+            }
+          @endphp
+
+          <img src="{{ $imgUrl }}"
                alt="{{ $menu->name }}"
                class="w-full h-64 object-cover rounded-md">
         </div>
@@ -38,6 +58,17 @@
               <div class="mt-3 flex items-center gap-2 text-sm text-slate-500">
                 <span class="w-3 h-3 rounded-full bg-slate-300 inline-block"></span>
                 {{ $menu->category->name }}
+              </div>
+            @endif
+
+            {{-- LOCATION (with SVG icon) --}}
+            @if($menu->location)
+              <div class="mt-1 flex items-center gap-2 text-sm text-slate-600">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-sky-600 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M12 2C8.14 2 5 5.14 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.86-3.14-7-7-7zm0 9.5c-1.38 
+                           0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z"/>
+                </svg>
+                <span class="leading-tight">{{ $menu->location->name }}</span>
               </div>
             @endif
 
@@ -119,9 +150,7 @@
   </div>
 </div>
 
-{{-- ===========================
-       NOTES MODAL
-   =========================== --}}
+{{-- NOTES MODAL --}}
 <div id="notesModal"
   class="fixed inset-0 bg-black/40 hidden items-center justify-center z-50">
 
@@ -149,12 +178,9 @@
   </div>
 </div>
 
-{{-- ===========================
-         JS
-   =========================== --}}
+{{-- JS --}}
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-
   // QTY BUTTONS
   const plus = document.getElementById("qtyPlus");
   const minus = document.getElementById("qtyMinus");
@@ -162,7 +188,6 @@ document.addEventListener('DOMContentLoaded', function () {
   const orderForm = document.getElementById('orderForm');
   const noteInput = document.getElementById('noteInput');
 
-  // helper safe parse
   const parse = v => {
     const n = parseInt(v, 10);
     return isNaN(n) ? 1 : n;
@@ -184,7 +209,6 @@ document.addEventListener('DOMContentLoaded', function () {
   const noteText = document.getElementById("modalNoteTextarea");
   const charCount = document.getElementById("charCount");
 
-  // open modal, fill with current note
   openNotesBtn && openNotesBtn.addEventListener('click', () => {
     noteText.value = noteInput.value || '';
     charCount.innerText = noteText.value.length;
@@ -193,43 +217,34 @@ document.addEventListener('DOMContentLoaded', function () {
     noteText.focus();
   });
 
-  // close
   closeNotesBtn && closeNotesBtn.addEventListener('click', closeModal);
   function closeModal() {
     notesModal.classList.add('hidden');
     notesModal.classList.remove('flex');
   }
 
-  // click outside to close
   notesModal && notesModal.addEventListener('click', function(e) {
     if (e.target === notesModal) closeModal();
   });
 
-  // esc to close
   document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape' && !notesModal.classList.contains('hidden')) closeModal();
   });
 
-  // save note to hidden input
   saveBtn && saveBtn.addEventListener('click', () => {
     noteInput.value = noteText.value.trim();
     closeModal();
   });
 
-  // char counter
   noteText && noteText.addEventListener('input', () => {
     charCount.innerText = noteText.value.length;
   });
 
-  // before submit, ensure note and qty are set in inputs (qty is already name="qty")
   orderForm && orderForm.addEventListener('submit', function () {
-    // qty input named 'qty' already sent; ensure it's valid
     const q = parse(qty.value);
     if (q < 1) qty.value = '1';
     if (q > 99) qty.value = '99';
 
-    // make sure noteInput contains final textarea value (if user didn't click Simpan)
-    // If they typed in modal but didn't click Simpan, pick it up now:
     if (noteText && noteText.value.trim() && noteInput.value.trim() === '') {
       noteInput.value = noteText.value.trim();
     }
