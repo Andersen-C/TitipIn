@@ -62,7 +62,7 @@
     <div class="grid gap-6 w-full grid-cols-1 mb-8 sm:grid-cols-[repeat(auto-fit,minmax(180px,1fr))] md:grid-cols-[repeat(auto-fit,minmax(250px,1fr))]"> 
         <!-- Manage Menus Card -->
         <div class="w-full">
-            <a href="#" class="block w-full h-full bg-white p-6 md:p-8 border border-gray-200 rounded-xl shadow-lg hover:shadow-2xl hover:border-blue-400 transition duration-300">
+            <a href="{{ route('menus.index') }}" class="block w-full h-full bg-white p-6 md:p-8 border border-gray-200 rounded-xl shadow-lg hover:shadow-2xl hover:border-blue-400 transition duration-300">
                 <div class="flex justify-center items-center text-blue-600 mb-5">
                     <i class="fa-solid fa-book text-4xl md:text-5xl"></i>
                 </div>
