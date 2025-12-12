@@ -61,6 +61,17 @@
               </div>
             @endif
 
+            {{-- LOCATION (with SVG icon) --}}
+            @if($menu->location)
+              <div class="mt-1 flex items-center gap-2 text-sm text-slate-600">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-sky-600 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M12 2C8.14 2 5 5.14 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.86-3.14-7-7-7zm0 9.5c-1.38 
+                           0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z"/>
+                </svg>
+                <span class="leading-tight">{{ $menu->location->name }}</span>
+              </div>
+            @endif
+
             {{-- RATING + NOTES --}}
             <div class="mt-4 flex items-center gap-3">
 
