@@ -93,7 +93,7 @@
             {{-- atas --}}
             <div class="flex flex-row justify-between">
                 <div class="">
-                    <h1 class="font-semibold text-xl">Bayaran</h1>
+                    <h1 class="font-semibold text-xl">Biaya Pesanan</h1>
                 </div>
                 <div>
                     <h1 class="font-semibold text-xl">Rp.5000</h1>
@@ -102,10 +102,18 @@
 
             <div class="flex flex-row justify-between">
                 <div>
-                    <h1 class="font-semibold text-xl">kompensasi</h1>
+                    <h1 class="font-semibold text-xl">Pendapatan</h1>
                 </div>
                 <div>
-                    <h1 class="font-semibold text-xl">Rp.0</h1>
+                    <h1 class="font-semibold text-xl">Rp.5000</h1>
+                </div>
+            </div>
+            <div class="flex flex-row justify-between">
+                <div>
+                    <h1 class="font-semibold text-xl">total</h1>
+                </div>
+                <div>
+                    <h1 class="font-semibold text-xl">Rp.10000</h1>
                 </div>
             </div>
 
@@ -117,10 +125,10 @@
         <div class="flex flex-col -sm:py-20">
             {{-- tengah --}}
             <div class="flex justify-center">
-                <h1 class="text-5xl font-bold items-center">00:21</h1>
+                <h1 class="text-5xl font-bold flex items-center mb-5">Ayo terima</h1>
             </div>
             <div class="flex justify-center">
-                <h1 class="items-center text-lg">waktu tersisa untuk konfirmasi</h1>
+                {{-- <h1 class="items-center text-lg">waktu tersisa untuk konfirmasi</h1> --}}
             </div>
 
             <div class="  rounded-xl hover:bg-blue-500 transition duration-200 bg-blue-700 flex justify-center sm:my-2 lg:mx-15">
