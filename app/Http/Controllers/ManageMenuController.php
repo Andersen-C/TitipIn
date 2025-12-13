@@ -33,24 +33,45 @@ class ManageMenuController extends Controller
 
     public function store(Request $request)
     {
-        $data = $request->validate([
-            'name' => 'required|string|max:255',
+        $rules = [
+            'name' => ['required','string','min:4','max:255'],
             'description' => 'nullable|string',
             'price' => 'required|numeric|min:0',
-            'category_id' => 'nullable|exists:categories,id',
-            'location_id' => 'nullable|exists:locations,id',
-            'image' => 'nullable|image|max:2048',
-        ]);
+            'category_id' => 'required|exists:categories,id',
+            'location_id' => 'required|exists:locations,id',
+            // ubah jadi required di store -> gambar wajib saat CREATE
+            'image' => 'required|image|max:2048',
+        ];
+
+        $messages = [
+            'name.required' => 'Nama makanan wajib diisi.',
+            'name.min' => 'Nama makanan harus memiliki minimal 4 huruf.',
+
+            'price.required' => 'Harga wajib diisi.',
+            'price.numeric' => 'Harga harus berupa angka.',
+
+            'category_id.required' => 'Kategori wajib dipilih.',
+            'category_id.exists' => 'Kategori tidak valid.',
+
+            'location_id.required' => 'Nama kantin / lokasi wajib dipilih.',
+            'location_id.exists' => 'Lokasi tidak valid.',
+
+            // pesan untuk gambar wajib
+            'image.required' => 'Gambar wajib diupload.',
+            'image.image' => 'File harus berupa gambar.',
+            'image.max' => 'Gambar maksimal 2 MB.',
+        ];
+
+        $data = $request->validate($rules, $messages);
 
         // handle upload -> save path to `image` column in DB
         if ($request->hasFile('image')) {
             $data['image'] = $request->file('image')->store('menus', 'public');
         } else {
-            // ensure key exists (nullable)
             $data['image'] = null;
         }
 
-        // normalize nullable foreign keys (store null instead of empty string)
+        // normalize nullable foreign keys (store null instead of empty string) - but they are required now
         $data['location_id'] = $request->input('location_id') ?: null;
         $data['category_id'] = $request->input('category_id') ?: null;
 
@@ -77,14 +98,30 @@ class ManageMenuController extends Controller
     {
         $menu = Menu::findOrFail($id);
 
-        $data = $request->validate([
-            'name' => ['required','string','max:255'],
+        $rules = [
+            'name' => ['required','string','min:4','max:255'],
             'description' => 'nullable|string',
             'price' => 'required|numeric|min:0',
-            'category_id' => 'nullable|exists:categories,id',
-            'location_id' => 'nullable|exists:locations,id',
+            'category_id' => 'required|exists:categories,id',
+            'location_id' => 'required|exists:locations,id',
+            // tetap nullable di update
             'image' => 'nullable|image|max:2048',
-        ]);
+        ];
+
+        $messages = [
+            'name.required' => 'Nama makanan wajib diisi.',
+            'name.min' => 'Nama makanan harus memiliki minimal 4 huruf.',
+            'price.required' => 'Harga wajib diisi.',
+            'price.numeric' => 'Harga harus berupa angka.',
+            'category_id.required' => 'Kategori wajib dipilih.',
+            'category_id.exists' => 'Kategori tidak valid.',
+            'location_id.required' => 'Nama kantin / lokasi wajib dipilih.',
+            'location_id.exists' => 'Lokasi tidak valid.',
+            'image.image' => 'File harus berupa gambar.',
+            'image.max' => 'Gambar maksimal 2 MB.',
+        ];
+
+        $data = $request->validate($rules, $messages);
 
         if ($request->hasFile('image')) {
             // delete old file if exists
@@ -97,7 +134,7 @@ class ManageMenuController extends Controller
             unset($data['image']);
         }
 
-        // normalize nullable foreign keys
+        // normalize foreign keys (should be present since required)
         $data['location_id'] = $request->input('location_id') ?: null;
         $data['category_id'] = $request->input('category_id') ?: null;
 
