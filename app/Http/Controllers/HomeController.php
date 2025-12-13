@@ -16,6 +16,14 @@ class HomeController extends Controller
         return view('beforeLogin.landing');
     }
 
+    public function feature() {
+        return view('beforeLogin.Feature');
+    }
+
+    public function howItWorks() {
+        return view('beforeLogin.HowItWorks');
+    }
+
     public function adminHome()
     {
         $users = User::count();

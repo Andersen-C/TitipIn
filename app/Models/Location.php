@@ -26,4 +26,15 @@ class Location extends Model
     public function deliveryOrders() {
         return $this->hasMany(Order::class, 'delivery_location_id');
     }
+
+    public function getFormattedFloorAttribute()
+    {
+        $floor = $this->floor_number;
+
+        if ($floor == 0) {
+            return 'Basement'; 
+        }
+
+        return 'L' . $floor; 
+    }
 }

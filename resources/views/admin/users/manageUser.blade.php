@@ -85,19 +85,14 @@
                                     <i class="fa-solid fa-circle-info mr-1"></i>
                                     Details
                                 </a>
-                                <a href="#" class="btn btn-l bg-amber-500 hover:bg-amber-700 hover:text-white">
+                                <a href="{{ route('users.edit', $user->id) }}" class="btn btn-l bg-amber-500 hover:bg-amber-700 hover:text-white">
                                     <i class="fa-solid fa-pen-to-square mr-1"></i>
                                     Update
                                 </a>
-                                <form action="{{ route('users.destroy', $user->id) }}" method="POST" onsubmit="return confirm('Apakah anda yakin ingin menghapus user ini?');">
-                                    @csrf
-                                    @method('DELETE')
-
-                                    <label for="deleteModal_{{ $user->id }}" class="btn btn-l bg-red-500 hover:bg-red-700 hover:text-white">
-                                        <i class="fa-solid fa-trash mr-1"></i>
-                                        Delete
-                                    </label>
-                                </form>
+                                <label for="deleteModal_{{ $user->id }}" class="btn btn-l bg-red-500 hover:bg-red-700 hover:text-white">
+                                    <i class="fa-solid fa-trash mr-1"></i>
+                                    Delete
+                                </label>
                             </td>
                         </tr>
                         
@@ -113,7 +108,7 @@
                                 <p class="mb-6">
                                     Apakah Anda Yakin Ingin Menghapus
                                     <span class="font-bold">{{ $user->name }}</span>? 
-                                    Aksi Ini Tidak Bersifat Permanen
+                                    Aksi Ini Bersifat Permanen
                                 </p>
                     
                                 <div class="modal-action flex justify-end gap-3">
