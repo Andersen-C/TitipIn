@@ -5,6 +5,16 @@
 <div class="container">
     <div class="p-8 sm:p-12 md:p-16">
         <h1 class="text-3xl font-bold text-blue-900 mb-8">Login</h1>
+        
+        @if (session('failed'))
+            <div class="alert alert-danger bg-red-100 border border-red-300 text-red-800 px-4 py-3 rounded-lg mb-4">
+                <div class="flex items-center">
+                    <i class="fa-solid fa-circle-check mr-2"></i>
+                    {{ session('failed') }}
+                </div>
+            </div>
+        @endif
+        
         <form action="{{ route('login') }}" method="POST" class="space-y-6">
             @csrf 
             <div>

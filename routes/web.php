@@ -17,6 +17,8 @@ use App\Http\Controllers\ReviewController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'landing'])->name('landing');
+Route::get('/feature', [HomeController::class, 'feature'])->name('featurePage');
+Route::get('/works', [HomeController::class, 'howItWorks'])->name('HowItWorksPage');
 Route::get('/login', [LoginController::class, 'show'])->name('loginPage');
 Route::post('/login', [LoginController::class, 'login'])->name('login');
 Route::get('/register', [RegisterController::class, 'show'])->name('registerPage');

@@ -68,7 +68,7 @@
               <path d="M7 10l5 5 5-5H7z" />
             </svg>
           </a>
-          <ul tabindex="0" class="dropdown-content z-1 menu p-2 bg-white text-black shadow rounded-box w-40">
+          <ul tabindex="0" class="dropdown-content z-1 menu p-2 bg-white text-black shadow rounded-box w-20">
             <li><a href="#">English</a></li>
             <li><a href="#">Bahasa Indonesia</a></li>
           </ul>

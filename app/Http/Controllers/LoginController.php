@@ -14,13 +14,12 @@ class LoginController extends Controller
     public function login(Request $request) {
         $fields = [
             'email' => 'required|email',
-            'password' => 'required|min:8' 
+            'password' => 'required' 
         ];
         $messages = [
             'email.required' => 'Email harus diisi',
             'email.email' => 'Format email tidak sesuai',
             'password.required' => 'Password harus diisi',
-            'password.min' => 'Password minimal 8 karakter'
         ];
 
         $credentials = $request->validate($fields, $messages); 
@@ -43,9 +42,7 @@ class LoginController extends Controller
             return redirect('/');
         }
         else {
-             return back()->withErrors([
-                'email' => 'Login Gagal'
-            ])->withInput();
+             return back()->with('failed', 'Login Gagal')->withInput();
         }
     }
 }

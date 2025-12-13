@@ -67,8 +67,31 @@
           <!-- Image (clickable to detail) -->
           <a href="{{ route('titiper.menu.show', $menu->id) }}" class="block mb-3">
             <div class="w-full h-36 bg-slate-100 rounded overflow-hidden">
-              <img src="{{ $menu->image ?? 'https://via.placeholder.com/400x300' }}"
-                   class="w-full h-full object-cover" alt="{{ $menu->name }}">
+              @php
+                // determine correct image URL
+                $img = null;
+                $placeholder = 'https://via.placeholder.com/400x300';
+
+                if (!empty($menu->image)) {
+                    // if already full URL, use it
+                    if (\Illuminate\Support\Str::startsWith($menu->image, ['http://', 'https://'])) {
+                        $img = $menu->image;
+                    }
+                    // if already begins with /storage or storage/, normalize to asset()
+                    elseif (\Illuminate\Support\Str::startsWith($menu->image, ['/storage/', 'storage/'])) {
+                        $path = ltrim($menu->image, '/');
+                        $img = asset($path);
+                    }
+                    else {
+                        // assume stored as "menus/xxx.jpg" on public disk
+                        $img = asset('storage/' . ltrim($menu->image, '/'));
+                    }
+                } else {
+                    $img = $placeholder;
+                }
+              @endphp
+
+              <img src="{{ $img }}" class="w-full h-full object-cover" alt="{{ $menu->name }}">
             </div>
           </a>
 
