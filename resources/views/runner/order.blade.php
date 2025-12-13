@@ -21,7 +21,7 @@
         <h1 class="text-3xl sm:flex sm:flex-row font-bold text-blue-900 mb-6">Pesanan</h1>
         
         @forelse($orders as $order)
-        <div class='container sm:mb-4'>
+        <div class='container mb-4'>
 
             <div class="flex flex-col p-4 border-2 border-zinc-500 rounded-lg sm:flex-row bg-white relative">
                 
