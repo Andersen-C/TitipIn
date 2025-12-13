@@ -54,8 +54,6 @@ class OrderController extends Controller
     {
         $order = Order::findOrFail($id);
         
-        // Pastikan kamu nanti membuat file view: resources/views/runner/show.blade.php
-        // Jika belum ada, sementara arahkan ke runner.order dulu tidak apa-apa untuk tes
         return view('runner.orderdetail', compact('order'));
     }
 }
