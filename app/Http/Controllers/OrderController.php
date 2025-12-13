@@ -62,4 +62,22 @@ class OrderController extends Controller
         
         return view('runner.orderaccept' );
     }
+
+    public function pickup()
+    {
+        
+        return view('runner.orderpickup' );
+    }
+
+    public function deliver()
+    {
+        
+        return view('runner.orderdeliver' );
+    }
+
+    public function complete()
+    {
+        
+        return view('runner.ordercomplete' );
+    }
 }
