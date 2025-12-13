@@ -16,11 +16,13 @@ class HomeController extends Controller
         return view('beforeLogin.landing');
     }
 
-    public function feature() {
+    public function feature()
+    {
         return view('beforeLogin.Feature');
     }
 
-    public function howItWorks() {
+    public function howItWorks()
+    {
         return view('beforeLogin.HowItWorks');
     }
 
@@ -56,9 +58,9 @@ class HomeController extends Controller
 
             $chartLabels[] = now()->subDays($i)->format('m-d');
 
-            $total = Order::whereDate('created_at', $date)->sum('total_price'); 
+            $total = Order::whereDate('created_at', $date)->sum('total_price');
             $orderTotals[] = $total > 0 ? $total : 0;
-            
+
             $orderAmount = Order::whereDate('created_at', $date)->count();
             $orderAmountTotal[] = $orderAmount > 0 ? $orderAmount : 0;
         }
@@ -66,23 +68,19 @@ class HomeController extends Controller
         return view('admin.adminHome', compact('users', 'activeRunner', 'menus', 'orders', 'dates', 'chartLabels', 'orderTotals', 'orderAmountTotal', 'topThreeRunner', 'topThreeMenu'));
     }
 
-    public function manage() {
+    public function manage()
+    {
         return view('admin.manage');
     }
 
     public function titiperHome()
     {
-        // Ambil pesanan terbaru user yg login (titiper/pembeli)
-        $latestOrders = \App\Models\Order::with(['menu', 'user'])
+        $latestOrders = Order::with(['orderItems.menu', 'titiper']) // Ganti 'menu' jadi 'orderItems.menu'
             ->where('titiper_id', auth()->id())
             ->latest()
             ->take(4)
             ->get();
 
-        // Menu terlaris / fallback ke menu terbaru
-
-
-        // Rekomendasi menu (6 item)
         $recommended = \App\Models\Menu::latest()->take(6)->get();
 
         return view('titiper.home', compact(
@@ -94,15 +92,12 @@ class HomeController extends Controller
 
     public function runnerHome()
     {
-        // Ambil user yang sedang login
         $user = auth()->user();
 
-        // Syarat: runner_id adalah user ini DAN status order sudah completed
         $totalEarnings = Order::where('runner_id', $user->id)
             ->where('status', 'completed')
             ->sum('service_fee');
 
-        // Mengambil dari kolom avg_rating di tabel users, default 0 jika null
         $rating = $user->avg_rating ?? 0;
 
         return view('runner.home', compact('totalEarnings', 'rating', 'user'));
