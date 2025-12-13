@@ -2,42 +2,113 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use Illuminate\Http\Request;
 
 class ManageOrderController extends Controller
 {
+    /**
+     * Menampilkan semua order (ADMIN)
+     */
     public function index()
     {
-        // menampilkan semua data
+        $orders = Order::with([
+            'titiper',
+            'runner'
+        ])
+        ->orderBy('created_at', 'desc')
+        ->get();
+
+        return view('admin.orders.manageOrders', compact('orders'));
     }
 
+    /**
+     * ADMIN tidak membuat order
+     */
     public function create()
     {
-        // menampilkan form create
+        abort(404);
     }
 
+    /**
+     * ADMIN tidak menyimpan order
+     */
     public function store(Request $request)
     {
-        // menyimpan data baru
+        abort(404);
     }
 
+    /**
+     * Detail order
+     */
     public function show($id)
     {
-        // menampilkan detail data
+        $order = Order::with([
+            'titiper',
+            'runner',
+            'pickupLocation',
+            'deliveryLocation',
+            'orderItems.menu'
+        ])->findOrFail($id);
+
+        return view('admin.orders.showOrder', compact('order'));
     }
 
+    /**
+     * Form update STATUS order (ADMIN)
+     */
     public function edit($id)
     {
-        // menampilkan form edit
+        $order = Order::findOrFail($id);
+
+        return view('admin.orders.editOrder', compact('order'));
     }
 
+    /**
+     * Update STATUS order (ADMIN)
+     */
     public function update(Request $request, $id)
     {
-        // update data
+        $request->validate([
+            'status' => 'required|string'
+        ]);
+
+        $order = Order::findOrFail($id);
+
+        $order->update([
+            'status' => $request->status
+        ]);
+
+        // set timestamp sesuai status
+        if ($request->status === 'accepted') {
+            $order->accepted_at = now();
+        }
+
+        if ($request->status === 'completed') {
+            $order->completed_at = now();
+        }
+
+        $order->save();
+
+        return redirect()
+            ->route('orders.index')
+            ->with('success', 'Status order berhasil diperbarui');
     }
 
+    /**
+     * CANCEL order (soft delete)
+     */
     public function destroy($id)
     {
-        // hapus data
+        $order = Order::findOrFail($id);
+
+        $order->update([
+            'status' => 'cancelled',
+            'cancelled_at' => now()
+        ]);
+
+        return redirect()
+            ->route('orders.index')
+            ->with('success', 'Order berhasil dibatalkan');
     }
 }
