@@ -53,7 +53,7 @@
 
                 <li><a href="{{ route('runner.orders.index') }}"
                         class="{{ request()->routeIs('runner.orders.index') ? 'active bg-blue-600 text-white' : '' }}">Pesanan</a></li>
-                <li><a href="#">Histori</a></li>
+                <li><a href="{{ route('runner.history.index') }}">Histori</a></li>
 
                 <li>
                     <a href="{{ route('runner.profile') }}"
