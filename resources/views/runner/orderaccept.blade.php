@@ -86,7 +86,7 @@
                 <p class="opacity-75 font-semibold mb-6 ">Konfirmasi ke Titipers kalo kamu sudah sampe di kantin tujuan</p>
                 
                 <div class=" flex flex-col justify-center items-center  ">
-                    <a href="" class="w-full bg-blue-700  hover:bg-blue-800 items-center justify-center flex text-white font-semibold py-4 px-6 rounded-lg transition duration-200 ">
+                    <a href="{{ route('runner.orders.pickup',$order->id) }}" class="w-full bg-blue-700  hover:bg-blue-800 items-center justify-center flex text-white font-semibold py-4 px-6 rounded-lg transition duration-200 "  method="POST">
                         Konfirmasi sudah sampai
                     </a>
                 </div>

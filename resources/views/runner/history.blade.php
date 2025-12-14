@@ -79,7 +79,7 @@
                         </div>
 
                         <div class="flex flex-col justify-end">
-                            <a href="#" class='text-blue-800 hover:bg-blue-900 hover:text-white transition duration-200 font-semibold border-2 border-blue-800 rounded-md px-3 py-1'>
+                            <a href="{{ route('runner.history.show', $order->id) }}" class='text-blue-800 hover:bg-blue-900 hover:text-white transition duration-200 font-semibold border-2 border-blue-800 rounded-md px-3 py-1'>
                                 Detail
                             </a>
                         </div>
