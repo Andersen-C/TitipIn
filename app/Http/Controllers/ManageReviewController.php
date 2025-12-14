@@ -2,42 +2,64 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Review;
 use Illuminate\Http\Request;
 
 class ManageReviewController extends Controller
 {
+    /**
+     * Menampilkan semua review (Admin)
+     */
     public function index()
     {
-        // menampilkan semua data
+        $reviews = Review::with([
+            'order',
+            'reviewer',      // titiper
+            'reviewedUser'   // runner
+        ])
+        ->latest()
+        ->paginate(10);
+
+        return view('admin.reviews.manageReviews', compact('reviews'));
     }
 
     public function create()
     {
-        // menampilkan form create
+        abort(404);
     }
 
     public function store(Request $request)
     {
-        // menyimpan data baru
+        abort(404);
     }
 
     public function show($id)
     {
-        // menampilkan detail data
+        $review = Review::with([
+            'order',
+            'reviewer',
+            'reviewedUser'
+        ])->findOrFail($id);
+
+        return view('admin.reviews.showReview', compact('review'));
     }
 
     public function edit($id)
     {
-        // menampilkan form edit
+        abort(404);
     }
 
     public function update(Request $request, $id)
     {
-        // update data
+        abort(404);
     }
 
     public function destroy($id)
     {
-        // hapus data
+        Review::findOrFail($id)->delete();
+
+        return redirect()
+            ->route('reviews.index')
+            ->with('success', 'Review berhasil dihapus');
     }
 }

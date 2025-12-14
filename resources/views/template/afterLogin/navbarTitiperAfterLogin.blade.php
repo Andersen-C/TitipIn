@@ -1,51 +1,55 @@
 <div class="navbar shadow-sm bg-white px-8 text-black font-bold">
     <div class="navbar-start">
-        <a href="{{ route('titiper.home') }}" class="btn btn-ghost text-3xl font-extrabold tracking-tight">
-    <span class="text-sky-700">Titip</span><span class="text-yellow-400 -ml-1.5">In</span>
-</a>
-
-
-
-
+        <a href="{{ route('titiper.home') }}"
+            class="text-3xl font-extrabold tracking-tight px-4 hover:opacity-80 transition-opacity">
+            <span class="text-sky-700">Titip</span><span class="text-yellow-400">In</span>
+        </a>
     </div>
 
     <div class="navbar-end hidden lg:flex">
         <ul class="menu menu-horizontal px-4 gap-x-4 font-bold text-lg">
 
+            {{-- HOME --}}
             <li>
                 <a href="{{ route('titiper.home') }}"
                     class="px-5 py-2 hover:bg-transparent hover:text-blue-700
-                   {{ request()->routeIs('titiper.home') ? 'bg-blue-600 text-white rounded-full hover:!bg-blue-700 hover:!text-white' : '' }}">
+                    {{ request()->routeIs('titiper.home') ? 'bg-blue-600 text-white rounded-full hover:!bg-blue-700 hover:!text-white' : '' }}">
                     Home
                 </a>
             </li>
 
+            {{-- MENU --}}
             <li>
-                <a href="{{route('titiper.menu.index')}}"
+                <a href="{{ route('titiper.menu.index') }}"
                     class="px-5 py-2 hover:bg-transparent hover:text-blue-700
-                   {{ request()->routeIs('titiper.menu.*') ? 'bg-blue-600 text-white rounded-full hover:!bg-blue-700 hover:!text-white' : '' }}">
+                    {{ request()->routeIs('titiper.menu.*') ? 'bg-blue-600 text-white rounded-full hover:!bg-blue-700 hover:!text-white' : '' }}">
                     Menu
                 </a>
             </li>
 
+            {{-- PESANAN (SUDAH DIPERBAIKI) --}}
             <li>
-                <a href="#" class="px-5 py-2 hover:bg-transparent hover:text-blue-700">
+                <a href="{{ route('titiper.orders.index') }}"
+                    class="px-5 py-2 hover:bg-transparent hover:text-blue-700
+                    {{ request()->routeIs('titiper.orders.*') ? 'bg-blue-600 text-white rounded-full hover:!bg-blue-700 hover:!text-white' : '' }}">
                     Pesanan
                 </a>
             </li>
 
+            {{-- PROFIL --}}
             <li>
                 <a href="{{ route('titiper.profile') }}"
                     class="px-5 py-2 hover:bg-transparent hover:text-blue-700
-                   {{ request()->routeIs('titiper.profile') || request()->routeIs('profile.update')
-                       ? 'bg-blue-600 text-white rounded-full hover:!bg-blue-700 hover:!text-white'
-                       : '' }}">
+                    {{ request()->routeIs('titiper.profile') || request()->routeIs('profile.update')
+                        ? 'bg-blue-600 text-white rounded-full hover:!bg-blue-700 hover:!text-white'
+                        : '' }}">
                     Profil
                 </a>
             </li>
         </ul>
     </div>
 
+    {{-- MOBILE MENU --}}
     <div class="navbar-end lg:hidden">
         <div class="dropdown dropdown-end">
             <label tabindex="0" class="btn btn-ghost">
@@ -63,9 +67,20 @@
                     </a>
                 </li>
 
-                <li><a href="#">Menu</a></li>
+                <li>
+                    <a href="{{ route('titiper.menu.index') }}"
+                        class="{{ request()->routeIs('titiper.menu.*') ? 'active bg-blue-600 text-white' : '' }}">
+                        Menu
+                    </a>
+                </li>
 
-                <li><a href="#">Pesanan</a></li>
+                {{-- PESANAN MOBILE (SUDAH DIPERBAIKI) --}}
+                <li>
+                    <a href="{{ route('titiper.orders.index') }}"
+                        class="{{ request()->routeIs('titiper.orders.*') ? 'active bg-blue-600 text-white' : '' }}">
+                        Pesanan
+                    </a>
+                </li>
 
                 <li>
                     <a href="{{ route('titiper.profile') }}"

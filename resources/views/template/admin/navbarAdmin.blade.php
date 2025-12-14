@@ -1,11 +1,10 @@
 <div class="navbar shadow-sm bg-white px-8 text-black font-bold">
-  <div class="navbar-start">
-    <a href="{{ route('admin.dashboard') }}" class="btn btn-ghost normal-case text-3xl tracking-tight">
-      <span class="text-3xl font-extrabold text-sky-700 tracking-tight">
-                Titip<span class="text-yellow-400">In</span>
-            </span>
-    </a>
-  </div>
+    <div class="navbar-start">
+        <a href="{{ route('admin.dashboard') }}"
+            class="text-3xl font-extrabold tracking-tight px-4 hover:opacity-80 transition-opacity">
+            <span class="text-sky-700">Titip</span><span class="text-yellow-400">In</span>
+        </a>
+    </div>
 
   {{-- Desktop Menu --}}
   <div class="navbar-end hidden lg:flex">
