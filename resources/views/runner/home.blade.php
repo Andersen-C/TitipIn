@@ -51,7 +51,7 @@
 
                 {{--  --}}
                 <div class="flex gap-3 mt-4">
-                    <a href="#" class="flex-1 bg-blue-700 hover:bg-blue-800 text-white font-medium py-2 rounded-lg text-center transition duration-200">
+                    <a href="{{ route('runner.history.index') }}" class="flex-1 bg-blue-700 hover:bg-blue-800 text-white font-medium py-2 rounded-lg text-center transition duration-200">
                         Detail
                     </a>
             

@@ -19,7 +19,7 @@
 
             <li><a href="{{ route('runner.orders.index') }}" class="px-5 py-2 hover:bg-transparent hover:text-blue-700 {{ request()->routeIs('runner.orders.index') ? 'bg-blue-600 text-white rounded-full hover:!bg-blue-700 hover:!text-white' : '' }}">Pesanan</a></li>
 
-            <li><a href="#" class="px-5 py-2 hover:bg-transparent hover:text-blue-700">Histori</a></li>
+            <li><a href="{{ route('runner.history.index') }}" class="px-5 py-2 hover:bg-transparent hover:text-blue-700 {{ request()->routeIs('runner.history.index') ? 'bg-blue-600 text-white rounded-full hover:!bg-blue-700 hover:!text-white' : '' }}">Histori</a></li>
 
             <li>
                 <a href="{{ route('runner.profile') }}"
@@ -52,7 +52,9 @@
 
                 <li><a href="{{ route('runner.orders.index') }}"
                         class="{{ request()->routeIs('runner.orders.index') ? 'active bg-blue-600 text-white' : '' }}">Pesanan</a></li>
-                <li><a href="#">Histori</a></li>
+
+                <li><a href="{{ route('runner.history.index') }}"
+                        class="{{ request()->routeIs('runner.history.index') ? 'active bg-blue-600 text-white' : '' }}">History</a></li>
 
                 <li>
                     <a href="{{ route('runner.profile') }}"

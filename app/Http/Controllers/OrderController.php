@@ -59,7 +59,7 @@ class OrderController extends Controller
      */
     public function runnerIndex()
     {
-        $myId = auth()->id();
+        $myId = Auth::user()->id;
 
         $orders = Order::with(['orderItems.menu', 'pickupLocation', 'deliveryLocation'])
             ->whereNull('runner_id')
@@ -79,7 +79,7 @@ class OrderController extends Controller
         }
 
         $order->update([
-            'runner_id' => auth()->id(),
+            'runner_id' => Auth::user()->id,
             'status' => 'accepted' // SESUAIKAN dengan enum di database kamu ('accepted')
         ]);
 
@@ -95,5 +95,11 @@ class OrderController extends Controller
         $order = Order::findOrFail($id);
 
         return view('runner.orderdetail', compact('order'));
+    }
+
+     public function accepted()
+    {
+        
+        return view('runner.orderaccept' );
     }
 }

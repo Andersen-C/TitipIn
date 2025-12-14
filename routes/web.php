@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
@@ -77,10 +78,13 @@ Route::prefix('runner')->middleware(['auth', 'role:user', 'mode:runner'])->group
     Route::get('/orders', [OrderController::class, 'runnerIndex'])->name('runner.orders.index');
     Route::get('/orders/{id}', [OrderController::class, 'runnerShow'])->name('runner.orders.show');
 
-    Route::post('/orders/{id}/accept', [OrderController::class, 'accept'])->name('runner.orders.accept');
+    Route::post('/orders/{id}/accept', [OrderController::class, 'accepted'])->name('runner.orders.accept');
     Route::post('/orders/{id}/pickup', [OrderController::class, 'pickup'])->name('runner.orders.pickup');
     Route::post('/orders/{id}/deliver', [OrderController::class, 'deliver'])->name('runner.orders.deliver');
     Route::post('/orders/{id}/complete', [OrderController::class, 'complete'])->name('runner.orders.complete');
+
+    Route::get('/history', [HistoryController::class,'historyIndex'])->name('runner.history.index');
+    Route::get('/history/{id}', [HistoryController::class, 'historyShow'])->name('runner.history.show');
 
     Route::get('/profile', [ProfileController::class, 'showRunner'])->name('runner.profile');
 });
