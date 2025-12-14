@@ -16,7 +16,7 @@
                 </p>
             </div>
 
-            <div class="hidden w-full md:w-1/2  md:flex justify-center items-center md:justify-center ">
+            <div class="hidden  w-full md:w-1/2  md:flex justify-center items-center md:justify-center ">
                 <img src="{{ asset('storage/runnerhomepage.png') }}" alt="Runner Illustration"  class="w-4/4 md:w-110 max-w-md object-contain">
             </div>
         </div>
