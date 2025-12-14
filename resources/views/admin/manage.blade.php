@@ -79,7 +79,7 @@
 
         <!-- Manage Orders Card -->
         <div class="w-full">
-            <a href="#" class="block w-full h-full bg-white p-6 md:p-8 border border-gray-200 rounded-xl shadow-lg hover:shadow-2xl hover:border-blue-400 transition duration-300">
+            <a href="{{route('orders.index')}}" class="block w-full h-full bg-white p-6 md:p-8 border border-gray-200 rounded-xl shadow-lg hover:shadow-2xl hover:border-blue-400 transition duration-300">
                 <div class="flex justify-center items-center text-blue-600 mb-5">
                     <i class="fa-solid fa-cart-shopping text-4xl md:text-5xl"></i>
                 </div>
