@@ -8,22 +8,20 @@ use Illuminate\Http\Request;
 class ManageOrderController extends Controller
 {
     /**
-     * Menampilkan semua order (ADMIN)
+     * READ: Menampilkan semua order (ADMIN)
      */
     public function index()
     {
-        $orders = Order::with([
-            'titiper',
-            'runner'
-        ])
-        ->orderBy('created_at', 'desc')
-        ->get();
+        $orders = Order::with(['titiper', 'runner'])
+            ->orderBy('created_at', 'desc')
+            ->paginate(10)
+            ->onEachSide(1); // <<< INI PENTING
 
         return view('admin.orders.manageOrders', compact('orders'));
     }
 
     /**
-     * ADMIN tidak membuat order
+     * CREATE: Admin TIDAK membuat order
      */
     public function create()
     {
@@ -31,7 +29,7 @@ class ManageOrderController extends Controller
     }
 
     /**
-     * ADMIN tidak menyimpan order
+     * STORE: Admin TIDAK menyimpan order
      */
     public function store(Request $request)
     {
@@ -39,7 +37,7 @@ class ManageOrderController extends Controller
     }
 
     /**
-     * Detail order
+     * READ (Detail): Detail order
      */
     public function show($id)
     {
@@ -55,7 +53,7 @@ class ManageOrderController extends Controller
     }
 
     /**
-     * Form update STATUS order (ADMIN)
+     * UPDATE (Form): Form update STATUS order
      */
     public function edit($id)
     {
@@ -65,19 +63,18 @@ class ManageOrderController extends Controller
     }
 
     /**
-     * Update STATUS order (ADMIN)
+     * UPDATE (Action): Update STATUS order
      */
     public function update(Request $request, $id)
     {
         $request->validate([
-            'status' => 'required|string'
+            'status' => 'required|in:waiting_runner,accepted,arrived_at_pickup,completed,cancelled'
         ]);
 
         $order = Order::findOrFail($id);
 
-        $order->update([
-            'status' => $request->status
-        ]);
+        // update status utama
+        $order->status = $request->status;
 
         // set timestamp sesuai status
         if ($request->status === 'accepted') {
@@ -88,6 +85,10 @@ class ManageOrderController extends Controller
             $order->completed_at = now();
         }
 
+        if ($request->status === 'cancelled') {
+            $order->cancelled_at = now();
+        }
+
         $order->save();
 
         return redirect()
@@ -96,7 +97,7 @@ class ManageOrderController extends Controller
     }
 
     /**
-     * CANCEL order (soft delete)
+     * DELETE: Cancel order (soft delete via status)
      */
     public function destroy($id)
     {
