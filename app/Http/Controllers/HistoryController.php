@@ -2,17 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Order;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth; // Jangan lupa import Auth
+use Illuminate\Support\Facades\Auth;
+use App\Models\Order;
 
-class OrderController extends Controller
+class HistoryController extends Controller
 {
-    /**
-     * 1. Menampilkan Daftar Orderan untuk Runner (Halaman Utama Runner)
-     * Route: GET /runner/orders
-     */
-    public function runnerIndex()
+    //
+    public function historyIndex()
     {
         $myId = Auth::user()->id;
 
@@ -23,11 +20,8 @@ class OrderController extends Controller
                     ->orderBy('created_at', 'desc')
                     ->get();
 
-        return view('runner.order', compact('orders'));
+        return view('runner.history',compact('orders'));
     }
-
-
-     // 2. Logic Menerima Orderan (Saat tombol 'Terima' ditekan)
 
     public function accept($id)
     {
@@ -40,26 +34,17 @@ class OrderController extends Controller
         // UPDATE DATABASE
         $order->update([
             'runner_id' => Auth::user()->id,
-            'status' => 'accepted' // SESUAIKAN dengan enum di database kamu ('accepted')
+            'status' => 'accepted'
         ]);
 
         return redirect()->back()->with('success', 'Pesanan berhasil diambil! Status sekarang Pending.');
     }
 
-    /**
-     * 3. Menampilkan Detail Satu Orderan (Saat tombol 'Detail' ditekan)
-     * Route: GET /runner/orders/{id}
-     */
-    public function runnerShow($id)
+ 
+    public function historyShow($id)
     {
         $order = Order::findOrFail($id);
         
-        return view('runner.orderdetail', compact('order'));
-    }
-
-     public function accepted()
-    {
-        
-        return view('runner.orderaccept' );
+        return view('runner.historydetail', compact('order'));
     }
 }
