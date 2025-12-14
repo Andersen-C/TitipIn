@@ -96,7 +96,7 @@ class OrderController extends Controller
         }
     }
 
-    public function accept($id)
+    public function acceptOrder($id)
     {
         $order = Order::findOrFail($id);
 
