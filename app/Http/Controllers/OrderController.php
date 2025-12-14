@@ -27,16 +27,12 @@ class OrderController extends Controller
         } elseif ($currentStatus === 'Dibatalkan') {
             $query->where('status', 'cancelled');
         }
-
+        
         $orders = $query->get();
-
         return view('titiper.orders.index', compact('orders', 'currentStatus'));
     }
 
-    /**
-     * Membatalkan pesanan (Hanya jika status masih waiting_runner)
-     * Route: DELETE /titiper/orders/{id}
-     */
+
     public function destroy(Request $request, $id)
     {
         $order = Order::where('titiper_id', Auth::id())->findOrFail($id);
@@ -46,28 +42,58 @@ class OrderController extends Controller
                 'status' => 'cancelled',
                 'cancelled_at' => now(),
             ]);
-
             return redirect()->back()->with('success', 'Pesanan berhasil dibatalkan.');
         }
-
         return redirect()->back()->with('error', 'Pesanan sudah diproses, tidak bisa dibatalkan.');
     }
 
-    /**
-     * 1. Menampilkan Daftar Orderan untuk Runner (Halaman Utama Runner)
-     * Route: GET /runner/orders
-     */
+
+    // Runner
     public function runnerIndex()
     {
-        $myId = Auth::user()->id;
+        $myId = Auth::id();
 
         $orders = Order::with(['orderItems.menu', 'pickupLocation', 'deliveryLocation'])
-            ->whereNull('runner_id')
-            ->orWhere('runner_id', $myId)
+            ->where(function($query) use ($myId) {
+                $query->whereNull('runner_id')
+                      ->orWhere('runner_id', $myId);
+            })
+            ->whereNotIn('status', ['completed', 'cancelled']) 
             ->orderBy('created_at', 'desc')
             ->get();
 
         return view('runner.order', compact('orders'));
+    }
+
+    public function runnerShow($id)
+    {
+        $order = Order::with(['orderItems.menu', 'pickupLocation', 'deliveryLocation', 'titiper'])->findOrFail($id);
+        $myId = Auth::id();
+
+        if ($order->runner_id == null) {
+            return view('runner.orderdetail', compact('order'));
+        }
+        if ($order->runner_id != $myId) {
+            return redirect()->route('runner.orders.index')->with('error', 'Pesanan ini milik runner lain.');
+        }
+
+        switch ($order->status) {
+            case 'accepted':
+                return view('runner.orderaccept', compact('order'));
+            
+            case 'item_picked':
+                return view('runner.orderpickup', compact('order'));            
+            
+            case 'on_delivery':
+            case 'delivering': 
+                 return view('runner.orderdeliver', compact('order'));
+            
+            case 'completed':
+                return view('runner.ordercomplete', compact('order'));            
+            
+            default:
+                return view('runner.orderaccept', compact('order'));
+        }
     }
 
     public function accept($id)
@@ -77,29 +103,38 @@ class OrderController extends Controller
         if ($order->runner_id !== null) {
             return redirect()->back()->with('error', 'Yah, terlambat! Pesanan ini sudah diambil runner lain.');
         }
-
         $order->update([
-            'runner_id' => Auth::user()->id,
-            'status' => 'accepted' // SESUAIKAN dengan enum di database kamu ('accepted')
+            'runner_id' => Auth::id(),
+            'status' => 'accepted',
+            'accepted_at' => now(),
         ]);
 
-        return redirect()->back()->with('success', 'Pesanan berhasil diambil! Status sekarang Pending.');
+        return redirect()->route('runner.orders.show', $id)->with('success', 'Pesanan berhasil diambil!');
     }
 
-    /**
-     * 3. Menampilkan Detail Satu Orderan (Saat tombol 'Detail' ditekan)
-     * Route: GET /runner/orders/{id}
-     */
-    public function runnerShow($id)
+    public function pickupOrder($id)
     {
-        $order = Order::findOrFail($id);
-
-        return view('runner.orderdetail', compact('order'));
-    }
-
-     public function accepted()
-    {
+        $order = Order::where('id', $id)->where('runner_id', Auth::id())->firstOrFail();        
+        $order->update(['status' => 'item_picked']); 
         
-        return view('runner.orderaccept' );
+        return redirect()->route('runner.orders.show', $id);
+    }
+
+    public function deliverOrder($id)
+    {
+        $order = Order::where('id', $id)->where('runner_id', Auth::id())->firstOrFail();
+        $order->update(['status' => 'on_delivery']); 
+        
+        return redirect()->route('runner.orders.show', $id);
+    }
+
+    public function completeOrder($id)
+    {
+        $order = Order::where('id', $id)->where('runner_id', Auth::id())->firstOrFail();
+        $order->update([
+            'status' => 'completed',
+            'completed_at' => now()
+        ]);
+        return redirect()->route('runner.orders.show', $id)->with('success', 'Pesanan Selesai!');
     }
 }
