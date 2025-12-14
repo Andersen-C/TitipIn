@@ -2,156 +2,206 @@
 @section('Title', 'Manage Menus')
 
 @section('Content')
-<div class="p-12 min-h-0">
-    <div class="flex items-center justify-between mb-4 gap-2">
-        <a href="{{ route('admin.manage') }}" class="btn btn-secondary rounded-xl text-sm sm:text-base px-3 sm:px-4">
+<div class="p-12 min-h-screen bg-gray-50">
+
+    {{-- HEADER --}}
+    <div class="relative mb-8 flex items-center">
+        <a href="{{ route('admin.manage') }}"
+           class="bg-pink-500 hover:bg-pink-600
+                  text-white px-5 py-2
+                  rounded-xl text-sm sm:text-lg
+                  inline-flex items-center gap-2
+                  shadow-md">
             <i class="fa-solid fa-backward"></i>
-            <span class="hidden sm:inline">Back</span>
+            Back
         </a>
 
-        <h1 class="text-lg sm:text-2xl md:text-3xl font-bold text-blue-800 text-center flex-1">
+        <h2 class="absolute left-1/2 -translate-x-1/2
+                   text-2xl sm:text-3xl
+                   font-bold text-blue-700">
             Manage Menus
-        </h1>
+        </h2>
 
-        <a href="{{ route('menus.create') }}" class="btn btn-primary rounded-xl text-sm sm:text-base md:text-lg px-3 sm:px-4">
-            <i class="fa-solid fa-plus mr-1"></i>
-            <span class="hidden sm:inline">Add</span>
+        <a href="{{ route('menus.create') }}"
+           class="ml-auto bg-indigo-600 hover:bg-indigo-700
+                  text-white px-5 py-2
+                  rounded-xl text-sm sm:text-lg
+                  inline-flex items-center gap-2 shadow-md">
+            <i class="fa-solid fa-plus"></i>
+            Add
         </a>
     </div>
 
+    {{-- SUCCESS --}}
     @if (session('success'))
-        <div class="alert alert-success bg-green-100 border border-green-300 text-green-800 px-4 py-3 rounded-lg mb-4">
-            <div class="flex items-center">
-                <i class="fa-solid fa-circle-check mr-2"></i>
-                {{ session('success') }}
-            </div>
+        <div class="mb-6 p-4 rounded-xl bg-green-100 text-green-800 shadow">
+            <i class="fa-solid fa-circle-check mr-2"></i>
+            {{ session('success') }}
         </div>
     @endif
 
-    <div class="overflow-x-auto bg-white rounded-xl">
-        <table class="table w-full">
-            <!-- head -->
-            <thead class="border-b-4 border-gray-800">
-                <tr class="text-black">
-                    <th class="text-xl text-center">No.</th>
-                    <th class="text-xl">Gambar</th>
-                    <th class="text-xl text-center">Harga</th>
-                    <th class="text-xl">Nama</th>
-                    <th class="text-xl text-center">Nama Kantin</th>
-                    <th class="text-xl">Deskripsi</th>
-                    <th class="text-xl text-center">Action</th>
+    {{-- CARD --}}
+    <div class="bg-white rounded-3xl shadow-xl p-8 overflow-x-auto">
+
+        <table class="min-w-full text-sm text-gray-800">
+            {{-- ❌ GARIS HITAM DIHAPUS TOTAL --}}
+            <thead>
+                <tr class="text-gray-600">
+                    <th class="py-4 px-4 text-center">No</th>
+                    <th class="py-4 px-4">Gambar</th>
+                    <th class="py-4 px-4 text-center">Harga</th>
+                    <th class="py-4 px-4">Nama</th>
+                    <th class="py-4 px-4 text-center">Nama Kantin</th>
+                    <th class="py-4 px-4">Deskripsi</th>
+                    <th class="py-4 px-4 text-center">Action</th>
                 </tr>
             </thead>
 
             <tbody>
-                @forelse ($menus as $key => $menu)
-                    <tr class="text-black hover:bg-gray-200 transition duration-200">
-                        <td class="text-black text-bold text-center font-bold">
-                            {{ $menus->firstItem() + $key }}
-                        </td>
+            @forelse ($menus as $index => $menu)
+                <tr class="hover:bg-gray-50 transition">
 
-                        <td>
-                            <div class="flex items-center gap-3">
-                                <div class="avatar">
-                                    <div class="mask mask-squircle h-12 w-12 flex items-center justify-center bg-gray-50">
-                                        @if(!empty($menu->image_path))
-                                            <img
-                                                src="{{ asset('storage/' . $menu->image_path) }}"
-                                                alt="Gambar {{ $menu->name }}"
-                                                class="h-full w-full object-cover"
-                                            >
-                                        @else
-                                            <i class="fa-solid fa-utensils text-xl text-gray-600"></i>
-                                        @endif
-                                    </div>
-                                </div>
-                            </div>
-                        </td>
+                    {{-- NO --}}
+                    <td class="py-5 px-4 text-center font-semibold">
+                        {{ $menus->firstItem() + $index }}
+                    </td>
 
-                        <td class="text-center font-medium">
-                            Rp {{ number_format($menu->price ?? 0,0,',','.') }}
-                        </td>
+                    {{-- GAMBAR --}}
+                    <td class="py-5 px-4">
+                        <div class="h-12 w-12 rounded-xl
+                                    flex items-center justify-center
+                                    bg-gray-100 overflow-hidden">
+                            @if($menu->image_path)
+                                <img src="{{ asset('storage/'.$menu->image_path) }}"
+                                     class="h-full w-full object-cover">
+                            @else
+                                <i class="fa-solid fa-utensils text-gray-500"></i>
+                            @endif
+                        </div>
+                    </td>
 
-                        <td>
-                            <div class="flex items-center gap-3">
-                                <div>
-                                    <div class="font-bold">{{ $menu->name }}</div>
-                                </div>
-                            </div>
-                        </td>
+                    {{-- HARGA --}}
+                    <td class="py-5 px-4 text-center font-medium">
+                        Rp {{ number_format($menu->price,0,',','.') }}
+                    </td>
 
-                        {{-- Nama Kantin: gunakan relation location --}}
-                        <td class="text-center">
-                            <span class="badge badge-ghost badge-lg max-w-[150px] truncate inline-block whitespace-nowrap">
-                                {{ $menu->location?->name ?? '-' }}
-                            </span>
-                        </td>
+                    {{-- NAMA --}}
+                    <td class="py-5 px-4 font-semibold">
+                        {{ $menu->name }}
+                    </td>
 
-                        <td class="text-sm text-gray-600">
-                            {{ \Illuminate\Support\Str::limit($menu->description, 80) }}
-                        </td>
+                    {{-- KANTIN --}}
+                    <td class="py-5 px-4 text-center">
+                        <span class="px-3 py-1 rounded-full
+                                     bg-gray-100 text-sm font-medium">
+                            {{ $menu->location?->name ?? '-' }}
+                        </span>
+                    </td>
 
-                        <td class="flex justify-around gap-2">
-                            <a href="{{ route('menus.show', $menu->id) }}" class="btn btn-l bg-blue-800 hover:bg-blue-900 hover:text-white">
-                                <i class="fa-solid fa-circle-info mr-1"></i>
-                                Details
-                            </a>
+                    {{-- DESKRIPSI --}}
+                    <td class="py-5 px-4 text-gray-600 max-w-sm truncate">
+                        {{ Str::limit($menu->description, 80) }}
+                    </td>
 
-                            <a href="{{ route('menus.edit', $menu->id) }}" class="btn btn-l bg-amber-500 hover:bg-amber-700 hover:text-white">
-                                <i class="fa-solid fa-pen-to-square mr-1"></i>
-                                Update
-                            </a>
+                    {{-- ACTION --}}
+                    <td class="py-5 px-4 text-center space-x-2">
+                        <a href="{{ route('menus.show', $menu->id) }}"
+                           class="bg-blue-600 hover:bg-blue-700
+                                  border-2 border-black
+                                  text-white px-4 py-2
+                                  rounded-lg text-sm shadow inline-flex gap-2">
+                            <i class="fa-solid fa-circle-info"></i>
+                            Details
+                        </a>
 
-                            {{-- modal delete trigger --}}
-                            <label for="deleteModal_{{ $menu->id }}" class="btn btn-l bg-red-500 hover:bg-red-700 hover:text-white">
-                                <i class="fa-solid fa-trash mr-1"></i>
-                                Delete
-                            </label>
+                        <a href="{{ route('menus.edit', $menu->id) }}"
+                           class="bg-amber-500 hover:bg-amber-600
+                                  border-2 border-black
+                                  text-white px-4 py-2
+                                  rounded-lg text-sm shadow inline-flex gap-2">
+                            <i class="fa-solid fa-pen"></i>
+                            Update
+                        </a>
 
-                            {{-- Delete modal markup --}}
-                            <input type="checkbox" id="deleteModal_{{ $menu->id }}" class="modal-toggle" />
-                            <div class="modal">
-                                <div class="modal-box bg-white text-black rounded-xl">
-                                    <h3 class="font-bold text-xl mb-4 text-red-600">
-                                        <i class="fa-solid fa-triangle-exclamation mr-2"></i>
-                                        Konfirmasi Penghapusan
-                                    </h3>
-
-                                    <p class="mb-6">
-                                        Apakah Anda Yakin Ingin Menghapus
-                                        <span class="font-bold">{{ $menu->name }}</span>?
-                                    </p>
-
-                                    <div class="modal-action flex justify-end gap-3">
-                                        <label for="deleteModal_{{ $menu->id }}" class="btn btn-ghost rounded-xl">Cancel</label>
-
-                                        <form action="{{ route('menus.destroy', $menu->id) }}" method="POST">
-                                            @csrf
-                                            @method('DELETE')
-
-                                            <button type="submit" class="btn bg-red-600 hover:bg-red-700 text-white rounded-xl">
-                                                Ya, Delete
-                                            </button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                @empty
-                    <tr>
-                        <td colspan="7" class="px-6 py-8 text-center text-gray-600">
-                            No menus found.
-                        </td>
-                    </tr>
-                @endforelse
+                        <button
+                            onclick="openDeleteModal({{ $menu->id }}, '{{ $menu->name }}')"
+                            class="bg-red-600 hover:bg-red-700
+                                   border-2 border-black
+                                   text-white px-4 py-2
+                                   rounded-lg text-sm shadow inline-flex gap-2">
+                            <i class="fa-solid fa-trash"></i>
+                            Delete
+                        </button>
+                    </td>
+                </tr>
+            @empty
+                <tr>
+                    <td colspan="7" class="py-8 text-center text-gray-500">
+                        No menus found.
+                    </td>
+                </tr>
+            @endforelse
             </tbody>
         </table>
 
-        {{-- pagination --}}
-        <div class="p-4">
-            {{ $menus->links() }}
+        {{-- PAGINATION --}}
+        <div class="mt-8 flex justify-end">
+            {{ $menus->links('pagination::tailwind') }}
         </div>
     </div>
 </div>
+
+{{-- DELETE MODAL --}}
+<div id="deleteModal"
+     class="fixed inset-0 hidden z-50 flex items-center justify-center">
+
+    <div class="absolute inset-0 bg-black/40 backdrop-blur-sm"
+         onclick="closeDeleteModal()"></div>
+
+    <div class="relative bg-white rounded-2xl shadow-xl
+                w-full max-w-md p-6 z-10">
+
+        <h3 class="text-xl font-bold text-red-600 mb-4">
+            <i class="fa-solid fa-triangle-exclamation mr-2"></i>
+            Konfirmasi Penghapusan
+        </h3>
+
+        <p class="mb-6 text-gray-700">
+            Apakah Anda yakin ingin menghapus
+            <span id="deleteName" class="font-semibold"></span>?
+        </p>
+
+        <div class="flex justify-end gap-3">
+            <button onclick="closeDeleteModal()"
+                    class="px-5 py-2 rounded-lg border text-gray-700">
+                Cancel
+            </button>
+
+            <form id="deleteForm" method="POST">
+                @csrf
+                @method('DELETE')
+                <button type="submit"
+                        class="px-5 py-2 rounded-lg
+                               bg-red-600 hover:bg-red-700
+                               text-white font-semibold">
+                    Ya, Delete
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+function openDeleteModal(id, name) {
+    document.getElementById('deleteForm').action = `/admin/menus/${id}`;
+    document.getElementById('deleteName').textContent = name;
+    document.getElementById('deleteModal').classList.remove('hidden');
+    document.body.classList.add('overflow-hidden');
+}
+
+function closeDeleteModal() {
+    document.getElementById('deleteModal').classList.add('hidden');
+    document.body.classList.remove('overflow-hidden');
+}
+</script>
 @endsection
