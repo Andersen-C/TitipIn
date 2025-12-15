@@ -120,33 +120,21 @@ class OrderController extends Controller
         return redirect()->route('runner.orders.show', $id);
     }
 
-     public function accepted($id)
-    {   
-        $order = Order::findOrFail($id);
+    public function deliverOrder($id)
+    {
+        $order = Order::where('id', $id)->where('runner_id', Auth::id())->firstOrFail();
+        $order->update(['status' => 'on_delivery']); 
+        
+        return redirect()->route('runner.orders.show', $id);
+    }
+
+    public function completeOrder($id)
+    {
+        $order = Order::where('id', $id)->where('runner_id', Auth::id())->firstOrFail();
         $order->update([
-            'accepted_at' => now(),
-            'runner_id' => Auth::user()->id,
-            'status' => 'accepted'
-
+            'status' => 'completed',
+            'completed_at' => now()
         ]);
-        return view('runner.orderaccept', compact('order') );
-    }
-
-    public function pickup($id)
-    {
-        $order = Order::findOrFail($id);
-        return view('runner.orderpickup', compact('order') );
-    }
-
-    public function deliver($id)
-    {
-        $order = Order::findOrFail($id);
-        return view('runner.orderdeliver', compact('order') );
-    }
-
-    public function complete($id)
-    {
-        $order = Order::findOrFail($id);
-        return view('runner.ordercomplete', compact('order') );
+        return redirect()->route('runner.orders.show', $id)->with('success', 'Pesanan Selesai!');
     }
 }
