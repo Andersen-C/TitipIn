@@ -62,18 +62,20 @@ class OrderController extends Controller
         return view('runner.order', compact('orders'));
     }
 
-    public function accept($id)
+    public function acceptOrder($id)
     {
-        $updated = Order::where('id', $id)->whereNull('runner_id')->update([
-                'runner_id' => Auth::id(),
-                'status' => 'accepted'
-            ]);
+        $order = Order::findOrFail($id);
 
-        if (!$updated) {
-            return back()->with('error', 'Pesanan sudah diambil runner lain.');
+        if ($order->runner_id !== null) {
+            return redirect()->back()->with('error', 'Yah, terlambat! Pesanan ini sudah diambil runner lain.');
         }
+        $order->update([
+            'runner_id' => Auth::id(),
+            'status' => 'accepted',
+            'accepted_at' => now(),
+        ]);
 
-        return redirect()->back()->with('success', 'Pesanan berhasil diambil!');
+        return redirect()->route('runner.orders.show', $id)->with('success', 'Pesanan berhasil diambil!');
     }
 
     public function runnerShow($id)

@@ -97,8 +97,11 @@ class HomeController extends Controller
         $totalEarnings = Order::where('runner_id', $user->id)
             ->where('status', 'completed')
             ->sum('service_fee');
+        $rating = $user->avg_rating; 
 
-        $rating = $user->avg_rating ?? 0;
+        if ($rating === null) {
+            $rating = 0;
+        }
 
         return view('runner.home', compact('totalEarnings', 'rating', 'user'));
     }
