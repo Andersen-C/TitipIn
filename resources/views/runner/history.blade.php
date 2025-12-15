@@ -74,7 +74,13 @@
                                 </form>
 
                             @else
-                                <span class="text-gray-400 px-2 py-1 font-semibold text-sm italic">Ongoing</span>
+                                @if($order->status == 'completed' || $order->status == 'Selesai')
+                                    <span class="text-green-600 px-2 py-1 font-bold text-sm uppercase">Selesai</span>
+                                @elseif($order->status == 'canceled' || $order->status == 'Dibatalkan')
+                                    <span class="text-red-500 px-2 py-1 font-bold text-sm uppercase">Dibatalkan</span>
+                                @else
+                                    <span class="text-yellow-600 px-2 py-1 font-semibold text-sm italic uppercase">Ongoing</span>
+                                @endif
                             @endif
                         </div>
 

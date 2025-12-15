@@ -76,6 +76,7 @@ Route::prefix('runner')->middleware(['auth', 'role:user', 'mode:runner'])->group
     Route::get('/', [HomeController::class, 'runnerhome'])->name('runner.home');
 
     Route::get('/orders', [OrderController::class, 'runnerIndex'])->name('runner.orders.index');
+    
     Route::get('/orders/{id}', [OrderController::class, 'runnerShow'])->name('runner.orders.show');
 
     Route::post('/orders/{id}/accept', [OrderController::class, 'accept'])->name('runner.orders.accept');

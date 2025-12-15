@@ -6,10 +6,10 @@
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 font-sans ">
     
     <div class="mb-6">
-        <h1 class=" text-md sm:text-xl font-bold">Progress Pesanan • #ORD-27112025-002</h1>
+        <h1 class=" text-md sm:text-xl font-bold">Progress Pesanan • #ORBR-{{ $order->id }}</h1>
     </div>
 
-    {{-- top part so this part is done, but dont forget to change the next page --}}
+    {{-- PROGRESS BAR --}}
     <div class="hidden md:block bg-white rounded-2xl shadow-sm border border-slate-100 p-8 mb-6 overflow-x-auto ">
         <div class="flex items-center justify-between min-w-[600px]">
             
@@ -58,10 +58,9 @@
         </div>
     </div>
 
-    {{-- for mobile --}}
+    {{-- Progress Mobile --}}
     <div class="sm:hidden  bg-white rounded-2xl shadow-sm border border-slate-100 p-8 mb-3 overflow-x-auto ">
         <div class="flex items-center justify-between">
-            
             <div class="flex  items-center justify-center gap-3">
                 <div class="w-12 h-12  rounded-full bg-blue-700 flex items-center justify-center text-white shadow-lg shadow-blue-200">
                     <img src="{{ asset('storage/basil_location-solid.png') }}" alt="">
@@ -70,14 +69,13 @@
                     Tiba di Kantin
                 </div>
             </div>
-
         </div>
     </div>
 
-    {{-- middle man --}}
+    {{-- CONTENT UTAMA --}}
     <div class="flex flex-col  lg:flex-row gap-6  items-start">
 
-        {{-- left side --}}
+        {{-- LEFT SIDE (Status & Lokasi Pengantaran) --}}
         <div class="w-full lg:flex-1 bg-white   rounded-2xl shadow-sm border border-slate-100 p-2 sm:p-6 md:p-8">
             
             <div class="mb-8">
@@ -96,29 +94,57 @@
 
             <div class="mt-6">
                 <h3 class="font-semibold  text-lg mb-4">Lokasi Pengantaran</h3>
-                <p class="font-medium  ">Kelas 513 - Area Lift a/n Mikwok</p>
-                <p class="opacity-90 ">Binus anggrek - Lantai 5</p>
-                <p class="opacity-75 ">Pembayaran : COD</p>
+                
+                {{-- Data Dinamis --}}
+                <p class="font-medium text-lg text-green-700">{{ $order->deliveryLocation->name ?? '-' }}</p>
+                <p class="opacity-90 ">
+                    {{ $order->deliveryLocation->description ?? '' }}
+                    @if(isset($order->deliveryLocation->formatted_floor))
+                        {{ $order->deliveryLocation->formatted_floor }}
+                    @endif
+                </p>
+                <p class="opacity-75 mt-2">
+                    Pembayaran : <span class="font-bold">{{ $order->payment_method ?? 'COD' }}</span>
+                </p>
             </div>
         </div>
-        {{-- right side --}}
+
+        {{-- Detail Menu & Lokasi Ambil --}}
         <div class="w-full lg:w-[400px] flex flex-col gap-6">
 
             <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-6">
-                <h3 class="text-xl  font-bold mb-1">Sushi Jepun</h3>
-                <p class="text-slate-600  mb-4">1x • Rp 25.000</p>
+                
+                @php
+                    $groupedItems = $order->orderItems->groupBy('menu_id');
+                @endphp
+
+                @foreach($groupedItems as $items)
+                    @php
+                        $firstItem = $items->first();
+                        $totalQty = $items->count();
+                    @endphp
+                    <div class="mb-3">
+                        <h3 class="text-xl font-bold mb-1">{{ $firstItem->menu->name }}</h3>
+                        <p class="text-slate-600">{{ $totalQty }}x • Rp {{ number_format($firstItem->price, 0, ',', '.') }}</p>
+                    </div>
+                @endforeach
                 
                 <div class="border-b-4 border-gray-300 my-2 "></div>
                 
-                <div class="mb-4">
+                <div class="mb-4 pt-2">
                     <p class="font-semibold  mb-1">Lokasi Pengambilan</p>
-                    <p class=" font-medium ">Kantin Sushi Binusian - Meja 3</p>
-                    <p class="opacity-80  text-md">Binus anggrek - Lantai 1</p>
+                    <p class="font-medium text-blue-800">{{ $order->pickupLocation->name ?? '-' }}</p>
+                    <p class="opacity-80 text-md">
+                        {{ $order->pickupLocation->description ?? '' }}
+                        @if(isset($order->pickupLocation->formatted_floor))
+                            {{ $order->pickupLocation->formatted_floor }}
+                        @endif
+                    </p>
                 </div>
 
                 <div class="border-b-4 border-gray-300 my-2 sm:mt-10"></div>
 
-                <div class=" p-3 text-sm  text-center  font-bold ">
+                <div class=" p-3 text-sm  text-center  font-bold text-orange-500">
                     Kantin sedang menyiapkan titipan
                 </div>
             </div>
@@ -129,7 +155,10 @@
                     <div class="w-8 h-8 rounded-full flex items-center justify-center">
                         <img src="{{ asset('storage/chat.png') }}" alt="">
                     </div>
-                    <span class="text-md font-semibold">Chat Titipers</span>
+                    <div>
+                        <span class="text-md font-semibold block">Chat Titipers</span>
+                        <span class="text-xs text-gray-400">{{ $order->titiper->name ?? 'User' }}</span>
+                    </div>
                 </a>
 
                 <a href="#" class="flex items-center gap-3 text-left hover:bg-slate-50 p-2 rounded-lg transition">
