@@ -82,13 +82,10 @@
                 <h2 class="text-2xl font-semibold mb-2">Konfirmasi titipan diantarkan?</h2>
                 <p class="opacity-75 font-semibold mb-6 ">Konfirmasi ke Titipers kalo titipan sudah jalan</p>
                 
-                <div class=" flex flex-col justify-center items-center">
-                    <form action="{{ route('runner.orders.complete', $order->id) }}" method="POST" class="w-full">
-                        @csrf
-                        <button type="submit" class="w-full bg-blue-700 hover:bg-blue-800 items-center justify-center flex text-white font-semibold py-4 px-6 rounded-lg transition duration-200">
-                            Konfirmasi Selesai / Sampai
-                        </button>
-                    </form>
+                <div class=" flex flex-col justify-center items-center  ">
+                    <a href="{{ route('runner.orders.complete',$order->id) }}" class="w-full bg-blue-700  hover:bg-blue-800 items-center justify-center flex text-white font-semibold py-4 px-6 rounded-lg transition duration-200 ">
+                        Konfirmasi diantarkan
+                    </a>
                 </div>
             </div>
 
