@@ -75,14 +75,15 @@ Route::prefix('titiper')->middleware(['auth', 'role:user', 'mode:titiper'])->gro
 Route::prefix('runner')->middleware(['auth', 'role:user', 'mode:runner'])->group(function () {
     Route::get('/', [HomeController::class, 'runnerhome'])->name('runner.home');
 
+    Route::post('/orders/{id}/accept', [OrderController::class, 'accept'])->name('runner.orders.accept'); 
+    Route::post('/orders/{id}/pickup', [OrderController::class, 'pickupOrder'])->name('runner.orders.pickup'); 
+    Route::post('/orders/{id}/deliver', [OrderController::class, 'deliverOrder'])->name('runner.orders.deliver'); 
+    Route::post('/orders/{id}/complete', [OrderController::class, 'completeOrder'])->name('runner.orders.complete');
+    
     Route::get('/orders', [OrderController::class, 'runnerIndex'])->name('runner.orders.index');
     
     Route::get('/orders/{id}', [OrderController::class, 'runnerShow'])->name('runner.orders.show');
 
-    Route::post('/orders/{id}/accept', [OrderController::class, 'acceptOrder'])->name('runner.orders.accept'); 
-    Route::post('/orders/{id}/pickup', [OrderController::class, 'pickupOrder'])->name('runner.orders.pickup'); 
-    Route::post('/orders/{id}/deliver', [OrderController::class, 'deliverOrder'])->name('runner.orders.deliver'); 
-    Route::post('/orders/{id}/complete', [OrderController::class, 'completeOrder'])->name('runner.orders.complete');
 
     Route::get('/history', [HistoryController::class,'historyIndex'])->name('runner.history.index');
     Route::get('/history/{id}', [HistoryController::class, 'historyShow'])->name('runner.history.show');
