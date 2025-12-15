@@ -94,7 +94,7 @@
         </div>
 
         {{-- HARGA & ACTION --}}
-        <div class="flex flex-col w-full sm:w-5/12 mt-10 sm:mt-0">
+        <div class="flex flex-col w-full sm:w-5/12 mt-10 sm:mt-31">
             <div class="px-6 py-8 shadow-[0_0_15px_rgba(0,0,0,0.1)] rounded-xl bg-gray-50 h-fit">
                 
                 {{-- SECTION HARGA --}}
