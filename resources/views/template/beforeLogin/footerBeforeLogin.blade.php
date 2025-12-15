@@ -3,9 +3,9 @@
     <p class="font-bold text-lg">
       TitipIn
       <br />
-      Titip Makanan Antar Lantai Kampus Mudah & Cepat
+      {{ __('footer.Header') }}
     </p>
-    <p>Copyright © 2025 - All right reserved</p>
+    <p>{{__('footer.Copyright')}}</p>
   </aside>
   <nav>
     <div class="grid grid-flow-col gap-4">

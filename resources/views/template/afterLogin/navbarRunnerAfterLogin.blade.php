@@ -13,13 +13,21 @@
                 <a href="{{ route('runner.home') }}"
                     class="px-5 py-2 hover:bg-transparent hover:text-blue-700
                    {{ request()->routeIs('runner.home') ? 'bg-blue-600 text-white rounded-full hover:!bg-blue-700 hover:!text-white' : '' }}">
-                    Home
+                    {{ __('navbarRunnerAfterLogin.Menu1') }}
                 </a>
             </li>
 
-            <li><a href="{{ route('runner.orders.index') }}" class="px-5 py-2 hover:bg-transparent hover:text-blue-700 {{ request()->routeIs('runner.orders.index') ? 'bg-blue-600 text-white rounded-full hover:!bg-blue-700 hover:!text-white' : '' }}">Pesanan</a></li>
+            <li>
+                <a href="{{ route('runner.orders.index') }}" class="px-5 py-2 hover:bg-transparent hover:text-blue-700 {{ request()->routeIs('runner.orders.index') ? 'bg-blue-600 text-white rounded-full hover:!bg-blue-700 hover:!text-white' : '' }}">
+                {{ __('navbarRunnerAfterLogin.Menu2') }}
+                </a>
+            </li>
 
-            <li><a href="{{ route('runner.history.index') }}" class="px-5 py-2 hover:bg-transparent hover:text-blue-700 {{ request()->routeIs('runner.history.index') ? 'bg-blue-600 text-white rounded-full hover:!bg-blue-700 hover:!text-white' : '' }}">Histori</a></li>
+            <li>
+                <a href="{{ route('runner.history.index') }}" class="px-5 py-2 hover:bg-transparent hover:text-blue-700 {{ request()->routeIs('runner.history.index') ? 'bg-blue-600 text-white rounded-full hover:!bg-blue-700 hover:!text-white' : '' }}">
+                    {{ __('navbarRunnerAfterLogin.Menu3') }}
+                </a>
+            </li>
 
             <li>
                 <a href="{{ route('runner.profile') }}"
@@ -27,7 +35,7 @@
                    {{ request()->routeIs('runner.profile') || request()->routeIs('profile.update')
                        ? 'bg-blue-600 text-white rounded-full hover:!bg-blue-700 hover:!text-white'
                        : '' }}">
-                    Profil
+                    {{ __('navbarRunnerAfterLogin.Menu4') }}
                 </a>
             </li>
         </ul>
@@ -46,20 +54,28 @@
                 <li>
                     <a href="{{ route('runner.home') }}"
                         class="{{ request()->routeIs('runner.home') ? 'active bg-blue-600 text-white' : '' }}">
-                        Home
+                        {{ __('navbarRunnerAfterLogin.Menu1') }}
                     </a>
                 </li>
 
-                <li><a href="{{ route('runner.orders.index') }}"
-                        class="{{ request()->routeIs('runner.orders.index') ? 'active bg-blue-600 text-white' : '' }}">Pesanan</a></li>
+                <li>
+                    <a href="{{ route('runner.orders.index') }}"
+                        class="{{ request()->routeIs('runner.orders.index') ? 'active bg-blue-600 text-white' : '' }}">
+                        {{ __('navbarRunnerAfterLogin.Menu2') }}
+                    </a>
+                </li>
 
-                <li><a href="{{ route('runner.history.index') }}"
-                        class="{{ request()->routeIs('runner.history.index') ? 'active bg-blue-600 text-white' : '' }}">History</a></li>
+                <li>
+                    <a href="{{ route('runner.history.index') }}"
+                        class="{{ request()->routeIs('runner.history.index') ? 'active bg-blue-600 text-white' : '' }}">
+                        {{ __('navbarRunnerAfterLogin.Menu3') }}
+                    </a>
+                </li>
 
                 <li>
                     <a href="{{ route('runner.profile') }}"
                         class="{{ request()->routeIs('runner.profile') || request()->routeIs('profile.update') ? 'active bg-blue-600 text-white' : '' }}">
-                        Profil
+                        {{ __('navbarRunnerAfterLogin.Menu4') }}
                     </a>
                 </li>
             </ul>

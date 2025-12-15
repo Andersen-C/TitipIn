@@ -3,7 +3,7 @@
 
 @section('Content')
 <div class="p-12 min-h-screen">
-    <h1 class="text-3xl font-bold mb-4 text-blue-700">Hi, Admin</h1>
+    <h1 class="text-3xl font-bold mb-4 text-blue-700">{{__('admin.Introduction')}}</h1>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 w-full">
 
@@ -13,7 +13,7 @@
                 <i class="fa-solid fa-user text-xl sm:text-2xl"></i>
             </div>
             <div class="text-center sm:text-left">
-                <p class="text-gray-500 font-medium text-sm sm:text-base">Total User</p>
+                <p class="text-gray-500 font-medium text-sm sm:text-base">{{__('admin.UserCard')}}</p>
                 <h1 class="text-xl sm:text-2xl font-bold text-gray-800">{{ $users }}</h1>
             </div>
         </div>
@@ -24,7 +24,7 @@
                 <i class="fa-solid fa-user text-xl sm:text-2xl"></i>
             </div>
             <div class="text-center sm:text-left">
-                <p class="text-gray-500 font-medium text-sm sm:text-base">Total Active Runner</p>
+                <p class="text-gray-500 font-medium text-sm sm:text-base">{{__('admin.RunnerCard')}}</p>
                 <h1 class="text-xl sm:text-2xl font-bold text-gray-800">{{ $activeRunner }}</h1>
             </div>
         </div>
@@ -35,7 +35,7 @@
                 <i class="fa-solid fa-utensils text-xl sm:text-2xl"></i>
             </div>
             <div class="text-center sm:text-left">
-                <p class="text-gray-500 font-medium text-sm sm:text-base">Total Menu</p>
+                <p class="text-gray-500 font-medium text-sm sm:text-base">{{__('admin.MenuCard')}}</p>
                 <h1 class="text-xl sm:text-2xl font-bold text-gray-800">{{ $menus }}</h1>
             </div>
         </div>
@@ -46,7 +46,7 @@
                 <i class="fa-solid fa-cart-shopping text-xl sm:text-2xl"></i>
             </div>
             <div class="text-center sm:text-left">
-                <p class="text-gray-500 font-medium text-sm sm:text-base">Total Pesanan</p>
+                <p class="text-gray-500 font-medium text-sm sm:text-base">{{__('admin.OrderCard')}}</p>
                 <h1 class="text-xl sm:text-2xl font-bold text-gray-800">{{ $orders }}</h1>
             </div>
         </div>
@@ -55,14 +55,14 @@
     {{-- Chart --}}
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-5">
         <div class="bg-white p-4 rounded-xl shadow hover:shadow-xl transition duration-200 h-full">
-            <h2 class="text-xl sm:text-2xl font-bold mb-2 text-gray-700">Jumlah Biaya Order Selama 7 Hari Terakhir</h2>
+            <h2 class="text-xl sm:text-2xl font-bold mb-2 text-gray-700">{{__('admin.Stat1.Title')}}</h2>
             <div class="w-full h-64 sm:h-80 md:h-96">
                 <canvas id="TotalOrderPrice"></canvas>
             </div>
         </div>
 
         <div class="bg-white p-4 rounded-xl shadow hover:shadow-xl transition duration-200  h-full">
-            <h2 class="text-xl sm:text-2xl font-bold mb-2 text-gray-700">Jumlah Orderan Selama 7 Hari Terakhir</h2>
+            <h2 class="text-xl sm:text-2xl font-bold mb-2 text-gray-700">{{__('admin.Stat2.Title')}}</h2>
             <div class="w-full h-64 sm:h-80 md:h-96">
                 <canvas id="OrderAmount"></canvas>
             </div>
@@ -74,14 +74,14 @@
         <div class="overflow-x-auto p-4 bg-white rounded-xl hover:shadow-xl transition duration-200">
             <h2 class="text-xl sm:text-2xl font-bold mb-2 text-gray-700 flex item-center gap-2">
                 <i class="fa-solid fa-trophy text-yellow-500"></i>
-                Runner Leaderboard
+                {{__('admin.LeftTable.Title')}}
             </h2>
             <table class="table w-full border-collapse text-sm sm:text-base">
                 <thead class="text-black border-b-2 border-gray-600">
                     <tr>
-                        <th class="whitespace-nowrap">Rank</th>
-                        <th class="whitespace-nowrap">Nama</th>
-                        <th class="whitespace-nowrap">Total Order</th>
+                        <th class="whitespace-nowrap">{{__('admin.LeftTable.Rank')}}</th>
+                        <th class="whitespace-nowrap">{{__('admin.LeftTable.Name')}}</th>
+                        <th class="whitespace-nowrap">{{__('admin.LeftTable.Order')}}</th>
                     </tr>
                 </thead>
                 <tbody class="text-black">
@@ -108,16 +108,16 @@
         <div class="overflow-x-auto p-4 bg-white rounded-xl hover:shadow-xl transition duration-200">
             <h2 class="text-xl sm:text-2xl font-bold mb-2 text-gray-700">
                 <i class="fa-solid fa-bowl-food text-yellow-500"></i>
-                Menu Leaderboard
+                {{__('admin.RightTable.Title')}}
             </h2>
             <table class="table w-full border-collapse text-sm sm:text-base">
                 <!-- head -->
                 <thead class="text-black border-b-2 border-gray-600">
                     <tr>
-                        <th class="whitespace-nowrap">Rank</th>
-                        <th class="whitespace-nowrap">Nama</th>
-                        <th class="whitespace-nowrap">Jumlah Terjual</th>
-                        <th class="whitespace-nowrap">Location</th>
+                        <th class="whitespace-nowrap">{{__('admin.RightTable.Rank')}}</th>
+                        <th class="whitespace-nowrap">{{__('admin.RightTable.Name')}}</th>
+                        <th class="whitespace-nowrap">{{__('admin.RightTable.Sold')}}</th>
+                        <th class="whitespace-nowrap">{{__('admin.RightTable.Location')}}</th>
                     </tr>
                 </thead>
                 <tbody class="text-black">

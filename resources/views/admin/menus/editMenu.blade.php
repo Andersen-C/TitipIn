@@ -137,7 +137,7 @@
                                 class="px-4 py-1.5
                                        bg-blue-700 hover:bg-blue-900
                                        text-white text-sm
-                                       rounded-lg">
+                                       rounded-lg cursor-pointer">
                             Pilih File
                         </button>
                     </div>
@@ -161,7 +161,6 @@
     </div>
 </div>
 
-{{-- JS tampilkan nama file --}}
 <script>
 document.addEventListener('DOMContentLoaded', function () {
     const input = document.getElementById('imageInput');
@@ -176,4 +175,19 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 </script>
+
+<style>
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+        background: inherit !important;
+        border: none;
+        width: 16px;
+        height: 100%;
+    }
+
+    input[type=number] {
+        -moz-appearance: textfield;
+        background-color: inherit !important;
+    }
+</style>
 @endsection

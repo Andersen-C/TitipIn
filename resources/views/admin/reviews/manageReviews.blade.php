@@ -2,23 +2,17 @@
 @section('Title','Manage Reviews')
 
 @section('Content')
-<div class="p-12 min-h-screen bg-gray-50">
+<div class="p-12 min-h-screen">
 
     {{-- HEADER --}}
     <div class="relative mb-8 flex items-center">
         <a href="{{ route('admin.manage') }}"
-           class="bg-pink-500 hover:bg-pink-600
-                  text-white px-5 py-2
-                  rounded-xl text-sm sm:text-lg
-                  inline-flex items-center gap-2
-                  shadow-md">
+           class="btn btn-secondary rounded-xl text-sm sm:text-base px-3 sm:px-4">
             <i class="fa-solid fa-backward"></i>
             Back
         </a>
 
-        <h2 class="absolute left-1/2 -translate-x-1/2
-                   text-2xl sm:text-3xl
-                   font-bold text-blue-700">
+        <h2 class="absolute left-1/2 -translate-x-1/2 text-2xl sm:text-3xl font-bold text-blue-700">
             Manage Reviews
         </h2>
     </div>
@@ -77,15 +71,11 @@
                     </td>
 
                     {{-- ACTION --}}
-                    <td class="py-5 px-4 text-center space-x-3">
+                    <td class="py-5 px-4 text-center space-x-1">
 
                         {{-- DETAIL --}}
                         <a href="{{ route('reviews.show', $review->id) }}"
-                           class="inline-flex items-center gap-2
-                                  bg-blue-600 hover:bg-blue-700
-                                  border-2 border-black
-                                  text-white px-4 py-2
-                                  rounded-lg text-sm shadow">
+                           class="btn btn-l mb-2 bg-blue-800 hover:bg-blue-900 hover:text-white">
                             <i class="fa-solid fa-circle-info"></i>
                             Detail
                         </a>
@@ -93,11 +83,7 @@
                         {{-- DELETE --}}
                         <button
                             onclick="openDeleteModal({{ $review->id }})"
-                            class="inline-flex items-center gap-2
-                                   bg-red-600 hover:bg-red-700
-                                   border-2 border-black
-                                   text-white px-4 py-2
-                                   rounded-lg text-sm shadow">
+                            class="btn btn-l mb-2 bg-red-500 hover:bg-red-700 hover:text-white">
                             <i class="fa-solid fa-trash"></i>
                             Delete
                         </button>

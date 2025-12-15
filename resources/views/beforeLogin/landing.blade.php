@@ -6,12 +6,12 @@
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
         <div class='space-y-6'>
             <h1 class="text-4xl md:text-5xl font-extrabold leading-tight">
-                <span class="text-blue-700">Titip Makanan Antar Lantai Kampus,</span>
+                <span class="text-blue-700">Food Delivery Across Campus Floors,</span>
                 <br>
-                <span class="text-amber-500">Mudah & Cepat!</span>
+                <span class="text-amber-500">Fast & Easy!</span>
             </h1>
             <p class="text-gray-600 text-lg md:text-xl">
-                Buat pesanan, pilih teman kampus yang siap bantu beli, dan tunggu pesananmu sampai ke lantai kamu.
+                Place your order, choose a fellow student ready to help buy it, and wait for your food to arrive right at your floor.
             </p>
             <div class="flex space-x-4 pt-4">
                 <a href="{{ route('login') }}"><button class="btn btn-primary bg-blue-700 hover:bg-blue-800 text-white border-blue-700 btn-lg">

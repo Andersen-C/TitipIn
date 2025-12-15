@@ -16,13 +16,8 @@ class LoginController extends Controller
             'email' => 'required|email',
             'password' => 'required' 
         ];
-        $messages = [
-            'email.required' => 'Email harus diisi',
-            'email.email' => 'Format email tidak sesuai',
-            'password.required' => 'Password harus diisi',
-        ];
 
-        $credentials = $request->validate($fields, $messages); 
+        $credentials = $request->validate($fields); 
 
         if(Auth::attempt($credentials)) {
             $request->session()->regenerate();
@@ -42,7 +37,7 @@ class LoginController extends Controller
             return redirect('/');
         }
         else {
-             return back()->with('failed', 'Login Gagal')->withInput();
+             return back()->with('failed', __('auth.LoginFailed'));
         }
     }
 }

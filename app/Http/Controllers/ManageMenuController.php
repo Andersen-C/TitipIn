@@ -89,7 +89,7 @@ class ManageMenuController extends Controller
     public function edit($id)
     {
         $menu = Menu::with(['location', 'category'])->findOrFail($id);
-        $locations = Location::orderBy('name')->get();
+        $locations = Location::where('name', 'NOT LIKE', '%Kelas%')->orderBy('name')->get();
         $categories = Category::orderBy('name')->get();
         return view('admin.menus.editMenu', compact('menu', 'locations', 'categories'));
     }
