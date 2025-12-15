@@ -11,12 +11,10 @@ use App\Models\Location;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
 
 class MenuController extends Controller
 {
-    /**
-     * MENU LIST PAGE
-     */
     public function index(Request $request)
     {
         $q = $request->query('q', null);
@@ -41,7 +39,7 @@ class MenuController extends Controller
                 fn($c) => $c->group == $group
             )->values();
         } else {
-            $subCategories = collect(); // kosong
+            $subCategories = collect(); 
         }
 
         $menusQuery = Menu::query()->with('category');
@@ -91,9 +89,6 @@ class MenuController extends Controller
         ]);
     }
 
-    /**
-     * DETAIL MENU PAGE
-     */
     public function show($menuId)
     {
         $menu = Menu::with('category')->findOrFail($menuId);
@@ -108,14 +103,51 @@ class MenuController extends Controller
         ]);
     }
 
-    /**
-     * CREATE ORDER FROM MENU DETAIL
-     */
-    public function createOrderFromMenu(Request $request, $menuId)
+    public function confirmation(Request $request, $menuId)
     {
         $data = $request->validate([
             'qty'  => 'required|integer|min:1|max:99',
             'note' => 'nullable|string|max:300',
+        ]);
+
+        $menu = Menu::with('location')->findOrFail($menuId);
+        $locations = Location::orderBy('name')->get();
+
+        $quantity   = (int) $data['qty'];
+        $subtotal   = $menu->price * $quantity;
+        $serviceFee = 3000.00;
+        $totalPrice = $subtotal + $serviceFee;
+
+        $imgUrl = 'https://via.placeholder.com/150';
+        if (!empty($menu->image)) {
+            if (\Illuminate\Support\Str::startsWith($menu->image, ['http://', 'https://'])) {
+                $imgUrl = $menu->image;
+            } elseif (\Illuminate\Support\Str::startsWith($menu->image, ['/storage/', 'storage/'])) {
+                $imgUrl = asset(ltrim($menu->image, '/'));
+            } else {
+                $imgUrl = asset('storage/' . ltrim($menu->image, '/'));
+            }
+        }
+
+        return view('titiper.menu.paymentSummary', [
+            'menu'       => $menu,
+            'qty'        => $quantity,
+            'note'       => $data['note'] ?? '',
+            'locations'  => $locations,
+            'subtotal'   => $subtotal,
+            'serviceFee' => $serviceFee,
+            'totalPrice' => $totalPrice,
+            'imgUrl'     => $imgUrl
+        ]);
+    }
+
+    public function storeOrder(Request $request, $menuId)
+    {
+        $data = $request->validate([
+            'qty'                  => 'required|integer|min:1',
+            'note'                 => 'nullable|string',
+            'pickup_location_id'   => 'required|exists:locations,id',
+            'delivery_location_id' => 'required|exists:locations,id',
         ]);
 
         $menu = Menu::findOrFail($menuId);
@@ -127,15 +159,12 @@ class MenuController extends Controller
         $serviceFee = 3000.00;
         $totalPrice = $subtotal + $serviceFee;
 
-        $pickupLocId   = $menu->location_id ?? Location::first()->id ?? 1;
-        $deliveryLocId = $user->location_id ?? Location::first()->id ?? 1;
-
         DB::beginTransaction();
         try {
             $order = Order::create([
                 'titiper_id'           => $user->id,
-                'pickup_location_id'   => $pickupLocId,
-                'delivery_location_id' => $deliveryLocId,
+                'pickup_location_id'   => $data['pickup_location_id'], 
+                'delivery_location_id' => $data['delivery_location_id'], 
                 'status'               => 'waiting_runner',
                 'subtotal'             => $subtotal,
                 'service_fee'          => $serviceFee,
@@ -156,14 +185,50 @@ class MenuController extends Controller
             return redirect()
                 ->route('titiper.orders.index')
                 ->with('success', 'Pesanan berhasil dibuat! Menunggu Runner.');
+
         } catch (\Throwable $e) {
             DB::rollBack();
-
             Log::error('Order Failed: ' . $e->getMessage());
 
-            return back()
-                ->withInput()
-                ->withErrors('Terjadi kesalahan: ' . $e->getMessage());
+            return back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+        }
+    }
+
+    public function storeLocation(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'name'         => 'required|string|max:50',
+            'floor_number' => 'required|integer|min:0|max:100',
+        ], [
+            'name.required' => 'Nama lokasi wajib diisi.',
+            'floor_number.required' => 'Lantai wajib diisi.',
+            'floor_number.integer' => 'Lantai harus berupa angka.',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 'validation_error',
+                'errors' => $validator->errors()
+            ], 422);
+        }
+
+        try {
+            $location = Location::create([
+                'name'         => $request->name,
+                'floor_number' => $request->floor_number,
+            ]);
+
+            return response()->json([
+                'status'   => 'success',
+                'message'  => 'Lokasi berhasil ditambahkan!',
+                'location' => $location,
+                'formatted_floor' => $location->floor_number == 0 ? 'Basement' : 'Lantai ' . $location->floor_number
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error', 
+                'message' => 'Terjadi kesalahan server: ' . $e->getMessage()
+            ], 500);
         }
     }
 }

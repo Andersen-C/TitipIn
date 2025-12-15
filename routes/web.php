@@ -49,7 +49,9 @@ Route::prefix('titiper')->middleware(['auth', 'role:user', 'mode:titiper'])->gro
 
     Route::get('/menu', [MenuController::class, 'index'])->name('titiper.menu.index');
     Route::get('/menu/{menuId}', [MenuController::class, 'show'])->name('titiper.menu.show');
-    Route::post('/menu/{menuId}/orders', [MenuController::class, 'createOrderFromMenu'])->name('titiper.menu.createOrder');
+    Route::post('/menu/{menuId}/confirmation', [MenuController::class, 'confirmation'])->name('titiper.menu.createOrder');
+    Route::post('/menu/{menuId}/store', [MenuController::class, 'storeOrder'])->name('titiper.menu.storeOrder');
+    Route::post('/location/quick-store', [MenuController::class, 'storeLocation'])->name('titiper.location.quickStore');
 
     Route::get('/orders', [OrderController::class, 'index'])->name('titiper.orders.index');
     Route::get('/orders/create', [OrderController::class, 'create'])->name('titiper.orders.create');

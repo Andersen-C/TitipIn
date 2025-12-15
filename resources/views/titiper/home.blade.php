@@ -34,7 +34,7 @@
     <main class="max-w-7xl mx-auto px-6 py-10">
         <div class="bg-white rounded-lg p-8 shadow-sm border">
 
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
 
                 <div class="lg:col-span-2">
                     <div class="flex flex-col gap-6">
@@ -52,7 +52,7 @@
                             </p>
 
                             <div class="mt-6">
-                                <a href="{{ url('titip/create') }}"
+                                <a href="{{ route('titiper.menu.index') }}"
                                     class="inline-block bg-sky-600 hover:bg-sky-700 text-white px-6 py-3 rounded-md shadow">Mulai
                                     Titip Sekarang</a>
                             </div>
@@ -139,12 +139,12 @@
                     </div>
                 </div>
 
-                <aside class="space-y-6">
-                    <div class="bg-white rounded-xl shadow p-4">
-                        <h3 class="text-lg font-semibold text-slate-800 mb-4">Rekomendasi Menu</h3>
+                <aside class="space-y-6 h-full">
+                    <div class="bg-white rounded-xl shadow p-4 h-full flex flex-col">
+                        <h3 class="text-lg font-semibold text-slate-800 mb-4 flex-shrink-0">Rekomendasi Menu</h3>
 
-                        <div class="space-y-4">
-                            @foreach ($recommended->take(3) as $menu)
+                        <div class="space-y-4 flex-1 overflow-y-auto pr-1 custom-scrollbar">
+                            @foreach ($recommended as $menu)
                                 @php
                                     $rawImg = $menu->image ?? ($menu->image_path ?? ($menu->image_url ?? null));
 
@@ -184,7 +184,7 @@
                             @endforeach
                         </div>
 
-                        <div class="mt-4">
+                        <div class="mt-4 flex-shrink-0">
                             <a href="{{ route('titiper.menu.index') }}"
                                 class="w-full block text-center bg-sky-600 text-white py-3 rounded-full">Selengkapnya</a>
                         </div>

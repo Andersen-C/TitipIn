@@ -75,13 +75,13 @@ class HomeController extends Controller
 
     public function titiperHome()
     {
-        $latestOrders = Order::with(['orderItems.menu', 'titiper']) // Ganti 'menu' jadi 'orderItems.menu'
+        $latestOrders = Order::with(['orderItems.menu', 'titiper']) 
             ->where('titiper_id', auth()->id())
             ->latest()
             ->take(4)
             ->get();
 
-        $recommended = \App\Models\Menu::latest()->take(6)->get();
+        $recommended = \App\Models\Menu::inRandomOrder()->take(5)->get();
 
         return view('titiper.home', compact(
             'latestOrders',
