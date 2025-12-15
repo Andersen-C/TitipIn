@@ -78,7 +78,7 @@ Route::prefix('runner')->middleware(['auth', 'role:user', 'mode:runner'])->group
     Route::get('/orders', [OrderController::class, 'runnerIndex'])->name('runner.orders.index');
     Route::get('/orders/{id}', [OrderController::class, 'runnerShow'])->name('runner.orders.show');
 
-    Route::post('/orders/{id}/accept', [OrderController::class, 'accepted'])->name('runner.orders.accept');
+    Route::post('/orders/{id}/accept', [OrderController::class, 'accept'])->name('runner.orders.accept');
     Route::get('/orders/{id}/pickup', [OrderController::class, 'pickup'])->name('runner.orders.pickup');
     Route::get('/orders/{id}/deliver', [OrderController::class, 'deliver'])->name('runner.orders.deliver');
     Route::get('/orders/{id}/complete', [OrderController::class, 'complete'])->name('runner.orders.complete');

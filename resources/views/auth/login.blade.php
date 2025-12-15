@@ -3,6 +3,7 @@
 
 @section('Content')
 <div class="container">
+   
     <div class="p-8 sm:p-12 md:p-16">
         <h1 class="text-3xl font-bold text-blue-900 mb-8">Login</h1>
         

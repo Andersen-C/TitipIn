@@ -97,9 +97,33 @@ class OrderController extends Controller
         return view('runner.orderdetail', compact('order'));
     }
 
-     public function accepted()
+     public function accepted($id)
+    {   
+        $order = Order::findOrFail($id);
+        $order->update([
+            'accepted_at' => now(),
+            'runner_id' => Auth::user()->id,
+            'status' => 'accepted'
+
+        ]);
+        return view('runner.orderaccept', compact('order') );
+    }
+
+    public function pickup($id)
     {
-        
-        return view('runner.orderaccept' );
+        $order = Order::findOrFail($id);
+        return view('runner.orderpickup', compact('order') );
+    }
+
+    public function deliver($id)
+    {
+        $order = Order::findOrFail($id);
+        return view('runner.orderdeliver', compact('order') );
+    }
+
+    public function complete($id)
+    {
+        $order = Order::findOrFail($id);
+        return view('runner.ordercomplete', compact('order') );
     }
 }
