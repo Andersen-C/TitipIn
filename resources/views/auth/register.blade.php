@@ -2,9 +2,9 @@
 @section('Title', 'Register')
 
 @section('Content')
-<div class="container">
-    <div class="p-8 sm:p-12 md:p-16">
-        <h1 class="text-3xl font-bold text-blue-900 mb-8">Register</h1>
+<div class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-md w-full bg-white p-8 rounded-lg shadow-xl border border-gray-200">
+        <h1 class="text-3xl text-center font-bold text-blue-700 mb-8">Register</h1>
         <form action="{{ route('register') }}" method="POST" class="space-y-6">
             @csrf 
             <div>
@@ -79,7 +79,7 @@
 
             <button 
                 type="submit" 
-                class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                class="w-full flex cursor-pointer justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
             >
                 Register
             </button>
