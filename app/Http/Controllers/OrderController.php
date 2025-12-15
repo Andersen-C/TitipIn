@@ -15,8 +15,7 @@ class OrderController extends Controller
         $userId = Auth::id();
 
         $query = Order::where('titiper_id', $userId)
-            ->with(['orderItems.menu', 'pickupLocation', 'deliveryLocation', 'runner'])
-            ->latest();
+            ->with(['orderItems.menu', 'pickupLocation', 'deliveryLocation', 'runner']);
 
         if ($currentStatus === 'Menunggu') {
             $query->where('status', 'waiting_runner');
@@ -28,23 +27,29 @@ class OrderController extends Controller
             $query->where('status', 'cancelled');
         }
 
+        $query->orderByRaw("CASE WHEN status = 'cancelled' THEN 1 ELSE 0 END ASC")
+              ->orderBy('created_at', 'desc');
+
         $orders = $query->get();
 
         return view('titiper.orders.index', compact('orders', 'currentStatus'));
     }
 
-    /**
-     * Membatalkan pesanan (Hanya jika status masih waiting_runner)
-     * Route: DELETE /titiper/orders/{id}
-     */
     public function destroy(Request $request, $id)
     {
         $order = Order::where('titiper_id', Auth::id())->findOrFail($id);
 
         if ($order->status === 'waiting_runner') {
+            $request->validate([
+                'reason' => 'required|string',
+                'detail' => 'nullable|string'
+            ]);
+
             $order->update([
                 'status' => 'cancelled',
                 'cancelled_at' => now(),
+                'cancellation_reason' => $request->reason,
+                'cancellation_note'   => $request->detail  
             ]);
 
             return redirect()->back()->with('success', 'Pesanan berhasil dibatalkan.');

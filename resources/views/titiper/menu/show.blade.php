@@ -129,8 +129,8 @@
               </div>
 
               {{-- BUTTON --}}
-              <button type="submit"
-                class="w-full bg-sky-600 hover:bg-sky-700 text-white py-3 rounded-xl text-lg font-semibold shadow-md">
+              <button type="button" id="titipSekarangBtn"
+                class="w-full bg-sky-600 hover:bg-sky-700 text-white py-3 rounded-xl text-lg font-semibold shadow-md  transition">
                 Titip Sekarang
               </button>
 
@@ -168,11 +168,20 @@
       placeholder="Tambahin catatan (opsional)..."
       maxlength="200"></textarea>
 
-    <div class="mt-4 flex items-center justify-between">
-      <span class="text-xs text-slate-400"><span id="charCount">0</span>/200</span>
-      <button id="modalSaveBtn" class="px-4 py-2 bg-sky-600 text-white rounded-md">
-        Simpan
-      </button>
+    <div class="mt-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <span class="text-xs text-slate-400 order-2 sm:order-1"><span id="charCount">0</span>/200</span>
+    
+        <div class="flex items-center gap-3 order-1 sm:order-2 w-full sm:w-auto">
+            <button type="button" id="modalSkipBtn" 
+            class="flex-1 sm:flex-none px-4 py-2 border border-slate-300 text-slate-600 rounded-md hover:bg-slate-50 font-medium transition">
+            Tanpa Catatan
+            </button>
+
+            <button type="button" id="modalSaveBtn" 
+            class="flex-1 sm:flex-none px-6 py-2 bg-sky-600 text-white rounded-md hover:bg-sky-700 font-semibold shadow transition">
+            Simpan & Pesan
+            </button>
+        </div>
     </div>
 
   </div>
@@ -181,12 +190,24 @@
 {{-- JS --}}
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-  // QTY BUTTONS
   const plus = document.getElementById("qtyPlus");
   const minus = document.getElementById("qtyMinus");
   const qty = document.getElementById("qty");
+  
   const orderForm = document.getElementById('orderForm');
   const noteInput = document.getElementById('noteInput');
+  const titipSekarangBtn = document.getElementById('titipSekarangBtn'); 
+
+  const openNotesBtn = document.getElementById("openNotesBtn"); 
+  const notesModal = document.getElementById("notesModal");
+  const closeNotesBtn = document.getElementById("closeNotesBtn");
+  
+  // Modal Action Buttons
+  const saveBtn = document.getElementById("modalSaveBtn");
+  const skipBtn = document.getElementById("modalSkipBtn");
+  
+  const noteText = document.getElementById("modalNoteTextarea");
+  const charCount = document.getElementById("charCount");
 
   const parse = v => {
     const n = parseInt(v, 10);
@@ -200,56 +221,71 @@ document.addEventListener('DOMContentLoaded', function () {
     qty.value = String(Math.max(1, parse(qty.value) - 1));
   });
 
-  // NOTES MODAL
-  const openNotesBtn = document.getElementById("openNotesBtn");
-  const notesModal = document.getElementById("notesModal");
-  const notesModalBox = document.getElementById("notesModalBox");
-  const closeNotesBtn = document.getElementById("closeNotesBtn");
-  const saveBtn = document.getElementById("modalSaveBtn");
-  const noteText = document.getElementById("modalNoteTextarea");
-  const charCount = document.getElementById("charCount");
-
-  openNotesBtn && openNotesBtn.addEventListener('click', () => {
+  function showModal() {
     noteText.value = noteInput.value || '';
     charCount.innerText = noteText.value.length;
+    
     notesModal.classList.remove('hidden');
     notesModal.classList.add('flex');
     noteText.focus();
-  });
+  }
 
-  closeNotesBtn && closeNotesBtn.addEventListener('click', closeModal);
   function closeModal() {
     notesModal.classList.add('hidden');
     notesModal.classList.remove('flex');
   }
 
-  notesModal && notesModal.addEventListener('click', function(e) {
-    if (e.target === notesModal) closeModal();
-  });
+  if(titipSekarangBtn) {
+    titipSekarangBtn.addEventListener('click', function() {
+      showModal();
+    });
+  }
+
+  if(openNotesBtn) {
+    openNotesBtn.addEventListener('click', function() {
+      showModal();
+    });
+  }
+
+  if(closeNotesBtn) closeNotesBtn.addEventListener('click', closeModal);
+  
+  if(notesModal) {
+    notesModal.addEventListener('click', function(e) {
+      if (e.target === notesModal) closeModal();
+    });
+  }
 
   document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape' && !notesModal.classList.contains('hidden')) closeModal();
+    if (e.key === 'Escape' && notesModal && !notesModal.classList.contains('hidden')) closeModal();
   });
 
-  saveBtn && saveBtn.addEventListener('click', () => {
-    noteInput.value = noteText.value.trim();
-    closeModal();
-  });
+  if(noteText) {
+    noteText.addEventListener('input', () => {
+      charCount.innerText = noteText.value.length;
+    });
+  }
 
-  noteText && noteText.addEventListener('input', () => {
-    charCount.innerText = noteText.value.length;
-  });
-
-  orderForm && orderForm.addEventListener('submit', function () {
-    const q = parse(qty.value);
-    if (q < 1) qty.value = '1';
-    if (q > 99) qty.value = '99';
-
-    if (noteText && noteText.value.trim() && noteInput.value.trim() === '') {
+  if(saveBtn) {
+    saveBtn.addEventListener('click', () => {
       noteInput.value = noteText.value.trim();
-    }
-  });
+      orderForm.submit();
+    });
+  }
 
+  if(skipBtn) {
+    skipBtn.addEventListener('click', () => {
+      noteInput.value = ''; 
+      orderForm.submit();
+    });
+  }
+
+  if(orderForm) {
+    orderForm.addEventListener('submit', function () {
+      const q = parse(qty.value);
+      if (q < 1) qty.value = '1';
+      if (q > 99) qty.value = '99';
+    });
+  }
 });
 </script>
 
