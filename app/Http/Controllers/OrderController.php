@@ -21,7 +21,7 @@ class OrderController extends Controller
         if ($currentStatus === 'Menunggu') {
             $query->where('status', 'waiting_runner');
         } elseif ($currentStatus === 'Sedang Dibelikan') {
-            $query->whereIn('status', ['accepted', 'arrived_at_pickup', 'item_picked', 'on_delivery', 'delivered']);
+            $query->whereIn('status', ['accepted', 'item_picked', 'on_delivery']);
         } elseif ($currentStatus === 'Selesai') {
             $query->where('status', 'completed');
         } elseif ($currentStatus === 'Dibatalkan') {
@@ -54,15 +54,28 @@ class OrderController extends Controller
         $myId = Auth::id();
 
         $orders = Order::with(['orderItems.menu', 'pickupLocation', 'deliveryLocation'])
-            ->where(function($query) use ($myId) {
-                $query->whereNull('runner_id')
-                      ->orWhere('runner_id', $myId);
-            })
-            ->whereNotIn('status', ['completed', 'cancelled']) 
-            ->orderBy('created_at', 'desc')
-            ->get();
+        ->where('status', 'waiting_runner')
+        ->whereNull('runner_id')
+        ->orderBy('created_at', 'desc')
+        ->get();
 
         return view('runner.order', compact('orders'));
+    }
+
+    public function acceptOrder($id)
+    {
+        $order = Order::findOrFail($id);
+
+        if ($order->runner_id !== null) {
+            return redirect()->back()->with('error', 'Yah, terlambat! Pesanan ini sudah diambil runner lain.');
+        }
+        $order->update([
+            'runner_id' => Auth::id(),
+            'status' => 'accepted',
+            'accepted_at' => now(),
+        ]);
+
+        return redirect()->route('runner.orders.show', $id)->with('success', 'Pesanan berhasil diambil!');
     }
 
     public function runnerShow($id)
@@ -85,7 +98,6 @@ class OrderController extends Controller
                 return view('runner.orderpickup', compact('order'));            
             
             case 'on_delivery':
-            case 'delivering': 
                  return view('runner.orderdeliver', compact('order'));
             
             case 'completed':
@@ -94,22 +106,6 @@ class OrderController extends Controller
             default:
                 return view('runner.orderaccept', compact('order'));
         }
-    }
-
-    public function acceptOrder($id)
-    {
-        $order = Order::findOrFail($id);
-
-        if ($order->runner_id !== null) {
-            return redirect()->back()->with('error', 'Yah, terlambat! Pesanan ini sudah diambil runner lain.');
-        }
-        $order->update([
-            'runner_id' => Auth::id(),
-            'status' => 'accepted',
-            'accepted_at' => now(),
-        ]);
-
-        return redirect()->route('runner.orders.show', $id)->with('success', 'Pesanan berhasil diambil!');
     }
 
     public function pickupOrder($id)

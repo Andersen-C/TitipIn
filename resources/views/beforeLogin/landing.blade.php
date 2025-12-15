@@ -23,13 +23,13 @@
                 </button></a>
             </div>
         </div>
+        <div class="hidden lg:block">
+            <img 
+                src="{{ asset('Gambar Home page.png') }}" 
+                alt="TitipIn" 
+                class="w-lg h-auto"
+            />
+        </div>
     </div>
-    {{-- <div class="hidden lg:block">
-        <img 
-            src="{{ asset('Gambar Home page.png') }}" 
-            alt="TitipIn" 
-            class="w-lg h-auto"
-        />
-    </div> --}}
 </div>
 @endsection
