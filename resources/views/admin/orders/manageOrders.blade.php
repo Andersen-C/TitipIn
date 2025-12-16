@@ -9,11 +9,11 @@
         <a href="{{ route('admin.manage') }}"
            class="btn btn-secondary rounded-xl text-sm sm:text-base px-3 sm:px-4">
             <i class="fa-solid fa-backward"></i>
-            Back
+            {{ __('admin.Back')}}
         </a>
 
         <h2 class="absolute left-1/2 -translate-x-1/2 text-lg sm:text-2xl md:text-3xl font-bold text-blue-800">
-            Manage Orders
+            {{ __('admin.OrderTable.Title') }}
         </h2>
     </div>
 
@@ -23,13 +23,13 @@
         <table class="min-w-full text-sm text-gray-800">
             <thead>
                 <tr class="text-left text-gray-600">
-                    <th class="py-4 px-4">No</th>
-                    <th class="py-4 px-4">Titiper</th>
-                    <th class="py-4 px-4">Runner</th>
-                    <th class="py-4 px-4">Status</th>
-                    <th class="py-4 px-4">Total</th>
-                    <th class="py-4 px-4">Tanggal</th>
-                    <th class="py-4 px-4 text-center">Action</th>
+                    <th class="py-4 px-4">{{ __('admin.OrderTable.No') }}</th>
+                    <th class="py-4 px-4">{{ __('admin.OrderTable.Titiper') }}</th>
+                    <th class="py-4 px-4">{{ __('admin.OrderTable.Runner') }}</th>
+                    <th class="py-4 px-4">{{ __('admin.OrderTable.Status') }}</th>
+                    <th class="py-4 px-4">{{ __('admin.OrderTable.Total') }}</th>
+                    <th class="py-4 px-4">{{ __('admin.OrderTable.Date') }}</th>
+                    <th class="py-4 px-4 text-center">{{ __('admin.OrderTable.Action') }}</th>
                 </tr>
             </thead>
 
@@ -78,14 +78,14 @@
                         <a href="{{ route('orders.show', $order->id) }}"
                            class="btn btn-l mb-2 bg-blue-800 hover:bg-blue-900 hover:text-white">
                             <i class="fa-solid fa-circle-info"></i>
-                            Details
+                            {{ __('admin.Details') }}
                         </a>
 
                         {{-- UPDATE --}}
                         <a href="{{ route('orders.edit', $order->id) }}"
                            class="btn btn-l mb-2 bg-amber-500 hover:bg-amber-700 hover:text-white">
                             <i class="fa-solid fa-pen"></i>
-                            Update
+                            {{ __('admin.Update') }}
                         </a>
 
                         {{-- DELETE --}}
@@ -93,7 +93,7 @@
                             onclick="openDeleteModal({{ $order->id }})"
                             class="btn btn-l mb-2 bg-red-500 hover:bg-red-700 hover:text-white">
                             <i class="fa-solid fa-trash"></i>
-                            Delete
+                            {{ __('admin.Delete') }}
                         </button>
 
                     </td>
@@ -124,12 +124,12 @@
         <div class="flex items-center gap-3 mb-4">
             <i class="fa-solid fa-triangle-exclamation text-red-600 text-2xl"></i>
             <h3 class="text-xl font-bold text-red-600">
-                Konfirmasi Penghapusan
+                {{ __('admin.OrderDeleteModal.Title') }}
             </h3>
         </div>
 
         <p class="text-gray-700 mb-6">
-            Apakah Anda yakin ingin menghapus order ini?
+            {{ __('admin.OrderDeleteModal.Message') }}
         </p>
 
         <div class="flex justify-end gap-3">
@@ -137,7 +137,7 @@
                     class="px-5 py-2 rounded-lg
                            border border-gray-300 cursor-pointer
                            text-gray-700 hover:bg-gray-100">
-                Cancel
+                {{ __('admin.OrderDeleteModal.Cancel') }}
             </button>
 
             <form id="deleteForm" method="POST">
@@ -147,7 +147,7 @@
                         class="px-5 py-2 rounded-lg
                                bg-red-600 hover:bg-red-700 cursor-pointer
                                text-white font-semibold shadow">
-                    Ya, Delete
+                    {{ __('admin.OrderDeleteModal.Delete') }}
                 </button>
             </form>
         </div>

@@ -6,16 +6,16 @@
     <div class="flex items-center justify-between mb-4 gap-2">
         <a href="{{ route('admin.manage') }}" class="btn btn-secondary rounded-xl text-sm sm:text-base px-3 sm:px-4">
             <i class="fa-solid fa-backward"></i>
-            <span class="hidden sm:inline">Back</span>
+            <span class="hidden sm:inline">{{__('admin.Back')}}</span>
         </a>
 
         <h1 class="text-lg sm:text-2xl md:text-3xl font-bold text-blue-800 text-center flex-1">
-            Manage Locations
+            {{ __('admin.LocTable.Title') }}
         </h1>
 
         <label for="addLocationModal" class="btn btn-primary rounded-xl text-sm sm:text-base md:text-lg px-3 sm:px-4 cursor-pointer">
             <i class="fa-solid fa-plus mr-1"></i> 
-            <span class="hidden sm:inline">Add</span>
+            <span class="hidden sm:inline">{{ __('admin.Add') }}</span>
         </label>
     </div>
 
@@ -33,10 +33,10 @@
             <!-- head -->
             <thead class="border-b-4 border-gray-800">
                 <tr class="text-black">
-                    <th class="text-xl text-center">No.</th>
-                    <th class="text-xl">Name</th>
-                    <th class="text-xl text-center">Floor Number</th>
-                    <th class="text-xl text-center">Action</th>
+                    <th class="text-xl text-center">{{ __('admin.LocTable.No') }}</th>
+                    <th class="text-xl">{{ __('admin.LocTable.Name') }}</th>
+                    <th class="text-xl text-center">{{ __('admin.LocTable.Floor') }}</th>
+                    <th class="text-xl text-center">{{ __('admin.LocTable.Action') }}</th>
                 </tr>
             </thead>
 
@@ -62,11 +62,11 @@
                         <td class="flex justify-around gap-2">
                             <label for="updateModal-{{ $loc->id }}" class="btn btn-l bg-amber-500 hover:bg-amber-700 hover:text-white">
                                 <i class="fa-solid fa-pen-to-square mr-1"></i>
-                                Update
+                                {{ __('admin.Update') }}
                             </label>
                             <label for="deleteModal_{{ $loc->id }}" class="btn btn-l bg-red-500 hover:bg-red-700 hover:text-white">
                                 <i class="fa-solid fa-trash mr-1"></i>
-                                Delete
+                                {{ __('admin.Delete') }}
                             </label>
                         </td>
                     </tr>
@@ -78,20 +78,20 @@
                             
                             <h3 class="font-bold text-xl mb-4 text-red-600">
                                 <i class="fa-solid fa-triangle-exclamation mr-2"></i>
-                                Konfirmasi Penghapusan
+                                {{ __('admin.LocDeleteModal.Title') }}
                             </h3>
                 
                             <p class="mb-6">
-                                Apakah Anda Yakin Ingin Menghapus
+                                {{ __('admin.LocDeleteModal.Message1') }}
                                 <span class="font-bold">{{ $loc->name }}</span>? 
-                                Aksi Ini Bersifat Permanen
+                                {{ __('admin.LocDeleteModal.Message2') }}
                             </p>
                 
                             <div class="modal-action flex justify-end gap-3">
                                 
                                 {{-- Cancel Button --}}
                                 <label for="deleteModal_{{ $loc->id }}" class="btn btn-ghost rounded-xl">
-                                    Cancel
+                                    {{ __('admin.LocDeleteModal.Cancel') }}
                                 </label>
                 
                                 {{-- Confirm Delete --}}
@@ -101,7 +101,7 @@
                 
                                     <button type="submit" 
                                             class="btn bg-red-600 hover:bg-red-700 text-white rounded-xl">
-                                        Ya, Delete
+                                        {{ __('admin.Delete') }}
                                     </button>
                                 </form>
                             </div>
@@ -122,8 +122,8 @@
                                 
                                 <div>
                                     <label class="block mb-l.5 text-sm font-bold
-                                    {{ $errors->{"update-$loc->id"}->has('name') ? 'text-red-600' : 'text-gray-900' }}">Nama Lokasi</label>
-                                    <input type="text" name="name" value="{{ $errors->{"update-$loc->id"}->has('name') ? old('name') : $loc->name }}" placeholder="Enter Location Name"
+                                    {{ $errors->{"update-$loc->id"}->has('name') ? 'text-red-600' : 'text-gray-900' }}">{{ __('admin.LocUpdateModal.Name.Title')}}</label>
+                                    <input type="text" name="name" value="{{ $errors->{"update-$loc->id"}->has('name') ? old('name') : $loc->name }}" placeholder="{{ __('admin.LocUpdateModal.Name.Placeholder')}}"
                                         class="w-full border border-default-medium rounded-xl px-3 py-2 {{ $errors->{"update-$loc->id"}->has('name') ? 'border-red-600 text-red-600 placeholder:text-red-400' : 'border-default-medium' }}">
                                     @error('name', "update-$loc->id")
                                         <p class="text-red-600 text-xs mt-1">{{ $message }}</p>
@@ -132,8 +132,8 @@
 
                                 <div>
                                     <label class="block mb-l.5 text-sm font-bold
-                                    {{ $errors->{"update-$loc->id"}->has('floor_number') ? 'text-red-600' : 'text-gray-900' }}">Floor Number</label>
-                                    <input type="number" name="floor_number" value="{{ $errors->{"update-$loc->id"}->has('floor_number') ? old('floor_number') : $loc->floor_number }}" placeholder="Enter Floor Number (0 For Basement)"
+                                    {{ $errors->{"update-$loc->id"}->has('floor_number') ? 'text-red-600' : 'text-gray-900' }}">{{ __('admin.LocUpdateModal.Floor.Title')}}</label>
+                                    <input type="number" name="floor_number" value="{{ $errors->{"update-$loc->id"}->has('floor_number') ? old('floor_number') : $loc->floor_number }}" placeholder="{{ __('admin.LocUpdateModal.Floor.Placeholder')}}"
                                         class="w-full border border-default-medium rounded-xl px-3 py-2 {{ $errors->{"update-$loc->id"}->has('floor_number') ? 'border-red-600 text-red-600 placeholder:text-red-400' : 'border-default-medium' }}">
                                     @error('floor_number', "update-$loc->id")  
                                         <p class="text-red-600 text-xs mt-1">{{ $message }}</p>
@@ -141,8 +141,8 @@
                                 </div>
 
                                 <div class="modal-action justify-end gap-3">
-                                    <label for="updateModal-{{ $loc->id }}" class="btn btn-ghost rounded-xl">Cancel</label>
-                                    <button type="submit" class="btn bg-blue-700 text-sm rounded-xl hover:bg-blue-900">Submit</button>
+                                    <label for="updateModal-{{ $loc->id }}" class="btn btn-ghost rounded-xl">{{ __('admin.LocDeleteModal.Cancel') }}</label>
+                                    <button type="submit" class="btn bg-blue-700 text-sm rounded-xl hover:bg-blue-900">{{__('admin.CreateUserForm.Submit')}}</button>
                                 </div>
                             </form>
                         </div>
@@ -164,7 +164,7 @@
 <div class="modal">
     <div class="modal-box bg-white text-gray-900 rounded-xl max-w-lg">
         <h3 class="font-bold text-xl mb-4 text-blue-800">
-            Add New Location
+            {{ __('admin.LocAddModal.Title') }}
         </h3>
 
         <form action="{{ route('locations.store') }}" method="POST" class="space-y-4">
@@ -172,8 +172,8 @@
 
             <div>
                 <label class="block mb-l.5 text-sm font-bold
-                {{ $errors->add->has('name') ? 'text-red-600' : 'text-gray-900' }}">Nama Lokasi</label>
-                <input type="text" name="name" value="{{ old('name') }}" placeholder="Enter Location Name"
+                {{ $errors->add->has('name') ? 'text-red-600' : 'text-gray-900' }}">{{__('admin.LocUpdateModal.Name.Title')}}</label>
+                <input type="text" name="name" value="{{ old('name') }}" placeholder="{{__('admin.LocUpdateModal.Name.Placeholder')}}"
                        class="w-full border rounded-xl px-3 py-2 {{ $errors->add->has('name') ? 'border-red-600 text-red-600' : 'border-default-medium' }}">
                 @error('name', 'add')
                     <p class="text-red-600 text-xs mt-1">{{ $message }}</p>
@@ -182,8 +182,8 @@
 
             <div>
                 <label class="block mb-l.5 text-sm font-bold
-                {{ $errors->add->has('floor_number') ? 'text-red-600' : 'text-gray-900' }}">Floor Number</label>
-                <input type="number" name="floor_number" value="{{ old('floor_number') }}" placeholder="Enter Floor Number {0 For Basement}"
+                {{ $errors->add->has('floor_number') ? 'text-red-600' : 'text-gray-900' }}">{{__('admin.LocUpdateModal.Floor.Title')}}</label>
+                <input type="number" name="floor_number" value="{{ old('floor_number') }}" placeholder="{{__('admin.LocUpdateModal.Floor.Placeholder')}}"
                        class="w-full border rounded-xl px-3 py-2 {{ $errors->add->has('floor_number') ? 'border-red-600 text-red-600' : 'border-default-medium' }}">
                 @error('floor_number', 'add')
                     <p class="text-red-600 text-xs mt-1">{{ $message }}</p>
@@ -191,8 +191,8 @@
             </div>
 
             <div class="modal-action justify-end gap-3">
-                <label for="addLocationModal" class="btn btn-ghost rounded-xl">Cancel</label>
-                <button type="submit" class="btn bg-blue-700 text-sm rounded-xl hover:bg-blue-900">Submit</button>
+                <label for="addLocationModal" class="btn btn-ghost rounded-xl">{{__('admin.LocDeleteModal.Cancel')}}</label>
+                <button type="submit" class="btn bg-blue-700 text-sm rounded-xl hover:bg-blue-900">{{__('admin.CreateUserForm.Submit')}}</button>
             </div>
         </form>
     </div>

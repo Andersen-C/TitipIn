@@ -62,4 +62,67 @@ return [
             'required' => 'Password Confirmation is required'
         ]
     ],
+
+    // Manage Locations
+    'ManageLoc' => [
+        'name' => [
+            'required' => 'Location name is required',
+            'string' => 'Location name must be a valid text',
+            'min' => 'Location name must be at least :min characters',
+            'max' => 'Location name must not be greater than :max characters',
+        ],
+        'Floor' => [
+            'required' => 'Floor number is required',
+            'integer ' => 'Floor number must be an integer',
+            'min' => 'Floor number must not be less than 0',
+        ]
+    ],
+
+    // Manage Categories
+    'ManageCat' => [
+        'name' => [
+            'required' => 'Category name is required',
+            'string' => 'Category name must be a valid text',
+            'min' => 'Category name must be at least :min characters',
+            'max' => 'Category name must not be greater than :max characters',
+            'unique' => 'Category name is already in use'
+        ],
+        'Group' => [
+            'string' => 'Group must be a valid text',
+            'max' => 'Group must not be greater than :max characters'
+        ]
+    ],
+    
+    // Manage Menu
+    'ManageMenu' => [
+        'name' => [
+            'required' => 'Menu name is required',
+            'string' => 'Menu name must be a valid text',
+            'min' => 'Menu name must be at least :min characters',
+            'max' => 'Menu name must not be greater than :max characters',
+        ],
+        'desc' => [
+            'string' => 'Description must be a valid text'
+        ],
+        'price' => [
+            'required' => 'Price is required',
+            'numeric' => 'Price must be a number',
+            'min' => 'Price must be at least :min'
+        ],
+        'category_id' => [
+            'required' => 'Category is required',
+            'exists' => 'Selected category is invalid'
+        ],
+        'location_id' => [
+            'required' => 'Location is required',
+            'exists' => 'Selected location is invalid'
+        ],
+        'image' => [
+            'required' => 'Image is required',
+            'image' => 'must be an image',
+            'max' => 'Image size must not be more than 2 MB'
+        ]
+    ],
+
+    
 ];

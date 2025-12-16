@@ -26,7 +26,7 @@ class ManageMenuController extends Controller
     public function create()
     {
         // pass locations & categories untuk dropdown di form
-        $locations = Location::orderBy('name')->get();
+        $locations = Location::where('name', 'NOT LIKE', '%Kelas%')->orderBy('name')->get();
         $categories = Category::orderBy('name')->get();
         return view('admin.menus.createMenu', compact('locations', 'categories'));
     }
@@ -34,7 +34,7 @@ class ManageMenuController extends Controller
     public function store(Request $request)
     {
         $rules = [
-            'name' => ['required','string','min:4','max:255'],
+            'name' => 'required|string|min:4|max:255',
             'description' => 'nullable|string',
             'price' => 'required|numeric|min:0',
             'category_id' => 'required|exists:categories,id',
@@ -44,22 +44,24 @@ class ManageMenuController extends Controller
         ];
 
         $messages = [
-            'name.required' => 'Nama makanan wajib diisi.',
-            'name.min' => 'Nama makanan harus memiliki minimal 4 huruf.',
+            'name.required' => __('validation.ManageMenu.name.required'),
+            'name.string' => __('validation.ManageMenu.name.string'),
+            'name.min' => __('validation.ManageMenu.name.min'),
+            'name.max' => __('validation.ManageMenu.name.max'),
+            'description.string' => __('validation.ManageMenu.desc.string'),
+            'price.required' => __('validation.ManageMenu.price.required'),
+            'price.numeric' => __('validation.ManageMenu.price.numeric'),
+            'price.min' => __('validation.ManageMenu.price.min'),
+            'category_id.required' => __('validation.ManageMenu.category_id.required'),
+            'category_id.exists' => __('validation.ManageMenu.category_id.exists'),
 
-            'price.required' => 'Harga wajib diisi.',
-            'price.numeric' => 'Harga harus berupa angka.',
-
-            'category_id.required' => 'Kategori wajib dipilih.',
-            'category_id.exists' => 'Kategori tidak valid.',
-
-            'location_id.required' => 'Nama kantin / lokasi wajib dipilih.',
-            'location_id.exists' => 'Lokasi tidak valid.',
+            'location_id.required' => __('validation.ManageMenu.location_id.required'),
+            'location_id.exists' => __('validation.ManageMenu.location_id.exists'),
 
             // pesan untuk gambar wajib
-            'image.required' => 'Gambar wajib diupload.',
-            'image.image' => 'File harus berupa gambar.',
-            'image.max' => 'Gambar maksimal 2 MB.',
+            'image.required' => __('validation.ManageMenu.image.required'),
+            'image.image' => __('validation.ManageMenu.image.image'),
+            'image.max' => __('validation.ManageMenu.image.max'),
         ];
 
         $data = $request->validate($rules, $messages);
@@ -77,7 +79,7 @@ class ManageMenuController extends Controller
 
         Menu::create($data);
 
-        return redirect()->route('menus.index')->with('success', 'Menu berhasil dibuat.');
+        return redirect()->route('menus.index')->with('success', __('admin.AddMenuSuccessTitle'));
     }
 
     public function show($id)
@@ -99,7 +101,7 @@ class ManageMenuController extends Controller
         $menu = Menu::findOrFail($id);
 
         $rules = [
-            'name' => ['required','string','min:4','max:255'],
+            'name' => 'required|string|min:4|max:255',
             'description' => 'nullable|string',
             'price' => 'required|numeric|min:0',
             'category_id' => 'required|exists:categories,id',
@@ -109,16 +111,19 @@ class ManageMenuController extends Controller
         ];
 
         $messages = [
-            'name.required' => 'Nama makanan wajib diisi.',
-            'name.min' => 'Nama makanan harus memiliki minimal 4 huruf.',
-            'price.required' => 'Harga wajib diisi.',
-            'price.numeric' => 'Harga harus berupa angka.',
-            'category_id.required' => 'Kategori wajib dipilih.',
-            'category_id.exists' => 'Kategori tidak valid.',
-            'location_id.required' => 'Nama kantin / lokasi wajib dipilih.',
-            'location_id.exists' => 'Lokasi tidak valid.',
-            'image.image' => 'File harus berupa gambar.',
-            'image.max' => 'Gambar maksimal 2 MB.',
+            'name.required' => __('validation.ManageMenu.name.required'),
+            'name.min' => __('validation.ManageMenu.name.min'),
+            'name.max' => __('validation.ManageMenu.name.max'),
+            'description.string' => __('validation.ManageMenu.desc.string'),
+            'price.required' => __('validation.ManageMenu.price.required'),
+            'price.numeric' => __('validation.ManageMenu.price.numeric'),
+            'price.min' => __('validation.ManageMenu.price.min'),
+            'category_id.required' => __('validation.ManageMenu.category_id.required'),
+            'category_id.exists' => __('validation.ManageMenu.category_id.exists'),
+            'location_id.required' => __('validation.ManageMenu.location_id.required'),
+            'location_id.exists' =>  __('validation.ManageMenu.location_id.exists'),
+            'image.image' =>  __('validation.ManageMenu.image.image'),
+            'image.max' => __('validation.ManageMenu.image.max'),
         ];
 
         $data = $request->validate($rules, $messages);
@@ -140,7 +145,7 @@ class ManageMenuController extends Controller
 
         $menu->update($data);
 
-        return redirect()->route('menus.index')->with('success', 'Menu berhasil diperbarui.');
+        return redirect()->route('menus.index')->with('success', __('admin.UpdateMenuSuccessTitle'));
     }
 
     public function destroy($id)
@@ -153,6 +158,6 @@ class ManageMenuController extends Controller
 
         $menu->delete();
 
-        return redirect()->route('menus.index')->with('success', 'Menu berhasil dihapus.');
+        return redirect()->route('menus.index')->with('success', __('admin.DeleteMenuSuccessTitle'));
     }
 }

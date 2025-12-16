@@ -6,24 +6,18 @@
     $isFinal = in_array($order->status, ['cancelled', 'completed']);
 @endphp
 
-<div class="p-12 min-h-screen bg-gray-50">
+<div class="p-12 min-h-screen">
 
     {{-- HEADER --}}
-    <div class="relative mb-6 flex items-center">
+    <div class="relative flex items-center mb-4 gap-2">
         <a href="{{ route('orders.index') }}"
-           class="bg-pink-500 hover:bg-pink-600
-                  text-white px-4 py-2
-                  rounded-xl text-sm sm:text-lg
-                  inline-flex items-center gap-2
-                  shadow-md">
+           class="btn btn-secondary rounded-xl text-sm sm:text-base px-3 sm:px-4">
             <i class="fa-solid fa-backward"></i>
-            Back
+            {{ __('admin.Back')}}
         </a>
 
-        <h2 class="absolute left-1/2 -translate-x-1/2
-                   text-xl sm:text-2xl md:text-3xl
-                   font-bold text-blue-800">
-            Update Order Status
+        <h2 class="absolute left-1/2 -translate-x-1/2 text-lg sm:text-2xl md:text-3xl font-bold text-blue-800">
+            {{ __('admin.OrderUpdatePage.Title') }}
         </h2>
     </div>
 
@@ -38,7 +32,7 @@
 
             {{-- ORDER ID --}}
             <div>
-                <p class="text-sm font-semibold text-gray-600">Order ID</p>
+                <p class="text-sm font-semibold text-gray-600">{{__('admin.OrderUpdatePage.OrderID')}}</p>
                 <p class="text-lg font-bold text-gray-900">
                     #{{ $order->id }}
                 </p>
@@ -47,7 +41,7 @@
             {{-- STATUS --}}
             <div>
                 <label class="block mb-2 text-sm font-semibold text-gray-700">
-                    Status Order
+                    {{__('admin.OrderUpdatePage.Status')}}
                 </label>
 
                 <select name="status"
@@ -66,29 +60,29 @@
                             : 'bg-white text-gray-900' }}">
 
                     <option value="waiting_runner" @selected($order->status === 'waiting_runner')>
-                        Waiting Runner
+                        {{__('admin.OrderUpdatePage.Waiting')}}
                     </option>
                     <option value="accepted" @selected($order->status === 'accepted')>
-                        Accepted
+                        {{__('admin.OrderUpdatePage.Accepted')}}
                     </option>
                     <option value="arrived_at_pickup" @selected($order->status === 'arrived_at_pickup')>
-                        Arrived at Pickup
+                        {{__('admin.OrderUpdatePage.Arrived')}}
                     </option>
                     <option value="completed" @selected($order->status === 'completed')>
-                        Completed
+                        {{__('admin.OrderUpdatePage.Completed')}}
                     </option>
                     <option value="cancelled" @selected($order->status === 'cancelled')>
-                        Cancelled
+                        {{__('admin.OrderUpdatePage.Cancelled')}}
                     </option>
                 </select>
 
                 @if($isFinal)
                     <p class="text-sm text-gray-500 mt-2">
-                        Order dengan status
+                        {{__('admin.OrderUpdatePage.OrderStatusDesc1')}}
                         <span class="font-semibold capitalize">
                             {{ $order->status }}
                         </span>
-                        tidak dapat diubah.
+                        {{__('admin.OrderUpdatePage.OrderStatusDesc2')}}
                     </p>
                 @endif
             </div>
@@ -105,7 +99,7 @@
                                {{ $isFinal
                                     ? 'bg-gray-400 text-white cursor-not-allowed'
                                     : 'bg-blue-600 hover:bg-blue-700 text-white' }}">
-                    Update Status
+                    {{__('admin.OrderUpdatePage.Update')}}
                 </button>
             </div>
 

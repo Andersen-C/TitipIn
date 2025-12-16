@@ -9,12 +9,12 @@
         <a href="{{ route('users.index') }}" 
            class="btn btn-secondary rounded-xl text-sm sm:text-lg z-10">
             <i class="fa-solid fa-backward"></i>
-            Back
+            {{ __('admin.Back') }}
         </a>
 
         <h1 class="absolute left-1/2 -translate-x-1/2 
                    text-xl sm:text-2xl md:text-3xl font-bold text-blue-800">
-            User Detail
+            {{ __('admin.UserDetailTitle') }}
         </h1>
     </div>
 
@@ -36,32 +36,32 @@
             <div class="flex-1 space-y-3 sm:space-y-4 text-black">
 
                 <div>
-                    <p class="text-gray-500 font-semibold text-sm sm:text-base">Name</p>
+                    <p class="text-gray-500 font-semibold text-sm sm:text-base">{{__('admin.CreateUserForm.Name.Title')}}</p>
                     <p class="text-lg sm:text-xl font-bold">{{ $user->name }}</p>
                 </div>
 
                 <div>
-                    <p class="text-gray-500 font-semibold text-sm sm:text-base">Role</p>
+                    <p class="text-gray-500 font-semibold text-sm sm:text-base">{{__('admin.CreateUserForm.Role.Title')}}</p>
                     <p class="text-lg font-bold">{{ ucfirst($user->role) }}</p>
                 </div>
 
                 <div>
-                    <p class="text-gray-500 font-semibold text-sm sm:text-base">Mode</p>
+                    <p class="text-gray-500 font-semibold text-sm sm:text-base">{{__('admin.CreateUserForm.Mode.Title')}}</p>
                     <p class="text-lg font-bold">{{ ucfirst($user->mode) }}</p>
                 </div>
 
                 <div>
-                    <p class="text-gray-500 font-semibold text-sm sm:text-base">Email</p>
+                    <p class="text-gray-500 font-semibold text-sm sm:text-base">{{__('admin.CreateUserForm.Email.Title')}}</p>
                     <p class="text-lg font-bold">{{ $user->email }}</p>
                 </div>
 
                 <div>
-                    <p class="text-gray-500 font-semibold text-sm sm:text-base">Phone Number</p>
+                    <p class="text-gray-500 font-semibold text-sm sm:text-base">{{__('admin.CreateUserForm.Phone.Title')}}</p>
                     <p class="text-lg font-bold">{{ $user->phone_number ?? 'N/A' }}</p>
                 </div>
 
                 <div>
-                    <p class="text-gray-500 font-semibold text-sm sm:text-base">Average Rating</p>
+                    <p class="text-gray-500 font-semibold text-sm sm:text-base">{{__('admin.UserTable.AvgRating')}}</p>
                     <p class="text-lg font-bold flex items-center gap-2">
                         <i class="fa-solid fa-star text-yellow-400 text-xl"></i>
                         {{ number_format($user->avg_rating, 1) }}

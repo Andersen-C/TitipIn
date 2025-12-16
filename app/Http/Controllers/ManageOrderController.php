@@ -93,7 +93,7 @@ class ManageOrderController extends Controller
 
         return redirect()
             ->route('orders.index')
-            ->with('success', 'Status order berhasil diperbarui');
+            ->with('success', __('admin.UpdateOrderSuccessTitle'));
     }
 
     /**
@@ -110,6 +110,6 @@ class ManageOrderController extends Controller
 
         return redirect()
             ->route('orders.index')
-            ->with('success', 'Order berhasil dibatalkan');
+            ->with('success', __('admin.DeleteOrderSuccessTitle'));
     }
 }
