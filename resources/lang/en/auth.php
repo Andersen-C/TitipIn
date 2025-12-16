@@ -26,5 +26,8 @@ return [
     'PassConfPlaceH' => 'Re-enter Password',
 
     'PasswordConf' => 'Confirm Password',
-    'AlreadyReg' => 'Already Registered?'
+    'AlreadyReg' => 'Already Registered?',
+
+    // Logout Page
+    'Logout' => 'Logout Success',
 ];

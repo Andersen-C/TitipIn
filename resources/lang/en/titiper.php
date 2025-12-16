@@ -132,5 +132,20 @@ return [
     ],
 
     'CancelOrderSuccess' => 'Order Cancelled Successfully!',
-    'CannotCancelOrder' => 'The order is already being processed and cannot be canceled.'
+    'CannotCancelOrder' => 'The order is already being processed and cannot be canceled.',
+
+    // Menu Controller
+    'OrderCreatedSuccess' => 'Order created successfully! Waiting for a runner.',
+    'OrderCreatedFailed' => 'Order Failed: ',
+    'OrderCreatedError' => 'An error occurred: ',
+    
+    'LocationAdded' => 'Location Added Successfully!',
+    'Floor' => 'Floor ',
+    'ServerError' => 'A server error occurred: ' ,
+
+    // Review Controller
+    'NoAccess' => 'You Have No Access!',
+    'OrderUncomplete' => 'The order is not completed yet.',
+    'OrderReviewed' => 'You have already reviewed this order.',
+    'SubmitReview' => 'Review submitted successfully!'
 ];

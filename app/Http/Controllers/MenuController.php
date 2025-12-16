@@ -120,9 +120,9 @@ class MenuController extends Controller
 
         $imgUrl = 'https://via.placeholder.com/150';
         if (!empty($menu->image)) {
-            if (\Illuminate\Support\Str::startsWith($menu->image, ['http://', 'https://'])) {
+            if (startsWith($menu->image, ['http://', 'https://'])) {
                 $imgUrl = $menu->image;
-            } elseif (\Illuminate\Support\Str::startsWith($menu->image, ['/storage/', 'storage/'])) {
+            } elseif (startsWith($menu->image, ['/storage/', 'storage/'])) {
                 $imgUrl = asset(ltrim($menu->image, '/'));
             } else {
                 $imgUrl = asset('storage/' . ltrim($menu->image, '/'));
@@ -184,13 +184,13 @@ class MenuController extends Controller
 
             return redirect()
                 ->route('titiper.orders.index')
-                ->with('success', 'Pesanan berhasil dibuat! Menunggu Runner.');
+                ->with('success', __('titiper.OrderCreatedSuccess'));
 
         } catch (\Throwable $e) {
             DB::rollBack();
-            Log::error('Order Failed: ' . $e->getMessage());
+            Log::error(__('titiper.OrderCreatedFailed') . $e->getMessage());
 
-            return back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+            return back()->with('error', __('titiper.OrderCreatedError') . $e->getMessage());
         }
     }
 
@@ -200,9 +200,9 @@ class MenuController extends Controller
             'name'         => 'required|string|max:50',
             'floor_number' => 'required|integer|min:0|max:100',
         ], [
-            'name.required' => 'Nama lokasi wajib diisi.',
-            'floor_number.required' => 'Lantai wajib diisi.',
-            'floor_number.integer' => 'Lantai harus berupa angka.',
+            'name.required' => __('validation.ManageLoc.name.required'),
+            'floor_number.required' => __('validation.ManageLoc.Floor.required'),
+            'floor_number.integer' => __('validation.ManageLoc.Floor.integer'),
         ]);
 
         if ($validator->fails()) {
@@ -220,14 +220,14 @@ class MenuController extends Controller
 
             return response()->json([
                 'status'   => 'success',
-                'message'  => 'Lokasi berhasil ditambahkan!',
+                'message'  => __('titiper.LocationAdded'),
                 'location' => $location,
-                'formatted_floor' => $location->floor_number == 0 ? 'Basement' : 'Lantai ' . $location->floor_number
+                'formatted_floor' => $location->floor_number == 0 ? 'Basement' : __('titiper.Floor') . $location->floor_number
             ]);
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error', 
-                'message' => 'Terjadi kesalahan server: ' . $e->getMessage()
+                'message' => __('titiper.ServerError')
             ], 500);
         }
     }

@@ -75,7 +75,7 @@ class OrderController extends Controller
         $order = Order::findOrFail($id);
 
         if ($order->runner_id !== null) {
-            return redirect()->back()->with('error', 'Yah, terlambat! Pesanan ini sudah diambil runner lain.');
+            return redirect()->back()->with('error', __('runner.OrderTaken'));
         }
         $order->update([
             'runner_id' => Auth::id(),
@@ -83,7 +83,7 @@ class OrderController extends Controller
             'accepted_at' => now(),
         ]);
 
-        return redirect()->route('runner.orders.show', $id)->with('success', 'Pesanan berhasil diambil!');
+        return redirect()->route('runner.orders.show', $id)->with('success', __('runner.OrderTakenByUs'));
     }
 
     public function runnerShow($id)
@@ -95,7 +95,7 @@ class OrderController extends Controller
             return view('runner.orderdetail', compact('order'));
         }
         if ($order->runner_id != $myId) {
-            return redirect()->route('runner.orders.index')->with('error', 'Pesanan ini milik runner lain.');
+            return redirect()->route('runner.orders.index')->with('error', __('runner.OrderBelongsOther'));
         }
 
         switch ($order->status) {
@@ -139,6 +139,6 @@ class OrderController extends Controller
             'status' => 'completed',
             'completed_at' => now()
         ]);
-        return redirect()->route('runner.orders.show', $id)->with('success', 'Pesanan Selesai!');
+        return redirect()->route('runner.orders.show', $id)->with('success', __('runner.OrderCompleted'));
     }
 }

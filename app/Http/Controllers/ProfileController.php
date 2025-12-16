@@ -123,7 +123,7 @@ class ProfileController extends Controller
         }
 
         /** @var \App\Models\User $user */
-        $user = \Illuminate\Support\Facades\Auth::user();
+        $user = Auth::user();
         $user->update(['mode' => $target]);
 
         return redirect()->route($target . '.home');

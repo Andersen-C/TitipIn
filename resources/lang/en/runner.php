@@ -16,7 +16,7 @@ return [
     // Runner Orders Page
     'Orders' => 'Orders',
     'Unknown' => 'Unknown',
-    'Pickup' => 'Pickup Location',
+    'Pickup' => 'Pick up Location',
     'Delivery' => 'Delivery Location',
     'newOrder' => 'New Order',
     'Pending' => 'Pending',
@@ -44,7 +44,7 @@ return [
     'Status' => 'Status',
     'cancelMsg' => 'This order has been cancelled!',
 
-    // Order Detail
+    // Order Detail Page
     'Intro' => 'Hi, ',
     'introsub' => 'You have a new order!',
     'EstimationTime' => 'Estimated Food Ready Time: 10 minutes',
@@ -54,14 +54,48 @@ return [
     'YourOrder' => 'Your Order',
     'Taken' => 'Order Taken',
 
-    // Order Accept
+    // Order Accept Page
     "OrderAcceptTitle" => 'Order Progress',
+    'OrderAcceptStatus' => 'Arrived at Pickup Location',
     'OrderAcceptStatus1' => 'Arrived at ',
     'OrderAcceptStatus2' => 'Pickup Location',
-    'DeliveryC' => '',
-    'PickupLocConf' => 'Arrived At Pickup Location',
-    'OrderPrepared' => 'Order is being prepared',
+    'PickupOrder1' => 'Pick up',
+    'PickupOrder2' => 'Order',
+    'OnTheWay1' => 'On the',
+    'OnTheWay2' => 'Way',
+    'ArrivedConf1' => 'Have you arrived at the pick up location?',
+    'ArrivedConf2' => 'Confirm to the Titipers that you have arrived at the pick up location.',
+    'OrderPrepared' => 'Order is Being Prepared',
     'CallTitipers' => 'Call Titiper',
     'ChatTitipers' => 'Chat Titiper',
-    'Report' => 'Report Problem'
+    'Report' => 'Report Problem',
+
+    //Order Pickup Page
+    'PickupOrders' => 'Pick up Orders',
+    'Pickup1' => 'Have you picked up the food?',
+    'Pickup2' => 'Confirm to the Titiper that you have picked up the order.',
+    'Pickup3' => 'Confirm Pick up',
+
+    // Order Deliver Page
+    'Delivery1' => 'Out for Delivery',
+    'Delivery2' => 'Confirm the order has been delivered?',
+    'Delivery3' => 'Confirm to the Titiper that the order has been delivered',
+    'Delivery4' => 'Confirm Completed',
+    'Delivery5' => 'Order Ready For Delivery',
+
+    // Order Completed Page
+    'Completed1' => 'Order Completed',
+    'Completed2' => 'Thank you, your order has been successfully completed.',
+    'Completed3' => 'Find Other Orders',
+    'Completed4' => 'View History',
+    'Completed5' => 'Order has been successfully completed',
+    'TitiperContact' => 'Contact Titiper',
+
+    // Order (Runner) Controller
+    'OrderTaken' => 'Oops, too late! This order has already been taken by another runner.',
+    'OrderTakenByUs' => 'Order successfully taken!',
+    'OrderBelongsOther' => 'This order belongs to another runner.',
+    'OrderCompleted' => 'Order Completed!',
+
+    
 ];

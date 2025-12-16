@@ -61,7 +61,7 @@
             <p class="text-sm text-gray-500 mb-2">{{ __('admin.ReviewDetailPage.Comment') }}</p>
             <div class="bg-gray-50 border border-gray-200
                         rounded-xl p-4 text-gray-800 leading-relaxed">
-                {{ $review->comment ?? 'Tidak ada komentar.' }}
+                {{ $review->comment ?? __('admin.NoComment') }}
             </div>
         </div>
 

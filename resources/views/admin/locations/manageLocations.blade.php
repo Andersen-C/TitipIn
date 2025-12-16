@@ -113,7 +113,7 @@
                     <div class="modal">
                         <div class="modal-box bg-white text-gray-900 rounded-xl max-w-lg">
                             <h3 class="font-bold text-xl mb-4 text-blue-800">
-                                Update Location
+                                {{ __('admin.LocUpdateModal.Title') }}
                             </h3>
 
                             <form action="{{ route('locations.update', $loc->id) }}" method="POST" class="space-y-4">

@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Cookie;
-use Symfony\Component\HttpFoundation\RateLimiter\RequestRateLimiterInterface;
 
 class LanguageController extends Controller
 {
@@ -19,6 +18,8 @@ class LanguageController extends Controller
         session(['locale' => $locale]);
         Cookie::queue('locale', $locale, 60 * 24 * 30);
         
+        App::setLocale($locale);
+
         return redirect()->back();
     }
 }

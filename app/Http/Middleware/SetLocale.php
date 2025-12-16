@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 class SetLocale
 {
 
-    protected $locale = ['en', 'id'];
+    protected $supportedLocales = ['en', 'id'];
     /**
      * Handle an incoming request.
      *
@@ -19,16 +19,17 @@ class SetLocale
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (session()->has('locale')) {
+        if (session()->has('locale') && in_array(session('locale'), $this->supportedLocales)) {
             App::setLocale(session('locale'));
-        } 
-        elseif (Cookie::has('locale')) {
+        }
+        elseif (Cookie::has('locale') && in_array(Cookie::get('locale'), $this->supportedLocales)) {
             App::setLocale(Cookie::get('locale'));
             session(['locale' => Cookie::get('locale')]);
         }
         else {
-            $browserLocale = substr($request->server('HTTP_ACCEPT_LANGUAGE'), 0, 2);
-            if (in_array($browserLocale, $this->locale)) {
+            $browserLocale = substr($request->server('HTTP_ACCEPT_LANGUAGE') ?? '', 0, 2);
+
+            if (in_array($browserLocale, $this->supportedLocales)) {
                 App::setLocale($browserLocale);
                 session(['locale' => $browserLocale]);
             } else {

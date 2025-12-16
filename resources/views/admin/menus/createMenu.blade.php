@@ -117,7 +117,7 @@
 
                     <div class="flex bg-gray-50 items-center justify-between border {{ $errors->has('image') ? 'border-red-600' : 'border-default-medium' }} rounded-xl px-3 py-2.5 shadow-xs">
                         <span id="file_name" class="text-gray-600 text-sm">
-                            {{ old('image') ? \Illuminate\Support\Str::afterLast(old('image'), '/') : __('admin.MenuCreatePage.ImgNo') }}
+                            {{ old('image') ? afterLast(old('image'), '/') : __('admin.MenuCreatePage.ImgNo') }}
                         </span>
 
                         <button type="button" onclick="document.getElementById('profileFileInput').click()"

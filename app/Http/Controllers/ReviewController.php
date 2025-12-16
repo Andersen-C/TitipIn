@@ -19,16 +19,16 @@ class ReviewController extends Controller
         $order = Order::findOrFail($orderId);
 
         if ($order->titiper_id !== Auth::id()) {
-            return back()->with('error', 'Anda tidak memiliki akses.');
+            return back()->with('error', __('titiper.NoAccess'));
         }
 
         if ($order->status !== 'completed') {
-            return back()->with('error', 'Pesanan belum selesai.');
+            return back()->with('error', __('titiper.OrderUncomplete'));
         }
 
         $existingReview = Review::where('order_id', $order->id)->first();
         if ($existingReview) {
-            return back()->with('error', 'Anda sudah mereview pesanan ini.');
+            return back()->with('error', __('titiper.OrderReviewed'));
         }
 
         Review::create([
@@ -43,6 +43,6 @@ class ReviewController extends Controller
             $order->runner->update_rating();
         }
 
-        return back()->with('success', 'Ulasan berhasil dikirim!');
+        return back()->with('success', __('titiper.SubmitReview'));
     }
 }

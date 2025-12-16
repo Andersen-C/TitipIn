@@ -29,7 +29,7 @@
                     <img src="{{ asset('storage/hand_stuff.png') }}" alt="">
                 </div>
                 <div class="text-slate-500 font-medium text-sm">
-                    Mengambil<br>Titipan
+                    {{ __('runner.PickupOrder1') }}<br>{{ __('runner.PickupOrder2') }}
                 </div>
             </div>
 
@@ -40,7 +40,7 @@
                     <img src="{{ asset('storage/im_on_the_way.png') }}" alt="">
                 </div>
                 <div class="text-slate-500 font-medium text-sm">
-                    Sedang<br>diantarkan
+                    {{__('runner.OnTheWay1')}}<br>{{ __('runner.OnTheWay2') }}
                 </div>
             </div>
 
@@ -51,7 +51,7 @@
                     <img src="{{ asset('storage/check.png') }}" alt="">
                 </div>
                 <div class="text-slate-500 font-medium text-sm">
-                    Selesai
+                    {{ __('runner.Completed') }}
                 </div>
             </div>
 
@@ -66,7 +66,7 @@
                     <img src="{{ asset('storage/basil_location-solid.png') }}" alt="">
                 </div>
                 <div class="text-blue-700 font-semibold text-lg hover:bg-blue-950">
-                    Tiba di Kantin
+                    {{ __('runner.OrderAcceptStatus') }}
                 </div>
             </div>
         </div>
@@ -79,15 +79,15 @@
         <div class="w-full lg:flex-1 bg-white   rounded-2xl shadow-sm border border-slate-100 p-2 sm:p-6 md:p-8">
             
             <div class="mb-8">
-                <h2 class="text-2xl font-semibold mb-2">Konfirmasi sudah sampai kantin?</h2>
+                <h2 class="text-2xl font-semibold mb-2">{{ __('runner.ArrivedConf1') }}</h2>
                 
-                <p class="opacity-75 font-semibold mb-6 ">Konfirmasi ke Titipers kalo kamu sudah sampe di kantin tujuan</p>
+                <p class="opacity-75 font-semibold mb-6 ">{{ __('runner.ArrivedConf2') }}</p>
                 
                 <div class=" flex flex-col justify-center items-center">
                     <form action="{{ route('runner.orders.pickup', $order->id) }}" method="POST" class="w-full">
                         @csrf
-                        <button type="submit" class="w-full bg-blue-700 hover:bg-blue-800 items-center justify-center flex text-white font-semibold py-4 px-6 rounded-lg transition duration-200">
-                            {{ __('runner.PickupLocConf') }}
+                        <button type="submit" class="w-full cursor-pointer bg-blue-700 hover:bg-blue-800 items-center justify-center flex text-white font-semibold py-4 px-6 rounded-lg transition duration-200">
+                            {{ __('runner.OrderAcceptStatus') }}
                         </button>
                     </form>
                 </div>
@@ -107,7 +107,7 @@
                     @endif
                 </p>
                 <p class="opacity-75 mt-2">
-                    {{ __('runner.PaymentMethod') }} : <span class="font-bold">{{ $order->payment_method ?? 'Cash On Delivery' }}</span>
+                    {{ __('runner.PaymentMethod') }} : <span class="font-bold">{{ ucfirst($order->payment_method) ?? 'Cash On Delivery' }}</span>
                 </p>
             </div>
         </div>

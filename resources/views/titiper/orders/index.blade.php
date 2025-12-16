@@ -45,9 +45,9 @@
 
                         $imgUrl = 'https://via.placeholder.com/150';
                         if ($menu && !empty($menu->image)) {
-                            if (\Illuminate\Support\Str::startsWith($menu->image, ['http://', 'https://'])) {
+                            if (Str::startsWith($menu->image, ['http://', 'https://'])) {
                                 $imgUrl = $menu->image;
-                            } elseif (\Illuminate\Support\Str::startsWith($menu->image, ['/storage/', 'storage/'])) {
+                            } elseif (startsWith($menu->image, ['/storage/', 'storage/'])) {
                                 $imgUrl = asset(ltrim($menu->image, '/'));
                             } else {
                                 $imgUrl = asset('storage/' . ltrim($menu->image, '/'));
@@ -223,7 +223,7 @@
                                         {{__('titiper.OrdersListPage.Cancelled')}}
                                     </button>
                                     <span class="text-[10px] text-red-500 font-medium block mt-1">
-                                        {{ \Illuminate\Support\Str::limit($order->cancellation_reason, 20) }}
+                                        {{limit($order->cancellation_reason, 20) }}
                                     </span>
                                 </div>
                             @endif

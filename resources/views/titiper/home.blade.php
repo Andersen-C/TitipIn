@@ -40,11 +40,11 @@
                     <div class="flex flex-col gap-6">
                         <div>
                             <div class="mb-4">
-                                <span class="text-2xl font-extrabold text-sky-700">Titip<span
+                                <span class="text-2xl font-extrabold text-blue-700">Titip<span
                                         class="text-yellow-400">In</span></span>
                             </div>
 
-                            <h1 class="text-5xl font-extrabold leading-tight text-sky-700">
+                            <h1 class="text-5xl font-extrabold leading-tight text-blue-700">
                                 {{ __('titiper.welcome') }} <br> {{ __('titiper.to') }} Titip<span class="text-yellow-400">In</span>
                             </h1>
                             <p class="mt-4 text-slate-600 max-w-xl">
@@ -53,7 +53,7 @@
 
                             <div class="mt-6">
                                 <a href="{{ route('titiper.menu.index') }}"
-                                    class="inline-block bg-sky-600 hover:bg-sky-700 text-white px-6 py-3 rounded-md shadow">{{__('titiper.titipnow')}}</a>
+                                    class="inline-block bg-blue-700 hover:bg-sky-800 text-white px-6 py-3 rounded-md shadow">{{__('titiper.titipnow')}}</a>
                             </div>
                         </div>
 
@@ -117,7 +117,7 @@
 
                                 <div class="mt-5 text-center pt-2">
                                     <a href="{{ route('titiper.orders.index') }}"
-                                        class="inline-block px-4 py-2 border rounded-md text-sky-600 hover:bg-sky-50 text-sm">
+                                        class="inline-block px-4 py-2 border rounded-md text-blue-700 hover:bg-blue-50 text-sm">
                                         {{__('titiper.AllOrders')}}
                                     </a>
                                 </div>
@@ -176,7 +176,7 @@
 
                                         <div class="mt-2">
                                             <a href="{{ route('titiper.menu.show', $menu->id) }}"
-                                                class="inline-block px-3 py-1 bg-sky-600 text-white rounded text-xs">Titip</a>
+                                                class="inline-block px-3 py-1 bg-blue-700 text-white rounded text-xs">Titip</a>
                                         </div>
                                     </div>
                                 </div>
@@ -185,7 +185,7 @@
 
                         <div class="mt-4 flex-shrink-0">
                             <a href="{{ route('titiper.menu.index') }}"
-                                class="w-full block text-center bg-sky-600 text-white py-3 rounded-full">{{__('titiper.SeeMore')}}</a>
+                                class="w-full block text-center bg-blue-700 text-white py-3 rounded-full">{{__('titiper.SeeMore')}}</a>
                         </div>
                     </div>
                 </aside>
