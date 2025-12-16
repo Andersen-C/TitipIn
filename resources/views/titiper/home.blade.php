@@ -45,16 +45,15 @@
                             </div>
 
                             <h1 class="text-5xl font-extrabold leading-tight text-sky-700">
-                                Selamat Datang <br> di Titip<span class="text-yellow-400">In</span>
+                                {{ __('titiper.welcome') }} <br> {{ __('titiper.to') }} Titip<span class="text-yellow-400">In</span>
                             </h1>
                             <p class="mt-4 text-slate-600 max-w-xl">
-                                Titip makanan dengan cepat dan mudah.
+                                {{ __('titiper.subtitle') }}
                             </p>
 
                             <div class="mt-6">
                                 <a href="{{ route('titiper.menu.index') }}"
-                                    class="inline-block bg-sky-600 hover:bg-sky-700 text-white px-6 py-3 rounded-md shadow">Mulai
-                                    Titip Sekarang</a>
+                                    class="inline-block bg-sky-600 hover:bg-sky-700 text-white px-6 py-3 rounded-md shadow">{{__('titiper.titipnow')}}</a>
                             </div>
                         </div>
 
@@ -62,9 +61,9 @@
                             <div class="bg-white rounded-xl shadow p-5 border flex flex-col">
                                 <div class="flex items-center justify-between mb-4">
                                     <div>
-                                        <h4 class="text-md font-semibold text-slate-800">Pesanan Terbaru <span
+                                        <h4 class="text-md font-semibold text-slate-800">{{__('titiper.latestOrd')}} <span
                                                 class="text-sm text-slate-400">({{ $latestOrders->count() }})</span></h4>
-                                        <p class="text-xs text-slate-500">Ringkasan pesanan terbaru kamu</p>
+                                        <p class="text-xs text-slate-500">{{__('titiper.latestOrdSub')}}</p>
                                     </div>
                                 </div>
 
@@ -80,8 +79,8 @@
                                                         @php
                                                             $firstItem = $o->orderItems->first();
                                                             $menuName = $firstItem
-                                                                ? $firstItem->menu->name ?? 'Menu Dihapus'
-                                                                : 'Item Kosong';
+                                                                ? $firstItem->menu->name ?? __('titiper.menuDeleted')
+                                                                : __('titiper.NoItem');
                                                             $moreItems = $o->orderItems->count() - 1;
                                                         @endphp
 
@@ -103,11 +102,11 @@
                                                 <div class="mt-1">
                                                     @if (($o->status ?? '') == 'Pending' || ($o->status ?? '') == 'pending' || ($o->status ?? '') == 'waiting_runner')
                                                         <span
-                                                            class="px-2 py-1 rounded-full text-xs bg-yellow-100 text-yellow-800">Pending</span>
+                                                            class="px-2 py-1 rounded-full text-xs bg-yellow-100 text-yellow-800">{{__('titiper.Pending')}}</span>
                                                     @else
                                                         <span
                                                             class="px-2 py-1 rounded-full text-xs bg-slate-100 text-slate-700">
-                                                            {{ ucfirst(str_replace('_', ' ', $o->status ?? 'Selesai')) }}
+                                                            {{ ucfirst(str_replace('_', ' ', $o->status ?? __('titiper.Completed'))) }}
                                                         </span>
                                                     @endif
                                                 </div>
@@ -119,7 +118,7 @@
                                 <div class="mt-5 text-center pt-2">
                                     <a href="{{ route('titiper.orders.index') }}"
                                         class="inline-block px-4 py-2 border rounded-md text-sky-600 hover:bg-sky-50 text-sm">
-                                        Lihat Semua Pesanan
+                                        {{__('titiper.AllOrders')}}
                                     </a>
                                 </div>
                             </div>
@@ -133,7 +132,7 @@
                                             d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8m-2 8H5a2 2 0 01-2-2V8a2 2 0 012-2h14a2 2 0 012 2v6a2 2 0 01-2 2z" />
                                     </svg>
                                 </div>
-                                <p class="text-slate-600 text-sm font-medium">Voucher belum tersedia</p>
+                                <p class="text-slate-600 text-sm font-medium">{{__('titiper.VoucherUnAvail')}}</p>
                             </div>
                         </div>
                     </div>
@@ -141,7 +140,7 @@
 
                 <aside class="space-y-6 h-full">
                     <div class="bg-white rounded-xl shadow p-4 h-full flex flex-col">
-                        <h3 class="text-lg font-semibold text-slate-800 mb-4 flex-shrink-0">Rekomendasi Menu</h3>
+                        <h3 class="text-lg font-semibold text-slate-800 mb-4 flex-shrink-0">{{__('titiper.RecommMenu')}}</h3>
 
                         <div class="space-y-4 flex-1 overflow-y-auto pr-1 custom-scrollbar">
                             @foreach ($recommended as $menu)
@@ -186,7 +185,7 @@
 
                         <div class="mt-4 flex-shrink-0">
                             <a href="{{ route('titiper.menu.index') }}"
-                                class="w-full block text-center bg-sky-600 text-white py-3 rounded-full">Selengkapnya</a>
+                                class="w-full block text-center bg-sky-600 text-white py-3 rounded-full">{{__('titiper.SeeMore')}}</a>
                         </div>
                     </div>
                 </aside>

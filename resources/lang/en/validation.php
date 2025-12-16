@@ -124,5 +124,31 @@ return [
         ]
     ],
 
-    
+    // 
+
+    // Profile Controller
+    'ManageProfile' => [
+        'name' => [
+            'required' => 'Username is required',
+            'string' => 'Username must be a valid text',
+            'max' => 'Username must not be greater than :max characters'
+        ],
+        'email' => [
+            'required' => 'Email is required',
+            'email' => 'Invalid email format',
+            'max' => 'Email must not be greater than :max characters',
+            'unique' => 'Email is already in use'
+        ],
+        'phone' => [
+             'required' => 'Phone number is required',
+            'numeric' => 'Phone number must be a number',
+            'min_digits' => "Phone number must at least have :min_digits numbers"
+        ],
+        'photo' => [
+            'required' => 'Profile Picture is required',
+            'image' => 'Profile picture must be an image',
+            'mimes' => 'Image format must be JPG, JPEG or PNG',
+            'max' => 'Image size must not be more than 2 MB'
+        ]
+    ],
 ];

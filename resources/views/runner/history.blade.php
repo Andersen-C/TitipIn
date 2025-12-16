@@ -18,7 +18,7 @@
     @endif
 
     <div class='items-center '>
-        <h1 class="text-3xl sm:flex sm:flex-row font-bold text-blue-900 mb-6">History</h1>
+        <h1 class="text-3xl sm:flex sm:flex-row font-bold text-blue-700 mb-6">{{ __('runner.History') }}</h1>
         
         @forelse($orders as $order)
         <div class='container mb-4'>
@@ -34,7 +34,7 @@
                     <h3 class="text-black font-bold text-xl">
                         @php
                             $groupedItems = $order->orderItems->groupBy(function($item) {
-                                return $item->menu->name ?? $item->name ?? 'Unknown';
+                                return $item->menu->name ?? $item->name ?? __('runner.Unknown');
                             });
                         @endphp
 
@@ -53,9 +53,9 @@
                     
                     {{-- LOKASI --}}
                     <p class="text-gray-600 mt-4 sm:mt-auto">
-                        <span class="font-semibold">{{ $order->pickupLocation->name ?? 'Lokasi Awal' }}</span> 
+                        <span class="font-semibold">{{ $order->pickupLocation->name ?? __('runner.Pickup') }}</span> 
                         &rarr; 
-                        <span class="font-semibold">{{ $order->deliveryLocation->name ?? 'Lokasi Tujuan' }}</span>
+                        <span class="font-semibold">{{ $order->deliveryLocation->name ?? __('runner.Delivery') }}</span>
                     </p>
                 </div>
                 
@@ -69,24 +69,24 @@
                                 <form action="{{ route('runner.orders.accept', $order->id) }}" method="POST">
                                     @csrf
                                     <button type="submit" class="bg-green-600 text-white  rounded-lg px-4 py-1 font-bold text-lg transition duration-200">
-                                        Selesai
+                                        {{ __('runner.Completed') }}
                                     </button>
                                 </form>
 
                             @else
                                 @if($order->status == 'completed' || $order->status == 'Selesai')
-                                    <span class="text-green-600 px-2 py-1 font-bold text-sm uppercase">Selesai</span>
+                                    <span class="text-green-600 px-2 py-1 font-bold text-sm uppercase">{{ __('runner.Completed') }}</span>
                                 @elseif($order->status == 'canceled' || $order->status == 'Dibatalkan')
-                                    <span class="text-red-500 px-2 py-1 font-bold text-sm uppercase">Dibatalkan</span>
+                                    <span class="text-red-500 px-2 py-1 font-bold text-sm uppercase">{{ __('runner.Cancelled') }}</span>
                                 @else
-                                    <span class="text-yellow-600 px-2 py-1 font-semibold text-sm italic uppercase">Ongoing</span>
+                                    <span class="text-yellow-600 px-2 py-1 font-semibold text-sm italic uppercase">{{ __('runner.inProcess') }}</span>
                                 @endif
                             @endif
                         </div>
 
                         <div class="flex flex-col justify-end">
                             <a href="{{ route('runner.history.show', $order->id) }}" class='text-blue-800 hover:bg-blue-900 hover:text-white transition duration-200 font-semibold border-2 border-blue-800 rounded-md px-3 py-1'>
-                                Detail
+                                {{ __('runner.Detail') }}
                             </a>
                         </div>
                     </div>
@@ -95,7 +95,7 @@
         </div>
         @empty
             <div class="text-center py-10 bg-gray-100 rounded-lg border-2 border-dashed border-gray-300">
-                <p class="text-xl text-gray-500 font-semibold">Belum ada history tersedia.</p>
+                <p class="text-xl text-gray-500 font-semibold">{{__('runner.NoHistory')}}</p>
             </div>
         @endforelse
 

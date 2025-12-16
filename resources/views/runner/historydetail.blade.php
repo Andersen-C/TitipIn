@@ -17,7 +17,7 @@
                 <div class="">
                     <a href="{{ route('runner.history.index') }}" class=''>
                         <button class="flex items-center gap-3 rounded-full bg-blue-700 px-4 py-1 sm:px-7 sm:py-2 text-xl font-semibold text-white transition duration-200 hover:bg-blue-900">
-                            <span> Back</span>
+                            <span> {{ __('runner.Back') }}</span>
                         </button>
                     </a>
                 </div>
@@ -42,7 +42,7 @@
                             </h1>
                         </div>
                     @empty
-                        <h1 class="text-red-500 font-bold">Item Tidak Ditemukan</h1>
+                        <h1 class="text-red-500 font-bold">{{__('runner.NoItem')}}</h1>
                     @endforelse
                 </div>
             </div>
@@ -51,20 +51,20 @@
                 {{-- CARD 1: LOKASI PENGAMBILAN --}}
                 <div class="px-6 py-4 shadow-[0_0_10px_rgba(0,0,0,0.15)] rounded-lg border border-gray-100">
                     <div class="mb-2">
-                        <h1 class='font-bold text-lg'>Lokasi Pengambilan</h1>
+                        <h1 class='font-bold text-lg'>{{__('runner.Pickup')}}</h1>
                     </div>
                     
                     <div class="mb-3">
-                        <h1 class='font-bold text-xl text-black'>{{ $order->pickupLocation->name ?? 'Lokasi Jemput' }}</h1>
+                        <h1 class='font-bold text-xl text-black'>{{ $order->pickupLocation->name ?? __('runner.Pickup') }}</h1>
                         <h1 class="text-gray-600">
-                            {{ $order->pickupLocation->description ?? 'Area Kampus' }} 
+                            {{ $order->pickupLocation->description ?? __('runner.CampusArea') }} 
                             @if(isset($order->pickupLocation->formatted_floor))
                                 - {{ $order->pickupLocation->formatted_floor }}
                             @endif
                         </h1>
                         
                         <h1 class="text-gray-600 mt-1">
-                            Waktu Pesan: 
+                            {{ __('runner.OrderTime') }}: 
                             <span class="font-semibold">
                                 {{ $order->created_at->format('d M Y, H:i') }} WIB
                             </span>
@@ -77,13 +77,13 @@
                 {{-- CARD 2: LOKASI PENGANTARAN --}}
                 <div class="px-6 py-4 shadow-[0_0_10px_rgba(0,0,0,0.15)] rounded-lg border border-gray-100">
                     <div class="mb-2">
-                        <h1 class="font-bold text-lg">Lokasi Pengantaran</h1>
+                        <h1 class="font-bold text-lg">{{ __('runner.Delivery') }}</h1>
                     </div>
                     
                     <div class="mb-3">
-                        <h1 class="font-bold text-xl text-green-700">{{ $order->deliveryLocation->name ?? 'Lokasi Tujuan' }}</h1>
+                        <h1 class="font-bold text-xl text-green-700">{{ $order->deliveryLocation->name ?? __('runner.Delivery')}}</h1>
                         <h1 class="text-gray-600">
-                            {{ $order->deliveryLocation->description ?? 'Area Kampus' }} 
+                            {{ $order->deliveryLocation->description ?? __('runner.CampusArea') }} 
                             @if(isset($order->deliveryLocation->formatted_floor))
                                 - {{ $order->deliveryLocation->formatted_floor }}
                             @endif
@@ -91,9 +91,9 @@
                     </div>
 
                     <div class="flex flex-col gap-1">
-                        <h1 class="text-gray-600">Pembayaran: <span class="font-semibold">{{ $order->payment_method ?? 'COD' }}</span></h1>
+                        <h1 class="text-gray-600">{{ __('runner.PaymentMethod') }}: <span class="font-semibold">{{ $order->payment_method ?? 'COD' }}</span></h1>
                         
-                        <h1 class="text-gray-600 mt-1">Waktu Selesai: 
+                        <h1 class="text-gray-600 mt-1">{{ __('runner.CompletedTime') }}: 
                             <span class="font-semibold">
                                 {{ $order->updated_at->format('d M Y, H:i') }} WIB
                             </span>
@@ -111,19 +111,19 @@
                 {{-- SECTION HARGA --}}
                 <div class="flex flex-col gap-3 mb-8">
                     <div class="flex flex-row justify-between text-lg">
-                        <h1 class="font-medium text-gray-700">Biaya Pesanan</h1>
+                        <h1 class="font-medium text-gray-700">{{ __('runner.OrderCost') }}</h1>
                         <h1 class="font-bold">Rp. {{ number_format($order->subtotal, 0, ',', '.') }}</h1>
                     </div>
 
                     <div class="flex flex-row justify-between text-lg">
-                        <h1 class="font-medium text-gray-700">Pendapatan</h1>
+                        <h1 class="font-medium text-gray-700">{{ __('runner.Earnings') }}</h1>
                         <h1 class="font-bold text-green-600">Rp. {{ number_format($order->service_fee, 0, ',', '.') }}</h1>
                     </div>
 
                     <div class="border-b-4 border-gray-300 my-2"></div>
 
                     <div class="flex flex-row justify-between text-xl">
-                        <h1 class="font-bold text-black">Total</h1>
+                        <h1 class="font-bold text-black">{{ __('runner.Total') }}</h1>
                         <h1 class="font-bold text-black">Rp. {{ number_format($order->total_price, 0, ',', '.') }}</h1>
                     </div>
                 </div>
@@ -131,18 +131,18 @@
                 {{-- SECTION ACTION (Logika Status) --}}
                 <div class="flex flex-col items-center justify-center mt-4">
                     
-                    <h1 class="text-2xl font-bold mb-6 text-center text-black">Status</h1>
+                    <h1 class="text-2xl font-bold mb-6 text-center text-black">{{ __('runner.Status') }}</h1>
 
                     @if($order->status == 'completed' || $order->status == 'Selesai')
                         <div class="w-full bg-green-400 text-white font-bold text-xl py-3 px-4 rounded-xl text-center shadow-md cursor-default">
-                            Selesai
+                            {{ __('runner.Completed') }}
                         </div>
                     @elseif($order->status == 'canceled' || $order->status == 'Dibatalkan')
                         <div class="w-full bg-red-500 text-white font-bold text-xl py-3 px-4 rounded-xl text-center shadow-md cursor-default">
-                            Dibatalkan
+                            {{ __('runner.Cancelled') }}
                         </div>
                         <p class="text-sm text-gray-400 mt-4 text-center px-2">
-                            Pesanan ini telah dibatalkan.
+                            {{ __('runner.cancelMsg') }}
                         </p>
 
                     @else

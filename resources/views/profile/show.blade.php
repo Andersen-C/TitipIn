@@ -1,6 +1,6 @@
 @extends($layout)
 
-@section('Title', 'Profil Saya')
+@section('Title', 'My Profile')
 
 @section('Content')
     <div class="w-full bg-white">
@@ -86,7 +86,7 @@
                         <div class="dropdown">
                             <label tabindex="0"
                                 class="btn btn-sm bg-white border-none hover:bg-gray-100 text-gray-800 normal-case rounded-md h-8 min-h-0 gap-2">
-                                <span class="text-gray-500 font-normal text-xs">Bahasa:</span>
+                                <span class="text-gray-500 font-normal text-xs">{{ __('profile.language.Title') }}:</span>
                                 <span
                                     class="font-bold text-blue-700 text-xs">{{ session('locale') == 'en' ? 'English' : 'Indonesia' }}</span>
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 text-gray-400" fill="none"
@@ -98,10 +98,9 @@
                             <ul tabindex="0"
                                 class="dropdown-content menu p-1 shadow-lg bg-white rounded-box w-40 text-gray-800 mt-1 z-[50]">
                                 <li><a href="{{ route('lang.switch', 'en') }}"
-                                        class="{{ session('locale') != 'en' ? 'font-bold text-blue-700' : '' }}">Bahasa
-                                        Indonesia</a></li>
+                                        class="{{ session('locale') != 'en' ? 'font-bold text-blue-700' : '' }}">{{__('profile.language.indonesian')}}</a></li>
                                 <li><a href="{{ route('lang.switch', 'id') }}"
-                                        class="{{ session('locale') == 'en' ? 'font-bold text-blue-700' : '' }}">English</a>
+                                        class="{{ session('locale') == 'en' ? 'font-bold text-blue-700' : '' }}">{{__('profile.language.english')}}</a>
                                 </li>
                             </ul>
                         </div>
@@ -118,7 +117,7 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
                             </svg>
-                            Logout
+                            {{ __('profile.logout') }}
                         </button>
                     </form>
                 </div>
@@ -148,7 +147,7 @@
                             d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                     <div class="flex flex-col">
-                        <span class="font-bold text-sm">Gagal menyimpan perubahan!</span>
+                        <span class="font-bold text-sm">{{__('profile.failedupdate')}}</span>
                         <ul class="list-disc list-inside text-xs mt-1">
                             @foreach ($errors->all() as $error)
                                 <li>{{ $error }}</li>
@@ -162,7 +161,7 @@
                 <div class="mb-10">
                     <div class="border-b border-gray-200 pb-2 mb-4">
                         <h3 class="text-blue-600 font-bold text-lg border-b-2 border-blue-600 inline-block pb-2 px-1">
-                            Ulasan & Rating Saya
+                            {{ __('profile.review') }}
                         </h3>
                     </div>
 
@@ -180,8 +179,8 @@
                                     </svg>
                                 @endfor
                             </div>
-                            <span class="text-sm opacity-90 text-blue-100">Berdasarkan {{ $reviews->count() ?? 0 }}
-                                ulasan</span>
+                            <span class="text-sm opacity-90 text-blue-100">{{ __('profile.reviewMsg1') }} {{ $reviews->count() ?? 0 }}
+                                {{ __('profile.reviewMsg2') }}</span>
                         </div>
 
                         <div
@@ -208,7 +207,7 @@
                                                 </div>
                                             </div>
                                             <p class="text-gray-600 text-sm mt-2 line-clamp-2">
-                                                "{{ $review->comment ?? 'Tidak ada komentar' }}"</p>
+                                                "{{ $review->comment ?? __('profile.NoComment') }}"</p>
                                         </div>
                                     @endforeach
                                 </div>
@@ -219,7 +218,7 @@
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
                                     </svg>
-                                    <p class="text-sm">Belum ada ulasan yang masuk.</p>
+                                    <p class="text-sm">{{__('profile.NoReview')}}</p>
                                 </div>
                             @endif
                         </div>
@@ -238,10 +237,9 @@
                 <div class="space-y-6">
 
                     <div class="grid grid-cols-1 md:grid-cols-12 items-start gap-4">
-                        <label class="md:col-span-2 font-bold text-gray-700 text-sm mt-3">Nama</label>
+                        <label class="md:col-span-2 font-bold text-gray-700 text-sm mt-3">{{__('profile.Update.Name')}}</label>
                         <div class="md:col-span-10">
                             <input type="text" name="name" value="{{ old('name', Auth::user()->name) }}"
-                                placeholder="Contoh: Budi Santoso"
                                 class="input input-bordered w-full bg-white text-gray-900 rounded-md h-10 placeholder-gray-400
                             @error('name') border-red-500 focus:border-red-500 focus:ring-red-500 @else border-gray-300 focus:border-blue-500 @enderror" />
 
@@ -252,10 +250,9 @@
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-12 items-start gap-4">
-                        <label class="md:col-span-2 font-bold text-gray-700 text-sm mt-3">Email</label>
+                        <label class="md:col-span-2 font-bold text-gray-700 text-sm mt-3">{{__('profile.Update.Email')}}</label>
                         <div class="md:col-span-10">
                             <input type="email" name="email" value="{{ old('email', Auth::user()->email) }}"
-                                placeholder="Contoh: budi@gmail.com"
                                 class="input input-bordered w-full bg-white text-gray-900 rounded-md h-10 placeholder-gray-400
                             @error('email') border-red-500 focus:border-red-500 focus:ring-red-500 @else border-gray-300 focus:border-blue-500 @enderror" />
 
@@ -266,11 +263,10 @@
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-12 items-start gap-4">
-                        <label class="md:col-span-2 font-bold text-gray-700 text-sm mt-3">No.Telp</label>
+                        <label class="md:col-span-2 font-bold text-gray-700 text-sm mt-3">{{__('profile.Update.Phone')}}</label>
                         <div class="md:col-span-10">
                             <input type="text" name="phone_number"
                                 value="{{ old('phone_number', Auth::user()->phone_number) }}"
-                                placeholder="Contoh: 081234567890"
                                 class="input input-bordered w-full bg-white text-gray-900 h-10 min-h-0 rounded-md placeholder-gray-400
                             @error('phone_number') border-red-500 focus:border-red-500 focus:ring-red-500 @else border-gray-300 focus:border-blue-500 @enderror" />
 
@@ -285,11 +281,11 @@
                 <div class="flex justify-center gap-4 mt-12">
                     <a href="{{ route($mode . '.home') }}"
                         class="btn btn-sm h-10 btn-outline border-gray-400 text-gray-600 hover:bg-gray-100 hover:text-gray-800 rounded-full px-10 normal-case font-normal">
-                        Batal
+                        {{__('profile.Cancel')}}
                     </a>
                     <button type="submit"
                         class="btn btn-sm h-10 bg-blue-600 hover:bg-blue-700 text-white border-none rounded-full px-10 normal-case font-normal shadow-md">
-                        Simpan
+                        {{__('profile.Save')}}
                     </button>
                 </div>
             </form>

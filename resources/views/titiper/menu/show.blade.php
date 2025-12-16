@@ -1,12 +1,12 @@
 {{-- resources/views/titiper/menu/show.blade.php --}}
 @extends('template.afterLogin.TitiperAfterLogin')
 
-@section('Title', $menu->name ?? 'Detail Menu')
+@section('Title', $menu->name ?? 'Menu Detail')
 
 @section('Content')
 <div class="max-w-7xl mx-auto px-6 py-10">
   <div class="bg-white rounded-lg p-8 shadow-sm border">
-    <h2 class="text-2xl font-semibold text-sky-700 mb-6">Detail Menu</h2>
+    <h2 class="text-2xl font-semibold text-sky-700 mb-6">{{__('titiper.MenuDetailPage.Title')}}</h2>
 
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
       
@@ -81,7 +81,7 @@
 
               <button id="openNotesBtn"
                 class="px-3 py-1 text-sm border rounded bg-slate-50 text-slate-700 hover:bg-slate-100">
-                Notes
+                {{__('titiper.MenuDetailPage.Notes')}}
               </button>
             </div>
 
@@ -93,7 +93,7 @@
             {{-- ETA --}}
             <div class="mt-4">
               <div class="inline-flex items-center gap-1 text-xs text-slate-500 bg-slate-100 px-2 py-1 rounded-md w-fit">
-                ⏱ {{ $estMinutes ?? 20 }} min
+                ⏱ {{ $estMinutes ?? 20 }} {{__('titiper.MenuDetailPage.Time')}}
               </div>
             </div>
           </div>
@@ -108,11 +108,11 @@
 
               {{-- QTY --}}
               <div class="mb-6">
-                <label class="block text-sm text-slate-600 mb-2">Jumlah</label>
+                <label class="block text-sm text-slate-600 mb-2">{{__('titiper.MenuDetailPage.Amount')}}</label>
 
                 <div class="flex items-center gap-3">
                   <button type="button" id="qtyMinus"
-                    class="w-10 h-10 bg-slate-100 text-slate-700 rounded-lg flex items-center justify-center text-lg font-bold"
+                    class="w-10 h-10 cursor-pointer hover:bg-slate-200 bg-slate-100 text-slate-700 rounded-lg flex items-center justify-center text-lg font-bold"
                     aria-label="Kurangi jumlah">
                     −
                   </button>
@@ -121,7 +121,7 @@
                     class="w-16 text-center border rounded-lg py-2 bg-white text-slate-800 font-semibold shadow-sm">
 
                   <button type="button" id="qtyPlus"
-                    class="w-10 h-10 bg-slate-100 text-slate-700 rounded-lg flex items-center justify-center text-lg font-bold"
+                    class="w-10 h-10 cursor-pointer hover:bg-slate-200 bg-slate-100 text-slate-700 rounded-lg flex items-center justify-center text-lg font-bold"
                     aria-label="Tambah jumlah">
                     +
                   </button>
@@ -130,15 +130,15 @@
 
               {{-- BUTTON --}}
               <button type="button" id="titipSekarangBtn"
-                class="w-full bg-sky-600 hover:bg-sky-700 text-white py-3 rounded-xl text-lg font-semibold shadow-md  transition">
-                Titip Sekarang
+                class="w-full bg-blue-700 hover:bg-blue-800 cursor-pointer text-white py-3 rounded-xl text-lg font-semibold shadow-md  transition">
+                {{__('titiper.MenuDetailPage.TitipNow')}}
               </button>
 
             </form>
 
             <div class="mt-4 text-center">
               <a href="{{ route('titiper.menu.index') }}" class="text-sm text-slate-500 underline">
-                Kembali ke Menu
+                {{ __('titiper.MenuDetailPage.Back') }}
               </a>
             </div>
           </div>
@@ -157,7 +157,7 @@
   <div id="notesModalBox" class="bg-white rounded-lg w-full max-w-2xl p-6 mx-4 shadow-xl relative">
 
     <div class="flex justify-between items-start">
-      <h3 class="text-lg font-semibold text-slate-800">Add notes to your dish</h3>
+      <h3 class="text-lg font-semibold text-slate-800">{{__('titiper.MenuDetailPage.NotesModalTitle')}}</h3>
       <button id="closeNotesBtn" class="text-slate-400 hover:text-slate-600" aria-label="Close notes">✕</button>
     </div>
 
@@ -165,7 +165,7 @@
 
     <textarea id="modalNoteTextarea"
       class="w-full min-h-[160px] border-b border-slate-300 pb-4 text-slate-700 focus:outline-none"
-      placeholder="Tambahin catatan (opsional)..."
+      placeholder="{{__('titiper.MenuDetailPage.NotesModalPlaceholder')}}"
       maxlength="200"></textarea>
 
     <div class="mt-4 flex flex-col sm:flex-row items-center justify-between gap-4">
@@ -174,12 +174,12 @@
         <div class="flex items-center gap-3 order-1 sm:order-2 w-full sm:w-auto">
             <button type="button" id="modalSkipBtn" 
             class="flex-1 sm:flex-none px-4 py-2 border border-slate-300 text-slate-600 rounded-md hover:bg-slate-50 font-medium transition">
-            Tanpa Catatan
+            {{__('titiper.MenuDetailPage.NotesModalButton1')}}
             </button>
 
             <button type="button" id="modalSaveBtn" 
             class="flex-1 sm:flex-none px-6 py-2 bg-sky-600 text-white rounded-md hover:bg-sky-700 font-semibold shadow transition">
-            Simpan & Pesan
+            {{__('titiper.MenuDetailPage.NotesModalButton2')}}
             </button>
         </div>
     </div>

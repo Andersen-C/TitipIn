@@ -111,7 +111,7 @@ class MenuController extends Controller
         ]);
 
         $menu = Menu::with('location')->findOrFail($menuId);
-        $locations = Location::orderBy('name')->get();
+        $locations = Location::where('name', 'LIKE', '%Kelas%')->orderBy('name')->get();
 
         $quantity   = (int) $data['qty'];
         $subtotal   = $menu->price * $quantity;

@@ -7,12 +7,12 @@
         <div class="flex flex-col-reverse md:flex-row items-center justify-between mb-12">
             <div class="w-full  md:w-1/2 text-center md:text-center mt-8 md:mt-0">
                 <h1 class="text-3xl md:text-5xl font-bold text-blue-900 mb-4 leading-tight">
-                    Jadi Runner, dan <br>
-                    Antarkan Pesanan
+                    {{ __('runner.Title1') }}<br>
+                    {{ __('runner.Title2') }}
                 </h1>
                 <p class="text-gray-600 text-lg mb-6  mx-auto md:mx-0">
-                    Antar makanan antar lantai kampus, <br>
-                    tambah penghasilanmu.
+                    {{ __('runner.Sub1') }}<br>
+                    {{ __('runner.Sub2') }}
                 </p>
             </div>
 
@@ -28,11 +28,11 @@
                     <div class="h-8 w-8 mr-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <span class="text-blue-600 text-3xl">📋</span>
                     </div>
-                    <h3 class="text-xl font-medium text-black" hr>Lihat Pesanan</h3>
+                    <h3 class="text-xl font-medium text-black" hr>{{__('runner.OrderButton')}}</h3>
                 </div>
                 
                 <a href="{{ route('runner.orders.index') }}" class='w-full bg-blue-700 hover:bg-blue-800 text-white font-medium py-2 rounded-lg text-center transition duration-200 mt-4'>
-                    Klik disini
+                   {{__('runner.Click')}}
                 </a>
             </div>
 
@@ -42,7 +42,7 @@
                         <div class="text-green-500 mt-0">
                             <span class='text-3xl '>💵</span>
                         </div>
-                        <h3 class="text-xl font-medium text-black">Total Penghasilan</h3>
+                        <h3 class="text-xl font-medium text-black">{{ __('runner.Income') }}</h3>
                     </div>
                     <p class="text-2xl font-bold text-gray-800 ml-11">
                         Rp{{ number_format($totalEarnings, 0, ',', '.') }}
@@ -52,7 +52,7 @@
                 {{--  --}}
                 <div class="flex gap-3 mt-4">
                     <a href="{{ route('runner.history.index') }}" class="flex-1 bg-blue-700 hover:bg-blue-800 text-white font-medium py-2 rounded-lg text-center transition duration-200">
-                        Detail
+                        {{ __('runner.Detail') }}
                     </a>
             
                 </div>
@@ -61,7 +61,7 @@
             <div class='bg-white rounded-xl border border-gray-300 p-6 shadow-sm flex flex-col justify-between'>
                 <div class="flex items-center mb-4"> 
                     <span class="text-3xl mr-2">⭐</span> 
-                    <h3 class="text-xl font-medium text-black">Rating</h3> </div>
+                    <h3 class="text-xl font-medium text-black">{{ __('runner.Rating') }}</h3> </div>
                 <div class="flex self-center ">
                 <div class="flex self-center">
                     {{-- <div class="text-yellow-400 mr-2">
