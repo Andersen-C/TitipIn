@@ -60,6 +60,6 @@ class ManageReviewController extends Controller
 
         return redirect()
             ->route('reviews.index')
-            ->with('success', 'Review berhasil dihapus');
+            ->with('success', __('admin.DeleteReviewSuccessTitle'));
     }
 }

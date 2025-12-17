@@ -41,12 +41,16 @@ class ProfileController extends Controller
             'email'        => 'required|string|email|max:255|unique:users,email,' . $user->id,
             'phone_number' => 'required|numeric|min_digits:10',
         ], [
-            'phone_number.numeric'    => 'Nomor telepon harus berupa angka.',
-            'phone_number.min_digits' => 'Nomor telepon minimal 10 digit.',
-            'phone_number.required'   => 'Nomor telepon wajib diisi.',
-            'name.required'           => 'Nama wajib diisi.',
-            'email.required'          => 'Email wajib diisi.',
-            'email.email'             => 'Format email tidak valid.',
+            'name.required'           => __('validation.ManageProfile.name.required'),
+            'name.string'             => __('validation.ManageProfile.name.string'),
+            'name.max'                => __('validation.ManageProfile.name.max'),
+            'email.required'          => __('validation.ManageProfile.email.required'),
+            'email.email'             => __('validation.ManageProfile.email.email'),
+            'email.max'               => __('validation.ManageProfile.email.max'),
+            'email.unique'            => __('validation.ManageProfile.email.unique'),
+            'phone_number.required'   => __('validation.ManageProfile.phone.required'),
+            'phone_number.numeric'    => __('validation.ManageProfile.phone.numeric'),
+            'phone_number.min_digits' => __('validation.ManageProfile.phone.min_digits'),
         ]);
 
         /** @var \App\Models\User $user */
@@ -56,7 +60,7 @@ class ProfileController extends Controller
             'phone_number' => $request->phone_number,
         ]);
 
-        return back()->with('success', 'Profil berhasil diperbarui.');
+        return back()->with('success', __('profile.ProfileUpdated'));
     }
 
     public function managePassword(Request $request)
@@ -69,7 +73,7 @@ class ProfileController extends Controller
         $user = Auth::user();
 
         if (!Hash::check($request->current_password, $user->password)) {
-            return back()->withErrors(['current_password' => 'Password saat ini salah.']);
+            return back()->withErrors(['current_password' => __('profile.WrongPassword')]);
         }
 
         /** @var \App\Models\User $user */
@@ -77,7 +81,7 @@ class ProfileController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        return back()->with('success', 'Password berhasil diubah.');
+        return back()->with('success', __('profile.PasswordUpdated'));
     }
 
     public function managePhoto(Request $request)
@@ -90,10 +94,10 @@ class ProfileController extends Controller
                 'max:2048'
             ],
         ], [
-            'photo.required' => 'Anda belum memilih foto untuk diunggah.',
-            'photo.image' => 'File yang diunggah harus berupa gambar.',
-            'photo.mimes' => 'Format foto harus berupa PNG, JPG, atau JPEG.',
-            'photo.max' => 'Ukuran foto maksimal adalah 2MB.',
+            'photo.required' => __('validation.ManageProfile.photo.required'),
+            'photo.image' => __('validation.ManageProfile.photo.image'),
+            'photo.mimes' => __('validation.ManageProfile.photo.mimes'),
+            'photo.max' => __('validation.ManageProfile.photo.max'),
         ]);
 
         $user = Auth::user();
@@ -109,7 +113,7 @@ class ProfileController extends Controller
             $user->update(['profile_pic' => $path]);
         }
 
-        return back()->with('success', 'Foto profil berhasil diperbarui.');
+        return back()->with('success', __('profile.ProfilePicUpdated'));
     }
 
     public function switch($target)
@@ -119,7 +123,7 @@ class ProfileController extends Controller
         }
 
         /** @var \App\Models\User $user */
-        $user = \Illuminate\Support\Facades\Auth::user();
+        $user = Auth::user();
         $user->update(['mode' => $target]);
 
         return redirect()->route($target . '.home');

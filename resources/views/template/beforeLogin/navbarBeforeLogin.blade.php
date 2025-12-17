@@ -3,30 +3,20 @@
     <div class="navbar-start">
         <a href="{{ route('landing') }}"
             class="text-3xl font-extrabold tracking-tight px-4 hover:opacity-80 transition-opacity">
-            <span class="text-sky-700">Titip</span><span class="text-yellow-400">In</span>
+            <span class="text-blue-700">Titip</span><span class="text-yellow-400">In</span>
         </a>
     </div>
 
   <div class="navbar-end hidden lg:flex">
-    <ul class="menu menu-horizontal px-4 gap-x-8 font-bold text-xl">
-      <li><a href="{{ route('featurePage') }}" class="px-5 py-2 hover:bg-transparent hover:text-blue-700
-             {{ request()->routeIs('featurePage') ? 'bg-blue-600 text-white rounded-full hover:!bg-blue-700 hover:!text-white' : '' }}">
-            Fitur
-          </a>
-      </li>
-      <li><a href="{{ route('HowItWorksPage') }}" class="px-5 py-2 hover:bg-transparent hover:text-blue-700
-             {{ request()->routeIs('HowItWorks') ? 'bg-blue-600 text-white rounded-full hover:!bg-blue-700 hover:!text-white' : '' }}">
-            Cara Kerja
-          </a>
-      </li>
-      <li><a href="{{ route('loginPage') }}" class="px-5 py-2 hover:bg-transparent hover:text-blue-700
+    <ul class="menu menu-horizontal px-2 gap-x-8 font-bold text-xl">
+      <li><a href="{{ route('loginPage') }}" class="px-4 py-2 hover:bg-transparent hover:text-blue-700
              {{ request()->routeIs('loginPage') ? 'bg-blue-600 text-white rounded-full hover:!bg-blue-700 hover:!text-white' : '' }}">
-              Login
+              {{ __('navbarBeforeLogin.Menu1') }}
           </a>
       </li>
-      <li><a href="{{ route('registerPage') }}" class="px-5 py-2 hover:bg-transparent hover:text-blue-700
+      <li><a href="{{ route('registerPage') }}" class="px-4 py-2 hover:bg-transparent hover:text-blue-700
              {{ request()->routeIs('registerPage') ? 'bg-blue-600 text-white rounded-full hover:!bg-blue-700 hover:!text-white' : '' }}">
-              Register
+              {{ __('navbarBeforeLogin.Menu2') }}
           </a>
       </li>
     </ul>
@@ -40,10 +30,8 @@
         </svg>
       </label>
       <ul tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-white rounded-box w-20">
-        <li><a href="{{ route('featurePage') }}">Fitur</a></li>
-        <li><a href="{{ route('HowItWorksPage') }}">Cara Kerja</a></li>
-        <li><a href="{{ route('loginPage') }}">Login</a></li>
-        <li><a href="{{ route('registerPage') }}">Register</a></li>
+        <li><a href="{{ route('loginPage') }}">{{ __('navbarBeforeLogin.Menu1') }}</a></li>
+        <li><a href="{{ route('registerPage') }}">{{ __('navbarBeforeLogin.Menu2') }}</a></li>
       </ul>
     </div>
   </div>

@@ -10,12 +10,12 @@
         <a href="{{ route('menus.index') }}"
            class="btn btn-secondary rounded-xl text-sm sm:text-lg z-10 inline-flex items-center gap-2">
             <i class="fa-solid fa-backward"></i>
-            Back
+            {{ __('admin.Back') }}
         </a>
 
         <h2 class="absolute left-1/2 -translate-x-1/2
                    text-xl sm:text-2xl md:text-3xl font-bold text-blue-800">
-            Detail Menu
+            {{ __('admin.MenuDetailPage.Title') }}
         </h2>
     </div>
 
@@ -32,7 +32,7 @@
                              class="w-64 h-64 object-cover rounded-xl border bg-white">
                     @else
                         <div class="w-64 h-64 flex items-center justify-center bg-gray-200 rounded-xl text-gray-400">
-                            No Image
+                            {{ __('admin.MenuDetailPage.NoImg') }}
                         </div>
                     @endif
                 </div>
@@ -41,33 +41,33 @@
                 <div class="md:col-span-2 space-y-4 text-gray-800">
 
                     <div>
-                        <p class="text-sm text-gray-500">Nama Menu</p>
+                        <p class="text-sm text-gray-500">{{__('admin.MenuTable.Name')}}</p>
                         <p class="font-semibold text-lg">{{ $menu->name }}</p>
                     </div>
 
                     <div>
-                        <p class="text-sm text-gray-500">Harga</p>
+                        <p class="text-sm text-gray-500">{{__('admin.MenuTable.Price')}}</p>
                         <p class="font-semibold text-lg">
                             Rp {{ number_format($menu->price, 0, ',', '.') }}
                         </p>
                     </div>
 
                     <div>
-                        <p class="text-sm text-gray-500">Kategori</p>
+                        <p class="text-sm text-gray-500">{{__('admin.MenuDetailPage.Category')}}</p>
                         <p class="font-semibold">
                             {{ $menu->category->name ?? '-' }}
                         </p>
                     </div>
 
                     <div>
-                        <p class="text-sm text-gray-500">Nama Kantin / Lokasi</p>
+                        <p class="text-sm text-gray-500">{{__('admin.MenuTable.Location')}}</p>
                         <p class="font-semibold">
                             {{ $menu->location->name ?? '-' }}
                         </p>
                     </div>
 
                     <div>
-                        <p class="text-sm text-gray-500">Deskripsi</p>
+                        <p class="text-sm text-gray-500">{{__('admin.MenuTable.Desc')}}</p>
                         <p>
                             {{ $menu->description ?? '-' }}
                         </p>
@@ -87,7 +87,7 @@
                           shadow
                           transition duration-200">
                     <i class="fa-solid fa-pen"></i>
-                    Update
+                    {{ __('admin.Update')}}
                 </a>
             </div>
 

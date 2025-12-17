@@ -6,7 +6,7 @@
 @section('Content')
 <div class="max-w-7xl mx-auto px-6 py-10">
   <div class="bg-white rounded-lg p-8 shadow-sm border">
-    <h1 class="text-4xl font-extrabold text-sky-700 mb-6">Menu</h1>
+    <h1 class="text-4xl font-extrabold text-blue-700 mb-6">{{ __('titiper.MenuPage.Title')}}</h1>
 
     <!-- Search -->
     <form method="GET" action="{{ route('titiper.menu.index') }}" class="mb-4">
@@ -23,7 +23,7 @@
             type="search"
             name="q"
             value="{{ request('q') }}"
-            placeholder="Lagi mau makan apa?"
+            placeholder="{{ __('titiper.MenuPage.SearchBarPlaceholder') }}"
             class="w-full border rounded-lg pl-10 pr-10 py-3 shadow-sm placeholder:text-slate-400 text-slate-700 focus:outline-none focus:ring-2 focus:ring-sky-200"
             aria-label="Cari menu"
           />
@@ -39,7 +39,7 @@
           @endif
         </div>
 
-        <button type="submit" class="px-4 py-2 bg-sky-600 text-white rounded-md">Cari</button>
+        <button type="submit" class="px-4 py-2 bg-blue-700 cursor-pointer hover:bg-blue-800 text-white rounded-md">{{__('titiper.MenuPage.Search')}}</button>
       </div>
     </form>
 
@@ -47,14 +47,14 @@
     <div class="flex gap-2 flex-wrap mb-6">
       @php $groupActive = request('group'); @endphp
       <a href="{{ route('titiper.menu.index', request()->except(['group','category','page'])) }}"
-         class="px-4 py-2 rounded-full border {{ $groupActive ? 'text-slate-600' : 'bg-sky-600 text-white' }}">
-         Semua
+         class="px-4 py-2 rounded-full border {{ $groupActive ? 'text-slate-600' : 'bg-blue-600 hover:bg-blue-800 text-white' }}">
+         {{__('titiper.MenuPage.Filter')}}
       </a>
 
       @foreach($groups as $g)
         @php $active = (string) request('group') === (string) $g; @endphp
         <a href="{{ route('titiper.menu.index', array_merge(request()->except('page'), ['group' => $g])) }}"
-           class="px-4 py-2 rounded-full border {{ $active ? 'bg-sky-600 text-white' : 'text-slate-600' }}">
+           class="px-4 py-2 rounded-full border {{ $active ? 'bg-blue-600 text-white' : 'text-slate-600' }}">
           {{ $g }}
         </a>
       @endforeach
@@ -74,11 +74,11 @@
 
                 if (!empty($menu->image)) {
                     // if already full URL, use it
-                    if (\Illuminate\Support\Str::startsWith($menu->image, ['http://', 'https://'])) {
+                    if (startsWith($menu->image, ['http://', 'https://'])) {
                         $img = $menu->image;
                     }
                     // if already begins with /storage or storage/, normalize to asset()
-                    elseif (\Illuminate\Support\Str::startsWith($menu->image, ['/storage/', 'storage/'])) {
+                    elseif (startsWith($menu->image, ['/storage/', 'storage/'])) {
                         $path = ltrim($menu->image, '/');
                         $img = asset($path);
                     }
@@ -95,7 +95,6 @@
             </div>
           </a>
 
-          <!-- Title (clickable) -->
           <div class="text-slate-800 font-semibold text-sm mb-1">
             <a href="{{ route('titiper.menu.show', $menu->id) }}" class="hover:underline">
               {{ $menu->name }}
@@ -106,15 +105,14 @@
             Rp. {{ number_format($menu->price ?? 0, 0, ',', '.') }}
           </div>
 
-          <!-- Titip button -> go to detail -->
           <a href="{{ route('titiper.menu.show', $menu->id) }}"
-             class="w-full inline-block text-center bg-sky-600 text-white py-2 rounded">
+             class="w-full inline-block text-center bg-blue-700 hover:bg-blue-800 text-white py-2 rounded">
             Titip
           </a>
         </div>
       @empty
         <div class="col-span-full text-center text-slate-500 py-10">
-          Tidak ada menu ditemukan.
+          {{__('titiper.MenuPage.NoMenu')}}
         </div>
       @endforelse
     </div>

@@ -6,7 +6,7 @@
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 font-sans ">
     
     <div class="mb-6">
-        <h1 class=" text-md sm:text-xl font-bold">Progress Pesanan • #ORBR-{{ $order->id }}</h1>
+        <h1 class=" text-md sm:text-xl font-bold">{{ __('runner.OrderAcceptTitle') }} • #ORBR-{{ $order->id }}</h1>
     </div>
 
     {{-- PROGRESS BAR --}}
@@ -18,7 +18,7 @@
                     <img src="{{ asset('storage/basil_location-solid.png') }}" alt="">
                 </div>
                 <div class="text-blue-700 font-semibold">
-                    Tiba di<br>Kantin
+                    {{__('runner.OrderAcceptStatus1')}}<br>{{ __('runner.OrderAcceptStatus2') }}
                 </div>
             </div>
 
@@ -29,7 +29,7 @@
                     <img src="{{ asset('storage/hand_stuff.png') }}" alt="">
                 </div>
                 <div class="text-slate-500 font-medium text-sm">
-                    Mengambil<br>Titipan
+                    {{ __('runner.PickupOrder1') }}<br>{{ __('runner.PickupOrder2') }}
                 </div>
             </div>
 
@@ -40,7 +40,7 @@
                     <img src="{{ asset('storage/im_on_the_way.png') }}" alt="">
                 </div>
                 <div class="text-slate-500 font-medium text-sm">
-                    Sedang<br>diantarkan
+                    {{__('runner.OnTheWay1')}}<br>{{ __('runner.OnTheWay2') }}
                 </div>
             </div>
 
@@ -51,7 +51,7 @@
                     <img src="{{ asset('storage/check.png') }}" alt="">
                 </div>
                 <div class="text-slate-500 font-medium text-sm">
-                    Selesai
+                    {{ __('runner.Completed') }}
                 </div>
             </div>
 
@@ -66,7 +66,7 @@
                     <img src="{{ asset('storage/basil_location-solid.png') }}" alt="">
                 </div>
                 <div class="text-blue-700 font-semibold text-lg hover:bg-blue-950">
-                    Tiba di Kantin
+                    {{ __('runner.OrderAcceptStatus') }}
                 </div>
             </div>
         </div>
@@ -79,15 +79,15 @@
         <div class="w-full lg:flex-1 bg-white   rounded-2xl shadow-sm border border-slate-100 p-2 sm:p-6 md:p-8">
             
             <div class="mb-8">
-                <h2 class="text-2xl font-semibold mb-2">Konfirmasi sudah sampai kantin?</h2>
+                <h2 class="text-2xl font-semibold mb-2">{{ __('runner.ArrivedConf1') }}</h2>
                 
-                <p class="opacity-75 font-semibold mb-6 ">Konfirmasi ke Titipers kalo kamu sudah sampe di kantin tujuan</p>
+                <p class="opacity-75 font-semibold mb-6 ">{{ __('runner.ArrivedConf2') }}</p>
                 
                 <div class=" flex flex-col justify-center items-center">
                     <form action="{{ route('runner.orders.pickup', $order->id) }}" method="POST" class="w-full">
                         @csrf
-                        <button type="submit" class="w-full bg-blue-700 hover:bg-blue-800 items-center justify-center flex text-white font-semibold py-4 px-6 rounded-lg transition duration-200">
-                            Konfirmasi sudah sampai
+                        <button type="submit" class="w-full cursor-pointer bg-blue-700 hover:bg-blue-800 items-center justify-center flex text-white font-semibold py-4 px-6 rounded-lg transition duration-200">
+                            {{ __('runner.OrderAcceptStatus') }}
                         </button>
                     </form>
                 </div>
@@ -96,7 +96,7 @@
             <div class="border-b-4 border-gray-300 my-2"></div>
 
             <div class="mt-6">
-                <h3 class="font-semibold  text-lg mb-4">Lokasi Pengantaran</h3>
+                <h3 class="font-semibold  text-lg mb-4">{{__('runner.Delivery')}}</h3>
                 
                 {{-- Data Dinamis --}}
                 <p class="font-medium text-lg text-green-700">{{ $order->deliveryLocation->name ?? '-' }}</p>
@@ -107,7 +107,7 @@
                     @endif
                 </p>
                 <p class="opacity-75 mt-2">
-                    Pembayaran : <span class="font-bold">{{ $order->payment_method ?? 'COD' }}</span>
+                    {{ __('runner.PaymentMethod') }} : <span class="font-bold">{{ ucfirst($order->payment_method) ?? 'Cash On Delivery' }}</span>
                 </p>
             </div>
         </div>
@@ -135,7 +135,7 @@
                 <div class="border-b-4 border-gray-300 my-2 "></div>
                 
                 <div class="mb-4 pt-2">
-                    <p class="font-semibold  mb-1">Lokasi Pengambilan</p>
+                    <p class="font-semibold  mb-1">{{ __('runner.Pickup') }}</p>
                     <p class="font-medium text-blue-800">{{ $order->pickupLocation->name ?? '-' }}</p>
                     <p class="opacity-80 text-md">
                         {{ $order->pickupLocation->description ?? '' }}
@@ -148,7 +148,7 @@
                 <div class="border-b-4 border-gray-300 my-2 sm:mt-10"></div>
 
                 <div class=" p-3 text-sm  text-center  font-bold text-orange-500">
-                    Kantin sedang menyiapkan titipan
+                    {{ __('runner.OrderPrepared') }}
                 </div>
             </div>
 
@@ -159,7 +159,7 @@
                         <img src="{{ asset('storage/chat.png') }}" alt="">
                     </div>
                     <div>
-                        <span class="text-md font-semibold block">Chat Titipers</span>
+                        <span class="text-md font-semibold block">{{__('runner.ChatTitipers')}}</span>
                         <span class="text-xs text-gray-400">{{ $order->titiper->name ?? 'User' }}</span>
                     </div>
                 </a>
@@ -168,14 +168,14 @@
                     <div class="w-8 h-8 rounded-full flex items-center justify-center">
                         <img src="{{ asset('storage/call.png') }}" alt="">
                     </div>
-                    <span class=" text-md font-semibold">Telepon Titipers</span>
+                    <span class=" text-md font-semibold">{{ __('runner.CallTitipers') }}</span>
                 </a>
 
                 <a href="#" class="flex items-center  text-left hover:bg-slate-50 p-2 rounded-lg transition">
                     <div class="w-8 h-8 rounded-full flex items-center justify-center">
                         <img src="{{ asset('storage/report.png') }}" alt="">
                     </div>
-                    <span class="font-semibold text-md">Laporkan Masalah</span>
+                    <span class="font-semibold text-md">{{__('runner.Report')}}</span>
                 </a>
 
             </div>

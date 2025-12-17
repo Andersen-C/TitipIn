@@ -2,33 +2,22 @@
 @section('Title', 'Manage Menus')
 
 @section('Content')
-<div class="p-12 min-h-screen bg-gray-50">
-
-    {{-- HEADER --}}
-    <div class="relative mb-8 flex items-center">
+<div class="p-12 min-h-screen">
+    <div class="flex items-center justify-between mb-4 gap-2">
         <a href="{{ route('admin.manage') }}"
-           class="bg-pink-500 hover:bg-pink-600
-                  text-white px-5 py-2
-                  rounded-xl text-sm sm:text-lg
-                  inline-flex items-center gap-2
-                  shadow-md">
+           class="btn btn-secondary rounded-xl text-sm sm:text-base px-3 sm:px-4">
             <i class="fa-solid fa-backward"></i>
-            Back
+            {{ __('admin.Back')}}
         </a>
 
-        <h2 class="absolute left-1/2 -translate-x-1/2
-                   text-2xl sm:text-3xl
-                   font-bold text-blue-700">
-            Manage Menus
+        <h2 class="text-lg sm:text-2xl md:text-3xl font-bold text-blue-800 text-center flex-1">
+            {{ __('admin.MenuTable.Title') }}
         </h2>
 
         <a href="{{ route('menus.create') }}"
-           class="ml-auto bg-indigo-600 hover:bg-indigo-700
-                  text-white px-5 py-2
-                  rounded-xl text-sm sm:text-lg
-                  inline-flex items-center gap-2 shadow-md">
+           class="btn btn-primary rounded-xl text-sm sm:text-base md:text-lg px-3 sm:px-4">
             <i class="fa-solid fa-plus"></i>
-            Add
+            {{ __('admin.Add')}}
         </a>
     </div>
 
@@ -44,16 +33,15 @@
     <div class="bg-white rounded-3xl shadow-xl p-8 overflow-x-auto">
 
         <table class="min-w-full text-sm text-gray-800">
-            {{-- ❌ GARIS HITAM DIHAPUS TOTAL --}}
             <thead>
                 <tr class="text-gray-600">
-                    <th class="py-4 px-4 text-center">No</th>
-                    <th class="py-4 px-4">Gambar</th>
-                    <th class="py-4 px-4 text-center">Harga</th>
-                    <th class="py-4 px-4">Nama</th>
-                    <th class="py-4 px-4 text-center">Nama Kantin</th>
-                    <th class="py-4 px-4">Deskripsi</th>
-                    <th class="py-4 px-4 text-center">Action</th>
+                    <th class="py-4 px-4 text-center">{{ __('admin.MenuTable.No') }}</th>
+                    <th class="py-4 px-4">{{ __('admin.MenuTable.Image') }}</th>
+                    <th class="py-4 px-4 text-center">{{ __('admin.MenuTable.Price') }}</th>
+                    <th class="py-4 px-4">{{ __('admin.MenuTable.Name') }}</th>
+                    <th class="py-4 px-4 text-center">{{__('admin.MenuTable.Location')}}</th>
+                    <th class="py-4 px-4">{{ __('admin.MenuTable.Desc') }}</th>
+                    <th class="py-4 px-4 text-center">{{ __('admin.MenuTable.Action') }}</th>
                 </tr>
             </thead>
 
@@ -100,44 +88,35 @@
 
                     {{-- DESKRIPSI --}}
                     <td class="py-5 px-4 text-gray-600 max-w-sm truncate">
-                        {{ Str::limit($menu->description, 80) }}
+                        {{ Str::limit($menu->description, 20) }}
                     </td>
 
                     {{-- ACTION --}}
                     <td class="py-5 px-4 text-center space-x-2">
                         <a href="{{ route('menus.show', $menu->id) }}"
-                           class="bg-blue-600 hover:bg-blue-700
-                                  border-2 border-black
-                                  text-white px-4 py-2
-                                  rounded-lg text-sm shadow inline-flex gap-2">
-                            <i class="fa-solid fa-circle-info"></i>
-                            Details
+                           class="btn btn-l mb-2 bg-blue-800 hover:bg-blue-900 hover:text-white">
+                            <i class="fa-solid fa-circle-info mr-1"></i>
+                            {{ __('admin.Details') }}
                         </a>
 
                         <a href="{{ route('menus.edit', $menu->id) }}"
-                           class="bg-amber-500 hover:bg-amber-600
-                                  border-2 border-black
-                                  text-white px-4 py-2
-                                  rounded-lg text-sm shadow inline-flex gap-2">
+                           class="btn btn-l mb-2 bg-amber-500 hover:bg-amber-700 hover:text-white">
                             <i class="fa-solid fa-pen"></i>
-                            Update
+                            {{ __('admin.Update') }}
                         </a>
 
                         <button
                             onclick="openDeleteModal({{ $menu->id }}, '{{ $menu->name }}')"
-                            class="bg-red-600 hover:bg-red-700
-                                   border-2 border-black
-                                   text-white px-4 py-2
-                                   rounded-lg text-sm shadow inline-flex gap-2">
+                            class="btn btn-l mb-2 bg-red-500 hover:bg-red-700 hover:text-white">
                             <i class="fa-solid fa-trash"></i>
-                            Delete
+                            {{ __('admin.Delete') }}
                         </button>
                     </td>
                 </tr>
             @empty
                 <tr>
                     <td colspan="7" class="py-8 text-center text-gray-500">
-                        No menus found.
+                        {{ __('admin.MenuTable.NoMenu') }}
                     </td>
                 </tr>
             @endforelse
@@ -163,18 +142,19 @@
 
         <h3 class="text-xl font-bold text-red-600 mb-4">
             <i class="fa-solid fa-triangle-exclamation mr-2"></i>
-            Konfirmasi Penghapusan
+            {{ __('admin.UserDeleteModal.Title') }}
         </h3>
 
         <p class="mb-6 text-gray-700">
-            Apakah Anda yakin ingin menghapus
+            {{ __('admin.UserDeleteModal.Message1') }}
             <span id="deleteName" class="font-semibold"></span>?
+            {{ __('admin.UserDeleteModal.Message2') }}
         </p>
 
         <div class="flex justify-end gap-3">
             <button onclick="closeDeleteModal()"
-                    class="px-5 py-2 rounded-lg border text-gray-700">
-                Cancel
+                    class="px-5 py-2 cursor-pointer rounded-lg border text-gray-700">
+                {{ __('admin.UserDeleteModal.Cancel') }}
             </button>
 
             <form id="deleteForm" method="POST">
@@ -183,8 +163,8 @@
                 <button type="submit"
                         class="px-5 py-2 rounded-lg
                                bg-red-600 hover:bg-red-700
-                               text-white font-semibold">
-                    Ya, Delete
+                               text-white font-semibold cursor-pointer">
+                   {{ __('admin.Delete') }}
                 </button>
             </form>
         </div>

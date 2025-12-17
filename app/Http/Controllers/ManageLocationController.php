@@ -28,13 +28,13 @@ class ManageLocationController extends Controller
         ];
 
         $messages = [
-            'name.required' => 'Nama lokasi wajib diisi',
-            'name.string' => 'Nama lokasi harus berupa teks',
-            'name.min' => 'Nama lokasi minimal memiliki 1 karakter',
-            'name.max' => 'Nama lokasi maksimal memiliki 255 karakter',
-            'floor_number.required' => 'Nomor lantai wajib diisi',
-            'floor_number.integer' => 'Nomor lantai harus berupa angka',
-            'floor_number.min' => 'Nomor lantai tidak boleh kurang dari 0 (basement memiliki nomor lantai 0).'
+            'name.required' => __('validation.ManageLoc.name.required'),
+            'name.string' => __('validation.ManageLoc.name.string'),
+            'name.min' => __('validation.ManageLoc.name.min'),
+            'name.max' => __('validation.ManageLoc.name.max'),
+            'floor_number.required' => __('validation.ManageLoc.Floor.required'),
+            'floor_number.integer' => __('validation.ManageLoc.Floor.integer'),
+            'floor_number.min' => __('validation.ManageLoc.Floor.min')
         ];
 
         try {
@@ -49,7 +49,7 @@ class ManageLocationController extends Controller
             'floor_number' => $validated['floor_number']
         ]);
 
-        return redirect()->route('locations.index')->with('success', 'Lokasi Berhasil Ditambahkan!');
+        return redirect()->route('locations.index')->with('success', __('admin.AddLocSuccessTitle'));
     }
 
     public function show($id)
@@ -70,13 +70,13 @@ class ManageLocationController extends Controller
         ];
 
         $messages = [
-            'name.required' => 'Nama lokasi wajib diisi',
-            'name.string' => 'Nama lokasi harus berupa teks',
-            'name.min' => 'Nama lokasi minimal memiliki 1 karakter',
-            'name.max' => 'Nama lokasi maksimal memiliki 255 karakter',
-            'floor_number.required' => 'Nomor lantai wajib diisi',
-            'floor_number.integer' => 'Nomor lantai harus berupa angka',
-            'floor_number.min' => 'Nomor lantai tidak boleh kurang dari 0 (basement memiliki nomor lantai 0).'
+            'name.required' => __('validation.ManageLoc.name.required'),
+            'name.string' => __('validation.ManageLoc.name.string'),
+            'name.min' => __('validation.ManageLoc.name.min'),
+            'name.max' => __('validation.ManageLoc.name.max'),
+            'floor_number.required' => __('validation.ManageLoc.Floor.required'),
+            'floor_number.integer' => __('validation.ManageLoc.Floor.integer'),
+            'floor_number.min' => __('validation.ManageLoc.Floor.min')
         ];
 
         try {
@@ -93,7 +93,7 @@ class ManageLocationController extends Controller
             'floor_number' => $validated['floor_number']
         ]);
 
-        return redirect()->route('locations.index')->with('success', 'Lokasi Berhasil Diperbarui!');
+        return redirect()->route('locations.index')->with('success', __('admin.UpdateLocSuccessTitle'));
     }
 
     public function destroy($id)
@@ -102,6 +102,6 @@ class ManageLocationController extends Controller
         $location = Location::findOrFail($id);
 
         $location->delete();
-        return redirect()->route('locations.index')->with('success', 'Lokasi Berhasil Dihapus!');
+        return redirect()->route('locations.index')->with('success', __('admin.DeleteLocSuccessTitle'));
     }
 }

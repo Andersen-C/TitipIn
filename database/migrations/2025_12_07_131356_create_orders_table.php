@@ -18,6 +18,8 @@ return new class extends Migration
             $table->foreignId('pickup_location_id')->constrained('locations')->onDelete('cascade');
             $table->foreignId('delivery_location_id')->constrained('locations')->onDelete('cascade');
             $table->enum('status', ['waiting_runner', 'accepted', 'arrived_at_pickup', 'item_picked', 'on_delivery', 'delivered', 'completed', 'cancelled'])->default('waiting_runner');
+            $table->string('cancellation_reason')->nullable()->after('status');
+            $table->text('cancellation_note')->nullable()->after('cancellation_reason');
             $table->decimal('subtotal', 10, 2)->default(0);
             $table->decimal('service_fee', 10, 2)->default(3000);
             $table->decimal('total_price', 10, 2);

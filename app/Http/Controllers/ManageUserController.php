@@ -35,30 +35,30 @@ class ManageUserController extends Controller
         ];
 
         $messages = [
-            'name.required' => 'Username wajib diisi',
-            'name.min'      => 'Username minimal memiliki 5 karakter',
-            'name.max'      => 'Username maksimal memiliki 50 karakter',
-            'email.required'    => 'Email harus diisi',
-            'email.email'       => 'Format email tidak valid',
-            'email.unique'      => 'Email sudah dipakai oleh akun lain',
-            'role.required'     => 'Role harus dipilih',
-            'role.in'           => 'Role yang dipilih tidak valid',
-            'mode.required'     => 'Mode harus dipilih',
-            'mode.in'           => 'Mode yang dipilih tidak valid',
-            'profile_pic.image'      => 'File harus berupa gambar',
-            'profile_pic.mimes'      => 'Format gambar harus JPG, JPEG, atau PNG',
-            'profile_pic.max'        => 'Ukuran gambar maksimal 2MB',
-            'password.required' => 'Password harus diisi',
-            'password.min' => 'Password minimal memiliki 8 karakter',
-            'password.confirmed' => 'Konfirmasi password tidak sesuai',
-            'password_confirmation.required' => 'Konfirmasi password harus diisi'
+            'name.required' => __('validation.ManageUser.name.required'),
+            'name.min'      => __('validation.ManageUser.name.min'),
+            'name.max'      => __('validation.ManageUser.name.max'),
+            'email.required'    => __('validation.ManageUser.email.required'),
+            'email.email'       => __('validation.ManageUser.email.email'),
+            'email.unique'      => __('validation.ManageUser.email.unique'),
+            'role.required'     => __('validation.ManageUser.role.required'),
+            'role.in'           => __('validation.ManageUser.role.in'),
+            'mode.required'     => __('validation.ManageUser.mode.required'),
+            'mode.in'           => __('validation.ManageUser.mode.in'),
+            'profile_pic.image'      => __('validation.ManageUser.profile_pic.image'),
+            'profile_pic.mimes'      => __('validation.ManageUser.profile_pic.mimes'),
+            'profile_pic.max'        => __('validation.ManageUser.profile_pic.max'),
+            'password.required' => __('validation.ManageUser.password.required'),
+            'password.min' => __('validation.ManageUser.password.min'),
+            'password.confirmed' => __('validation.ManageUser.password.confirmed'),
+            'password_confirmation.required' => __('validation.ManageUser.password_confirmation.required')
         ];
 
         // menyimpan data baru
         $validated = $request->validate($rules, $messages);
 
         if($request->hasFile('profile_pic')) {
-            $validated['profile_pic'] = $request->file('profile_pic')->store('profiles', 'public');
+            $validated['profile_pic'] = $request->file('profile_pic')->store('profile-pictures', 'public');
         }
 
         User::create([
@@ -72,7 +72,7 @@ class ManageUserController extends Controller
             'avg_rating' => 0  
         ]);
 
-        return redirect()->route('users.index')->with('success', 'User berhasil dibuat!');
+        return redirect()->route('users.index')->with('success', __('admin.CreateUserSuccess'));
     }
 
     public function show($id)
@@ -102,21 +102,21 @@ class ManageUserController extends Controller
         ];
 
         $messages = [
-            'name.required' => 'Username wajib diisi',
-            'name.min'      => 'Username minimal memiliki 5 karakter',
-            'name.max'      => 'Username maksimal memiliki 50 karakter',
-            'email.required'    => 'Email harus diisi',
-            'email.email'       => 'Format email tidak valid',
-            'email.unique'      => 'Email sudah dipakai oleh akun lain',
-            'role.required'     => 'Role harus dipilih',
-            'role.in'           => 'Role yang dipilih tidak valid',
-            'mode.required'     => 'Mode harus dipilih',
-            'mode.in'           => 'Mode yang dipilih tidak valid',
-            'profile_pic.image' => 'File harus berupa gambar',
-            'profile_pic.mimes' => 'Format gambar harus JPG, JPEG, atau PNG',
-            'profile_pic.max'   => 'Ukuran gambar maksimal 2MB',
-            'password.min'      => 'Password minimal memiliki 8 karakter',
-            'password.confirmed' => 'Konfirmasi password tidak sesuai',
+            'name.required' => __('validation.ManageUser.name.required'),
+            'name.min'      => __('validation.ManageUser.name.min'),
+            'name.max'      =>  __('validation.ManageUser.name.max'),
+            'email.required'    => __('validation.ManageUser.email.required'),
+            'email.email'       => __('validation.ManageUser.email.email'),
+            'email.unique'      => __('validation.ManageUser.email.unique'),
+            'role.required'     => __('validation.ManageUser.role.required'),
+            'role.in'           => __('validation.ManageUser.role.in'),
+            'mode.required'     => __('validation.ManageUser.mode.required'),
+            'mode.in'           => __('validation.ManageUser.mode.in'),
+            'profile_pic.image' => __('validation.ManageUser.profile_pic.image'),
+            'profile_pic.mimes' => __('validation.ManageUser.profile_pic.mimes'),
+            'profile_pic.max'   => __('validation.ManageUser.profile_pic.max'),
+            'password.min'      => __('validation.ManageUser.password.required'),
+            'password.confirmed' => __('validation.ManageUser.password.confirmed'),
         ];
 
         $request->validate($rules, $messages);
@@ -138,11 +138,11 @@ class ManageUserController extends Controller
                 Storage::disk('public')->delete($user->profile_pic);
             }
 
-           $user->profile_pic = $request->file('profile_pic')->store('profiles', 'public');
+           $user->profile_pic = $request->file('profile_pic')->store('profile-pictures', 'public');
         }
         $user->save();
 
-        return redirect()->route('users.index')->with('success', 'User berhasil diperbarui!');
+        return redirect()->route('users.index')->with('success', __('admin.UpdateUserSuccess'));
     }
 
     public function destroy($id)
@@ -155,6 +155,6 @@ class ManageUserController extends Controller
         }
 
         $user->delete();
-        return redirect()->route('users.index')->with('success', 'User Berhasil Dihapus!');
+        return redirect()->route('users.index')->with('success', __('admin.DeleteUserSuccess'));
     }
 }

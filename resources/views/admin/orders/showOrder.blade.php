@@ -7,19 +7,13 @@
     {{-- HEADER --}}
     <div class="relative mb-8 flex items-center">
         <a href="{{ route('orders.index') }}"
-           class="bg-pink-500 hover:bg-pink-600
-                  text-white px-4 py-2
-                  rounded-xl text-sm sm:text-lg
-                  inline-flex items-center gap-2
-                  shadow-md">
+           class="btn btn-secondary rounded-xl text-sm sm:text-base px-3 sm:px-4">
             <i class="fa-solid fa-backward"></i>
-            Back
+            {{ __('admin.Back')}}
         </a>
 
-        <h2 class="absolute left-1/2 -translate-x-1/2
-                   text-2xl md:text-3xl
-                   font-bold text-blue-800">
-            Detail Order
+        <h2 class="absolute left-1/2 -translate-x-1/2 text-lg sm:text-2xl md:text-3xl font-bold text-blue-800">
+            {{ __('admin.OrderDetailPage.Title') }}
         </h2>
     </div>
 
@@ -30,23 +24,22 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
 
             <div>
-                <p class="text-sm font-semibold text-gray-700">Order ID</p>
+                <p class="text-sm font-semibold text-gray-700">{{__('admin.OrderDetailPage.OrderID')}}</p>
                 <p class="text-lg font-bold text-gray-900">
                     #{{ $order->id }}
                 </p>
             </div>
 
             <div>
-                <p class="text-sm font-semibold text-gray-700">Tanggal</p>
+                <p class="text-sm font-semibold text-gray-700">{{__('admin.OrderDetailPage.Date')}}</p>
                 <p class="text-base font-semibold text-gray-900">
                     {{ $order->created_at->format('d M Y H:i') }}
                 </p>
             </div>
 
-            {{-- STATUS (FINAL FIX – TIDAK TRANSPARAN & SIMETRIS) --}}
             <div class="flex flex-col">
                 <p class="text-sm font-semibold text-gray-700 mb-2">
-                    Status
+                    {{__('admin.OrderDetailPage.Status')}}
                 </p>
 
                 <span class="inline-flex items-center justify-center
@@ -71,14 +64,14 @@
         {{-- USER INFO --}}
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div>
-                <p class="text-sm font-semibold text-gray-700">Titiper</p>
+                <p class="text-sm font-semibold text-gray-700">{{__('admin.OrderDetailPage.Titiper')}}</p>
                 <p class="text-base font-semibold text-gray-900">
                     {{ $order->titiper->name ?? '-' }}
                 </p>
             </div>
 
             <div>
-                <p class="text-sm font-semibold text-gray-700">Runner</p>
+                <p class="text-sm font-semibold text-gray-700">{{__('admin.OrderDetailPage.Runner')}}</p>
                 <p class="text-base font-semibold text-gray-900">
                     {{ $order->runner->name ?? '-' }}
                 </p>
@@ -90,14 +83,14 @@
         {{-- LOCATION --}}
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div>
-                <p class="text-sm font-semibold text-gray-700">Pickup Location</p>
+                <p class="text-sm font-semibold text-gray-700">{{__('admin.OrderDetailPage.Pickup')}}</p>
                 <p class="text-base font-semibold text-gray-900">
                     {{ $order->pickupLocation->name ?? '-' }}
                 </p>
             </div>
 
             <div>
-                <p class="text-sm font-semibold text-gray-700">Delivery Location</p>
+                <p class="text-sm font-semibold text-gray-700">{{__('admin.OrderDetailPage.Delivery')}}</p>
                 <p class="text-base font-semibold text-gray-900">
                     {{ $order->deliveryLocation->name ?? '-' }}
                 </p>
@@ -109,16 +102,16 @@
         {{-- ORDER ITEMS --}}
         <div>
             <h3 class="text-lg font-bold text-gray-900 mb-4">
-                Order Items
+                {{__('admin.OrderDetailPage.Items')}}
             </h3>
 
             <table class="min-w-full text-sm text-left text-gray-900">
                 <thead>
                     <tr class="border-b font-semibold">
-                        <th class="py-3 px-4">Menu</th>
-                        <th class="py-3 px-4">Qty</th>
-                        <th class="py-3 px-4">Harga</th>
-                        <th class="py-3 px-4">Total</th>
+                        <th class="py-3 px-4">{{__('admin.OrderDetailPage.Menu')}}</th>
+                        <th class="py-3 px-4">{{__('admin.OrderDetailPage.Qty')}}</th>
+                        <th class="py-3 px-4">{{__('admin.OrderDetailPage.Price')}}</th>
+                        <th class="py-3 px-4">{{__('admin.OrderDetailPage.Total')}}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -147,21 +140,21 @@
         {{-- PRICE SUMMARY --}}
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div>
-                <p class="text-sm font-semibold text-gray-700">Subtotal</p>
+                <p class="text-sm font-semibold text-gray-700">{{__('admin.OrderDetailPage.Subtotal')}}</p>
                 <p class="text-base font-semibold text-gray-900">
                     Rp {{ number_format($order->subtotal, 0, ',', '.') }}
                 </p>
             </div>
 
             <div>
-                <p class="text-sm font-semibold text-gray-700">Service Fee</p>
+                <p class="text-sm font-semibold text-gray-700">{{__('admin.OrderDetailPage.Service')}}</p>
                 <p class="text-base font-semibold text-gray-900">
                     Rp {{ number_format($order->service_fee, 0, ',', '.') }}
                 </p>
             </div>
 
             <div>
-                <p class="text-sm font-semibold text-gray-700">Total</p>
+                <p class="text-sm font-semibold text-gray-700">{{__('admin.OrderDetailPage.Total')}}</p>
                 <p class="text-xl font-bold text-gray-900">
                     Rp {{ number_format($order->total_price, 0, ',', '.') }}
                 </p>

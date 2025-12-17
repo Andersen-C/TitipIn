@@ -17,13 +17,13 @@ class OrderController extends Controller
         $query = Order::where('titiper_id', $userId)
             ->with(['orderItems.menu', 'pickupLocation', 'deliveryLocation', 'runner']);
 
-        if ($currentStatus === 'Menunggu') {
+        if ($currentStatus === 'Menunggu' or $currentStatus === 'Waiting') {
             $query->where('status', 'waiting_runner');
-        } elseif ($currentStatus === 'Sedang Dibelikan') {
+        } elseif ($currentStatus === 'Sedang Dibelikan' or $currentStatus === 'In Process') {
             $query->whereIn('status', ['accepted', 'item_picked', 'on_delivery']);
-        } elseif ($currentStatus === 'Selesai') {
+        } elseif ($currentStatus === 'Selesai' or $currentStatus === 'Completed') {
             $query->where('status', 'completed');
-        } elseif ($currentStatus === 'Dibatalkan') {
+        } elseif ($currentStatus === 'Dibatalkan' or $currentStatus === 'Cancelled') {
             $query->where('status', 'cancelled');
         }
 
@@ -50,9 +50,9 @@ class OrderController extends Controller
                 'cancellation_reason' => $request->reason,
                 'cancellation_note'   => $request->detail  
             ]);
-            return redirect()->back()->with('success', 'Pesanan berhasil dibatalkan.');
+            return redirect()->back()->with('success', __('titiper.CancelOrderSuccess'));
         }
-        return redirect()->back()->with('error', 'Pesanan sudah diproses, tidak bisa dibatalkan.');
+        return redirect()->back()->with('error', __('titiper.CannotCancelOrder'));
     }
 
 
@@ -75,7 +75,7 @@ class OrderController extends Controller
         $order = Order::findOrFail($id);
 
         if ($order->runner_id !== null) {
-            return redirect()->back()->with('error', 'Yah, terlambat! Pesanan ini sudah diambil runner lain.');
+            return redirect()->back()->with('error', __('runner.OrderTaken'));
         }
         $order->update([
             'runner_id' => Auth::id(),
@@ -83,7 +83,7 @@ class OrderController extends Controller
             'accepted_at' => now(),
         ]);
 
-        return redirect()->route('runner.orders.show', $id)->with('success', 'Pesanan berhasil diambil!');
+        return redirect()->route('runner.orders.show', $id)->with('success', __('runner.OrderTakenByUs'));
     }
 
     public function runnerShow($id)
@@ -95,7 +95,7 @@ class OrderController extends Controller
             return view('runner.orderdetail', compact('order'));
         }
         if ($order->runner_id != $myId) {
-            return redirect()->route('runner.orders.index')->with('error', 'Pesanan ini milik runner lain.');
+            return redirect()->route('runner.orders.index')->with('error', __('runner.OrderBelongsOther'));
         }
 
         switch ($order->status) {
@@ -139,6 +139,6 @@ class OrderController extends Controller
             'status' => 'completed',
             'completed_at' => now()
         ]);
-        return redirect()->route('runner.orders.show', $id)->with('success', 'Pesanan Selesai!');
+        return redirect()->route('runner.orders.show', $id)->with('success', __('runner.OrderCompleted'));
     }
 }

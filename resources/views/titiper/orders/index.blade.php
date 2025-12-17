@@ -1,13 +1,13 @@
 @extends('template.afterLogin.TitiperAfterLogin')
 
-@section('Title', 'Pesanan Saya')
+@section('Title', 'Orders')
 
 @section('Content')
     <div class="bg-[#F9FAFB] min-h-screen pb-20 font-sans">
         <div class="max-w-6xl mx-auto px-6 py-10">
             <div class="mb-6">
-                <h1 class="text-4xl font-extrabold text-[#3B4D81]">Pesanan Saya</h1>
-                <p class="text-slate-500 mt-2 text-lg">Lihat status pesananmu secara real-time.</p>
+                <h1 class="text-4xl font-extrabold text-blue-700">{{ __('titiper.OrdersListPage.Title') }}</h1>
+                <p class="text-slate-500 mt-2 text-lg">{{ __('titiper.OrdersListPage.Subtitle') }}</p>
             </div>
 
             <div class="relative mb-8">
@@ -17,13 +17,13 @@
                             d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                     </svg>
                 </span>
-                <input type="text" placeholder="Cek pesanan kamu disini"
+                <input type="text" placeholder="{{ __('titiper.OrdersListPage.Search') }}"
                     class="w-full py-4 pl-12 pr-12 border border-slate-200 rounded-xl bg-gray-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 text-slate-700 placeholder-slate-400 shadow-sm transition-all">
             </div>
 
             <div class="flex flex-wrap gap-3 mb-8 overflow-x-auto pb-2">
                 @php
-                    $tabs = ['Semua', 'Menunggu', 'Sedang Dibelikan', 'Selesai', 'Dibatalkan'];
+                    $tabs = [__('titiper.OrdersListPage.Status.all'), __('titiper.OrdersListPage.Status.waiting'), __('titiper.OrdersListPage.Status.inprocess'),__('titiper.OrdersListPage.Status.completed'), __('titiper.OrdersListPage.Status.cancelled')];
                 @endphp
 
                 @foreach ($tabs as $tab)
@@ -45,16 +45,16 @@
 
                         $imgUrl = 'https://via.placeholder.com/150';
                         if ($menu && !empty($menu->image)) {
-                            if (\Illuminate\Support\Str::startsWith($menu->image, ['http://', 'https://'])) {
+                            if (Str::startsWith($menu->image, ['http://', 'https://'])) {
                                 $imgUrl = $menu->image;
-                            } elseif (\Illuminate\Support\Str::startsWith($menu->image, ['/storage/', 'storage/'])) {
+                            } elseif (startsWith($menu->image, ['/storage/', 'storage/'])) {
                                 $imgUrl = asset(ltrim($menu->image, '/'));
                             } else {
                                 $imgUrl = asset('storage/' . ltrim($menu->image, '/'));
                             }
                         }
 
-                        $menuName = $menu ? $menu->name : 'Item dihapus';
+                        $menuName = $menu ? $menu->name : __('titiper.OrdersListPage.NoMenu');
                         $estimasiStart = $order->created_at->addMinutes(15)->format('H:i');
                         $estimasiEnd = $order->created_at->addMinutes(45)->format('H:i');
 
@@ -75,7 +75,7 @@
                             'subtotal' => number_format($order->subtotal, 0, ',', '.'),
                             'service_fee' => number_format($order->service_fee, 0, ',', '.'),
                             'total' => number_format($order->total_price, 0, ',', '.'),
-                            'payment_method' => $order->payment_method == 'cash' ? 'Bayar di Tempat (COD)' : 'Transfer',
+                            'payment_method' => $order->payment_method == 'cash' ? __('titiper.OrdersListPage.COD') : __('titiper.OrdersListPage.bank'),
                             'status' => $order->status,
                             'cancel_reason' => $order->cancellation_reason ?? '-',
                             'cancel_note' => $order->cancellation_note ?? '',
@@ -105,7 +105,7 @@
                                             @if ($order->orderItems->count() > 1)
                                                 <span
                                                     class="text-sm font-normal text-slate-500 block mt-1 no-underline">(+{{ $order->orderItems->count() - 1 }}
-                                                    item lainnya)</span>
+                                                    {{__('titiper.OrdersListPage.otherItem')}})</span>
                                             @endif
                                         </h3>
                                         <p class="text-slate-600 font-medium mt-1">
@@ -122,10 +122,9 @@
                                 @if ($order->status == 'cancelled')
                                     <div class="mt-3 bg-red-50 border border-red-100 rounded-lg p-2.5">
                                         <span
-                                            class="text-[10px] font-bold text-red-500 uppercase tracking-wide block mb-0.5">Dibatalkan
-                                            karena:</span>
+                                            class="text-[10px] font-bold text-red-500 uppercase tracking-wide block mb-0.5">{{__('titiper.OrdersListPage.cancelReason')}}</span>
                                         <p class="text-sm text-red-700 font-medium">
-                                            {{ $order->cancellation_reason ?? 'Alasan tidak disebutkan' }}
+                                            {{ $order->cancellation_reason ?? __('titiper.OrdersListPage.Undisclosed')}}
                                             @if ($order->cancellation_note)
                                                 <span
                                                     class="text-red-500 font-normal">({{ $order->cancellation_note }})</span>
@@ -137,7 +136,7 @@
                                         <span
                                             class="text-[10px] font-bold text-slate-400 uppercase tracking-wide block mb-0.5">Note</span>
                                         <p class="text-sm text-slate-600 italic line-clamp-2 leading-snug">
-                                            {{ $order->notes ?: 'Tidak ada catatan' }}
+                                            {{ $order->notes ?: __('titiper.OrdersListPage.NoNotes') }}
                                         </p>
                                     </div>
                                 @endif
@@ -168,7 +167,7 @@
                             <div class="text-right w-full">
                                 <p class="text-xs text-slate-400 font-medium mb-1">
                                     {{ $order->created_at->format('d F Y, H:i') }}</p>
-                                <p class="text-sm font-bold text-slate-700">Total: Rp.
+                                <p class="text-sm font-bold text-slate-700">{{__('titiper.OrdersListPage.Total')}}: Rp.
                                     {{ number_format($order->total_price, 0, ',', '.') }}</p>
                             </div>
 
@@ -176,21 +175,21 @@
                                 <div class="flex flex-col items-end gap-2 w-full">
                                     <span
                                         class="px-4 py-1 bg-[#FDF6B2] text-[#9F580A] text-xs font-bold rounded-md uppercase tracking-wide">
-                                        Menunggu
+                                        {{__('titiper.OrdersListPage.Waiting')}}
                                     </span>
                                     <button
                                         onclick="openCancelModal('{{ $order->id }}', '#ORD-{{ str_pad($order->id, 5, '0', STR_PAD_LEFT) }}')"
                                         class="w-full py-2 bg-[#EF4444] hover:bg-red-600 text-white text-sm font-bold rounded-lg transition shadow-sm">
-                                        Batalkan
+                                        {{__('titiper.OrdersListPage.Cancel')}}
                                     </button>
-                                    <p class="text-[10px] text-slate-400 mt-1 text-center w-full">Estimasi:
+                                    <p class="text-[10px] text-slate-400 mt-1 text-center w-full">{{__('titiper.OrdersListPage.Estimation')}}:
                                         {{ $estimasiStart }} - {{ $estimasiEnd }}</p>
                                 </div>
                             @elseif (in_array($order->status, ['accepted', 'arrived_at_pickup', 'item_picked', 'on_delivery', 'delivered']))
                                 <div class="w-full flex flex-col items-end gap-2">
                                     <button
                                         class="w-full py-2 bg-blue-600 text-white text-sm font-bold rounded-lg cursor-default shadow-sm">
-                                        Sedang Dibelikan
+                                        {{__('titiper.OrdersListPage.inProcess')}}
                                     </button>
                                     <div class="text-right">
                                         <span class="text-[10px] text-slate-400 block">Runner</span>
@@ -202,7 +201,7 @@
                                 <div class="w-full flex flex-col items-end gap-2">
                                     <span
                                         class="inline-block px-4 py-2 bg-[#DEF7EC] text-[#03543F] text-sm font-bold rounded-lg w-full text-center">
-                                        Selesai
+                                        {{__('titiper.OrdersListPage.Completed')}}
                                     </span>
                                     @if (!$order->hasReview())
                                         <button
@@ -213,7 +212,7 @@
                                                     d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z">
                                                 </path>
                                             </svg>
-                                            Nilai Runner
+                                            {{__('titiper.OrdersListPage.RunnerReview')}}
                                         </button>
                                     @endif
                                 </div>
@@ -221,10 +220,10 @@
                                 <div class="w-full text-right">
                                     <button
                                         class="w-full px-4 py-2 bg-slate-200 text-slate-500 text-sm font-bold rounded-lg cursor-not-allowed">
-                                        Dibatalkan
+                                        {{__('titiper.OrdersListPage.Cancelled')}}
                                     </button>
                                     <span class="text-[10px] text-red-500 font-medium block mt-1">
-                                        {{ \Illuminate\Support\Str::limit($order->cancellation_reason, 20) }}
+                                        {{limit($order->cancellation_reason, 20) }}
                                     </span>
                                 </div>
                             @endif
@@ -239,9 +238,9 @@
                                 </path>
                             </svg>
                         </div>
-                        <p class="text-slate-500 text-lg">Tidak ada pesanan di tab "{{ $currentStatus }}"</p>
+                        <p class="text-slate-500 text-lg">{{__('titiper.OrdersListPage.NoOrders')}} "{{ $currentStatus }}"</p>
                         <a href="{{ route('titiper.menu.index') }}"
-                            class="text-blue-600 font-bold hover:underline mt-2 inline-block">Mulai Jajan Sekarang</a>
+                            class="text-blue-600 font-bold hover:underline mt-2 inline-block">{{__('titiper.OrdersListPage.RedirectMenu')}}</a>
                     </div>
                 @endforelse
             </div>
@@ -256,7 +255,7 @@
 
                 <div class="px-8 py-5 border-b border-slate-100 flex justify-between items-center bg-white flex-shrink-0">
                     <div>
-                        <h2 class="text-2xl font-extrabold text-[#3B4D81]">Detail Pesanan</h2>
+                        <h2 class="text-2xl font-extrabold text-[#3B4D81]">{{__('titiper.OrdersListPage.OrderDetailTitle')}}</h2>
                         <p class="text-sm text-slate-400 mt-1" id="modal_display_id">#ORD-XXXX</p>
                     </div>
                     <button onclick="closeDetailModal()"
@@ -276,8 +275,8 @@
                             d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                     </svg>
                     <div>
-                        <h4 class="text-red-800 font-bold text-lg">Pesanan Dibatalkan</h4>
-                        <p class="text-red-600 mt-1">Alasan: <span id="modal_cancel_reason" class="font-semibold"></span>
+                        <h4 class="text-red-800 font-bold text-lg">{{__('titiper.OrdersListPage.OrderCancelled')}}</h4>
+                        <p class="text-red-600 mt-1">{{__('titiper.OrdersListPage.cancelReason')}}: <span id="modal_cancel_reason" class="font-semibold"></span>
                         </p>
                         <p class="text-red-500 text-sm mt-1" id="modal_cancel_note"></p>
                     </div>
@@ -298,20 +297,20 @@
                                 <div class="flex-1 flex flex-col justify-between">
                                     <div>
                                         <h3 class="text-2xl font-bold text-slate-800 leading-tight" id="modal_menu_name">
-                                            Menu Name</h3>
+                                            {{__('titiper.OrdersListPage.menu')}}</h3>
                                         <div class="text-lg text-slate-600 mt-2 font-medium">
                                             Rp. <span id="modal_price">0</span>
                                         </div>
                                         <div class="mt-4 bg-slate-50 border border-slate-200 rounded-xl p-4">
                                             <span
-                                                class="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-1">Notes</span>
-                                            <p class="text-slate-700 text-sm italic" id="modal_note">Tidak ada catatan</p>
+                                                class="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-1">{{__('titiper.OrdersListPage.Note')}}</span>
+                                            <p class="text-slate-700 text-sm italic" id="modal_note">{{__('titiper.OrdersListPage.NoNotes')}}</p>
                                         </div>
                                     </div>
                                     <div class="mt-4 flex justify-end">
                                         <div
                                             class="flex items-center gap-2 bg-blue-50 px-4 py-2 rounded-lg border border-blue-100">
-                                            <span class="text-sm text-blue-600 font-bold">Jumlah:</span>
+                                            <span class="text-sm text-blue-600 font-bold">{{__('titiper.OrdersListPage.Amount')}}:</span>
                                             <span class="text-lg font-extrabold text-blue-800" id="modal_qty">1</span>
                                         </div>
                                     </div>
@@ -321,8 +320,7 @@
                             <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 space-y-4">
                                 <div>
                                     <label
-                                        class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Lokasi
-                                        Pengambilan (Resto)</label>
+                                        class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">{{__('titiper.OrdersListPage.Pickup')}}</label>
                                     <div
                                         class="flex items-center gap-3 p-3 bg-slate-50 rounded-xl border border-slate-200">
                                         <div class="p-2 bg-white rounded-full text-slate-400 shadow-sm">
@@ -346,8 +344,7 @@
                                 </div>
                                 <div>
                                     <label
-                                        class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Lokasi
-                                        Tujuan (Kamu)</label>
+                                        class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">{{__('titiper.OrdersListPage.Delivery')}}</label>
                                     <div class="flex items-center gap-3 p-3 bg-blue-50 rounded-xl border border-blue-200">
                                         <div class="p-2 bg-white rounded-full text-blue-500 shadow-sm">
                                             <svg class="w-5 h-5" fill="none" stroke="currentColor"
@@ -364,7 +361,7 @@
 
                         <div class="lg:col-span-1 space-y-5">
                             <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
-                                <h3 class="font-bold text-slate-800 mb-4">Metode Pembayaran</h3>
+                                <h3 class="font-bold text-slate-800 mb-4">{{__('titiper.OrdersListPage.PaymentMethod')}}</h3>
                                 <div class="flex items-start gap-4 p-4 border rounded-xl bg-slate-50 border-slate-200">
                                     <div class="mt-1 text-blue-600">
                                         <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
@@ -374,11 +371,10 @@
                                         </svg>
                                     </div>
                                     <div>
-                                        <span class="block font-bold text-slate-800 text-sm" id="modal_payment">Bayar di
-                                            Tempat</span>
-                                        <span class="text-xs text-slate-500 mt-1 block">Status: <span
+                                        <span class="block font-bold text-slate-800 text-sm" id="modal_payment">{{__('titiper.OrdersListPage.COD')}}</span>
+                                        <span class="text-xs text-slate-500 mt-1 block">{{__('titiper.OrdersListPage.Statuss')}}: <span
                                                 id="modal_status_text"
-                                                class="uppercase font-bold text-blue-600">PENDING</span></span>
+                                                class="uppercase font-bold text-blue-600">{{__('titiper.OrdersListPage.pending')}}</span></span>
                                     </div>
                                 </div>
                             </div>
@@ -386,23 +382,23 @@
                             <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
                                 <div class="space-y-3 text-sm text-slate-600 mb-6">
                                     <div class="flex justify-between">
-                                        <span>Sub Total</span>
+                                        <span>{{__('titiper.OrdersListPage.Subtotal')}}</span>
                                         <span class="font-medium text-slate-900">Rp. <span
                                                 id="modal_subtotal">0</span></span>
                                     </div>
                                     <div class="flex justify-between">
-                                        <span>Biaya Antar</span>
+                                        <span>{{__('titiper.OrdersListPage.Service')}}</span>
                                         <span class="font-medium text-slate-900">Rp. <span id="modal_fee">0</span></span>
                                     </div>
                                     <hr class="border-slate-200 my-3">
                                     <div class="flex justify-between font-extrabold text-xl text-slate-800">
-                                        <span>Total</span>
+                                        <span>{{__('titiper.OrdersListPage.Total')}}</span>
                                         <span class="text-blue-700">Rp. <span id="modal_total">0</span></span>
                                     </div>
                                 </div>
                                 <button onclick="closeDetailModal()"
                                     class="w-full bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold py-3 rounded-xl transition">
-                                    Tutup
+                                    {{__('titiper.OrdersListPage.Close')}}
                                 </button>
                             </div>
                         </div>
@@ -416,37 +412,36 @@
         class="modal fixed inset-0 z-[70] flex items-center justify-center bg-black/50 hidden backdrop-blur-sm transition-opacity">
         <div
             class="bg-white rounded-2xl shadow-2xl w-full max-w-lg p-8 relative animate-in fade-in zoom-in duration-200 mx-4">
-            <h3 class="text-2xl font-bold text-slate-900 mb-2">Konfirmasi Pembatalan</h3>
+            <h3 class="text-2xl font-bold text-slate-900 mb-2">{{__('titiper.OrdersListPage.CancellationConf')}}</h3>
             <p class="text-slate-600 text-base mb-6">
-                Kamu yakin ingin membatalkan pesanan <br>
+                {{__('titiper.OrdersListPage.CancelMessage')}}<br>
                 <span class="font-bold text-black" id="modal_order_display_id">#ORD-XXXX</span>?
             </p>
             <form id="cancelForm" method="POST" action="">
                 @csrf
                 @method('DELETE')
                 <div class="mb-4">
-                    <label class="block text-sm font-bold text-slate-700 mb-2">Alasan Pembatalan</label>
+                    <label class="block text-sm font-bold text-slate-700 mb-2">{{__('titiper.OrdersListPage.cancelReason')}}</label>
                     <div class="relative">
                         <select name="reason"
                             class="w-full appearance-none border border-slate-300 rounded-xl px-4 py-3 text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white font-medium">
-                            <option>Salah pilih item</option>
-                            <option>Ingin ganti alamat</option>
-                            <option>Ingin ganti menu</option>
-                            <option>Lainnya</option>
+                            <option>{{__('titiper.OrdersListPage.CancelOption.option1')}}</option>
+                            <option>{{__('titiper.OrdersListPage.CancelOption.option2')}}</option>
+                            <option>{{__('titiper.OrdersListPage.CancelOption.option3')}}</option>
+                            <option>{{__('titiper.OrdersListPage.CancelOption.option4')}}</option>
                         </select>
                     </div>
                 </div>
                 <div class="mb-8">
                     <textarea name="detail"
                         class="w-full border border-slate-300 rounded-xl px-4 py-3 h-24 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-slate-400 resize-none"
-                        placeholder="Tambahkan detail (opsional)"></textarea>
+                        placeholder="{{ __('titiper.OrdersListPage.AddDetail') }}"></textarea>
                 </div>
                 <div class="flex justify-end gap-4">
                     <button type="button" onclick="closeCancelModal()"
-                        class="px-8 py-3 rounded-full border border-slate-300 text-slate-700 font-bold hover:bg-slate-50 transition">Batal</button>
+                        class="px-8 py-3 rounded-full border border-slate-300 text-slate-700 font-bold hover:bg-slate-50 transition">{{__('titiper.OrdersListPage.Cancel')}}</button>
                     <button type="submit"
-                        class="px-6 py-3 rounded-full bg-[#EF4444] text-white font-bold hover:bg-red-600 shadow-lg transition">Batalkan
-                        Pesanan</button>
+                        class="px-6 py-3 rounded-full bg-[#EF4444] text-white font-bold hover:bg-red-600 shadow-lg transition">{{__('titiper.OrdersListPage.CancelOrder')}}</button>
                 </div>
             </form>
         </div>
@@ -462,7 +457,7 @@
                     </path>
                 </svg>
             </button>
-            <h3 class="text-xl font-bold text-slate-900 text-center mb-1">Beri Nilai Runner</h3>
+            <h3 class="text-xl font-bold text-slate-900 text-center mb-1">{{__('titiper.OrdersListPage.RunnerReview')}}</h3>
             <p class="text-center text-slate-500 text-sm mb-6">Runner: <span id="review_runner_name"
                     class="font-bold text-slate-700"></span></p>
             <form action="" method="POST" id="reviewForm">
@@ -485,14 +480,13 @@
                         class="cursor-pointer text-slate-200 peer-checked:text-yellow-400 hover:text-yellow-400 peer-hover:text-yellow-400 text-4xl transition-colors">★</label>
                 </div>
                 <div class="mb-6">
-                    <label class="block text-sm font-bold text-slate-700 mb-2">Ulasan Anda</label>
+                    <label class="block text-sm font-bold text-slate-700 mb-2">{{__('titiper.OrdersListPage.Review')}}</label>
                     <textarea name="review" rows="3"
                         class="w-full border border-slate-300 rounded-xl px-4 py-3 text-slate-900 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-slate-400 resize-none"
-                        placeholder="Tulis pengalamanmu..."></textarea>
+                        placeholder="{{__('titiper.OrdersListPage.ReviewPlaceHolder')}}"></textarea>
                 </div>
                 <button type="submit"
-                    class="w-full py-3 rounded-full bg-blue-600 text-white font-bold hover:bg-blue-700 shadow-lg transition">Kirim
-                    Penilaian</button>
+                    class="w-full py-3 rounded-full bg-blue-600 text-white font-bold hover:bg-blue-700 shadow-lg transition">{{__('titiper.OrdersListPage.Submit')}}</button>
             </form>
         </div>
     </div>
@@ -516,12 +510,13 @@
             document.getElementById('modal_status_text').innerText = data.status.replace('_', ' ');
 
             const noteEl = document.getElementById('modal_note');
+            const noNotesText = @json(__('titiper.OrdersListPage.NoNotes'));
             if (data.note && data.note.trim() !== '') {
                 noteEl.innerText = data.note;
                 noteEl.classList.remove('text-slate-400');
                 noteEl.classList.add('text-slate-700');
             } else {
-                noteEl.innerText = 'Tidak ada catatan';
+                noteEl.innerText = noNotesText;
                 noteEl.classList.add('text-slate-400');
                 noteEl.classList.remove('text-slate-700');
             }

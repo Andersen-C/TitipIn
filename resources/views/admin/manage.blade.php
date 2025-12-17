@@ -3,7 +3,7 @@
 
 @section('Content')
 <div class="p-12 min-h-screen">
-    <h1 class="text-3xl font-bold mb-4 text-blue-700">Hi, Admin</h1>
+    <h1 class="text-3xl font-bold mb-4 text-blue-700">{{__('admin.Introduction')}}</h1>
     
     <div class="grid gap-6 w-full grid-cols-1 mb-12 sm:grid-cols-[repeat(auto-fit,minmax(180px,1fr))] md:grid-cols-[repeat(auto-fit,minmax(250px,1fr))]"> 
         <!-- Manage Users Card -->
@@ -14,11 +14,11 @@
                 </div>
 
                 <h5 class="mb-2 text-center text-2xl md:text-3xl font-bold text-gray-900 tracking-tight">
-                Manage <br>Users
+                {{ __('admin.ManageUser.Title1') }} <br>{{ __('admin.ManageUser.Title2') }}
                 </h5>
                 
                 <p class="text-center text-gray-500 text-sm md:text-base">
-                    View, create, and manage all user accounts and roles.
+                    {{ __('admin.ManageUser.Desc') }}
                 </p>
             </a>
         </div>
@@ -31,11 +31,11 @@
                 </div>
                 
                 <h5 class="mb-2 text-center text-2xl md:text-3xl font-bold text-gray-900 tracking-tight">
-                    Manage <br>Locations
+                    {{ __('admin.ManageLocation.Title1') }} <br>{{ __('admin.ManageLocation.Title2') }} 
                 </h5>
                 
                 <p class="text-center text-gray-500 text-sm md:text-base">
-                    View, create, and manage all location in the system.
+                    {{ __('admin.ManageLocation.Desc') }} 
                 </p>
             </a>
         </div>
@@ -48,11 +48,11 @@
                 </div>
                 
                 <h5 class="mb-2 text-center text-2xl md:text-3xl font-bold text-gray-900 tracking-tight">
-                    Manage <br>Categories
+                    {{ __('admin.ManageCategory.Title1') }} <br>{{ __('admin.ManageCategory.Title2') }}
                 </h5>
                 
                 <p class="text-center text-gray-500 text-sm md:text-base">
-                    View, create, and manage all the categories in the system.
+                     {{ __('admin.ManageCategory.Desc') }}
                 </p>
             </a>
         </div>
@@ -68,11 +68,11 @@
                 </div>
                 
                 <h5 class="mb-2 text-center text-2xl md:text-3xl font-bold text-gray-900 tracking-tight">
-                    Manage <br>Menus
+                     {{ __('admin.ManageMenu.Title1') }} <br>{{ __('admin.ManageMenu.Title2') }}
                 </h5>
                 
                 <p class="text-center text-gray-500 text-sm md:text-base">
-                    View, create, and manage all menus in the system.
+                    {{ __('admin.ManageMenu.Desc') }}
                 </p>
             </a>
         </div>
@@ -85,11 +85,11 @@
                 </div>
                 
                 <h5 class="mb-2 text-center text-2xl md:text-3xl font-bold text-gray-900 tracking-tight">
-                    Manage <br>Orders
+                    {{ __('admin.ManageOrders.Title1') }} <br>{{ __('admin.ManageOrders.Title2') }}
                 </h5>
                 
                 <p class="text-center text-gray-500 text-sm md:text-base">
-                    View and manage all orders and order items in the system.
+                    {{ __('admin.ManageOrders.Desc') }}
                 </p>
             </a>
         </div>
@@ -102,11 +102,11 @@
                 </div>
                 
                 <h5 class="mb-2 text-center text-2xl md:text-3xl font-bold text-gray-900 tracking-tight">
-                    Manage <br>Reviews
+                    {{ __('admin.ManageReview.Title1') }} <br>{{ __('admin.ManageReview.Title2') }}
                 </h5>
                 
                 <p class="text-center text-gray-500 text-sm md:text-base">
-                    View and manage all the reviews in the system.
+                    {{ __('admin.ManageReview.Desc') }}
                 </p>
             </a>
         </div>

@@ -6,7 +6,7 @@
 @section('Content')
     <div class="max-w-6xl mx-auto px-4 py-6">
 
-        <h1 class="text-2xl font-extrabold text-[#3B4D81] mb-4">Payment Summary</h1>
+        <h1 class="text-2xl font-extrabold text-blue-800 mb-4">{{__('titiper.PaymentSummaryPage.Title')}}</h1>
 
         <form id="mainOrderForm" action="{{ route('titiper.menu.storeOrder', $menu->id) }}" method="POST">
             @csrf
@@ -47,12 +47,12 @@
 
                                 {{-- Notes Box --}}
                                 <div class="mt-3">
-                                    <label class="text-xs font-bold text-slate-400 mb-1 block">Notes:</label>
+                                    <label class="text-xs font-bold text-slate-400 mb-1 block">{{__('titiper.PaymentSummaryPage.Notes')}}:</label>
 
                                     <div id="noteDisplayGroup"
                                         class="bg-slate-50 border rounded-lg p-2 text-sm text-slate-600 relative group min-h-[3rem]">
                                         <p id="noteTextDisplay" class="italic line-clamp-2">
-                                            {{ $note ?: 'Tidak ada catatan' }}</p>
+                                            {{ $note ?: __('titiper.PaymentSummaryPage.NoNotes') }}</p>
                                     </div>
 
                                     {{-- Input Edit Note (Hidden) --}}
@@ -61,9 +61,9 @@
                                             class="w-full border border-slate-300 rounded-lg p-2 text-sm text-slate-900 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder:text-slate-400 resize-none">{{ $note }}</textarea>
                                         <div class="flex justify-end gap-2 mt-2">
                                             <button type="button" onclick="cancelEditNote()"
-                                                class="text-xs px-3 py-1 bg-slate-200 rounded text-slate-600 hover:bg-slate-300">Batal</button>
+                                                class="text-xs px-3 py-1 bg-slate-200 rounded text-slate-600 hover:bg-slate-300">{{__('titiper.PaymentSummaryPage.Cancel')}}</button>
                                             <button type="button" onclick="saveNote()"
-                                                class="text-xs px-3 py-1 bg-blue-600 rounded text-white hover:bg-blue-700">Simpan</button>
+                                                class="text-xs px-3 py-1 bg-blue-600 rounded text-white hover:bg-blue-700">{{__('titiper.PaymentSummaryPage.Save')}}</button>
                                         </div>
                                     </div>
                                 </div>
@@ -78,7 +78,7 @@
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
                                     </svg>
-                                    Edit Note
+                                    {{__('titiper.PaymentSummaryPage.Edit')}}
                                 </button>
 
                                 {{-- Qty Selector --}}
@@ -97,20 +97,19 @@
                     {{-- 2. Card Lokasi --}}
                     <div class="bg-white rounded-xl p-5 shadow-sm border border-slate-100 space-y-3">
                         <div>
-                            <label class="block text-xs font-bold text-slate-800 mb-1">Lokasi Pengambilan (Resto)</label>
-                            {{-- Input Readonly Lokasi Resto --}}
-                            <input type="text" value="{{ $menu->location->name ?? 'Lokasi Menu Tidak Diketahui' }}"
+                            <label class="block text-xs font-bold text-slate-800 mb-1">{{__('titiper.PaymentSummaryPage.Pickup')}}</label>
+                            <input type="text" value="{{ $menu->location->name ?? __('titiper.PaymentSummaryPage.PickupUnknown') }}"
                                 readonly
                                 class="w-full border border-slate-200 bg-slate-100 text-slate-500 rounded-lg px-3 py-2 text-sm focus:outline-none cursor-not-allowed">
                         </div>
 
                         <div>
                             <div class="flex justify-between items-center mb-1">
-                                <label class="block text-xs font-bold text-slate-800">Pilih Lokasi Tujuan (Kamu)</label>
+                                <label class="block text-xs font-bold text-slate-800">{{__('titiper.PaymentSummaryPage.Delivery')}}</label>
                                 {{-- Quick Add Location Trigger --}}
                                 <button type="button" onclick="openLocModal()"
                                     class="text-xs font-bold text-blue-600 hover:text-blue-800 hover:underline flex items-center gap-1">
-                                    + Lokasi Baru
+                                    + {{__('titiper.PaymentSummaryPage.AddLocation')}}
                                 </button>
                             </div>
 
@@ -120,12 +119,11 @@
                                     <option value="{{ $loc->id }}"
                                         {{ auth()->user()->location_id == $loc->id ? 'selected' : '' }}>
                                         {{ $loc->name }}
-                                        ({{ $loc->formatted_floor ?? 'Lantai ' . $loc->floor_number }})
+                                        ({{ $loc->formatted_floor ?? __('titiper.PaymentSummaryPage.floor') . $loc->floor_number }})
                                     </option>
                                 @endforeach
                             </select>
-                            <p class="text-[10px] text-slate-400 mt-1">*Pastikan kamu berada di lokasi ini saat pesanan
-                                tiba.</p>
+                            <p class="text-[10px] text-slate-400 mt-1">*{{__('titiper.PaymentSummaryPage.DeliveryNote')}}</p>
                         </div>
                     </div>
 
@@ -136,15 +134,15 @@
 
                     {{-- 3. Card Metode Pembayaran --}}
                     <div class="bg-white rounded-xl p-5 shadow-sm border border-slate-100">
-                        <h3 class="font-bold text-slate-800 mb-3 text-sm">Metode Pembayaran</h3>
+                        <h3 class="font-bold text-slate-800 mb-3 text-sm">{{__('titiper.PaymentSummaryPage.PaymentMethod')}}</h3>
 
                         <label
                             class="flex items-start gap-3 p-3 border rounded-lg cursor-pointer hover:bg-blue-50 transition border-blue-500 bg-blue-50 relative">
                             <input type="radio" name="payment_method" value="cash" checked
                                 class="mt-1 text-blue-600 focus:ring-blue-500">
                             <div>
-                                <span class="block font-bold text-slate-800 text-sm">Bayar di Tempat (COD)</span>
-                                <span class="text-[10px] text-slate-500">Bayar tunai ke Runner saat menerima</span>
+                                <span class="block font-bold text-slate-800 text-sm">{{__('titiper.PaymentSummaryPage.CashOnDelivery')}}</span>
+                                <span class="text-[10px] text-slate-500">{{__('titiper.PaymentSummaryPage.CashOnDeliverySub')}}</span>
                             </div>
                             <div class="absolute top-3 right-3 text-blue-600">
                                 <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
@@ -157,10 +155,9 @@
 
                         <div class="mt-2 p-3 border rounded-lg opacity-60 cursor-not-allowed bg-slate-50">
                             <div class="flex items-center gap-3">
-                                <span class="block font-bold text-slate-500 text-sm">Transfer Bank (VA)</span>
+                                <span class="block font-bold text-slate-500 text-sm">{{__('titiper.PaymentSummaryPage.BankTransfer')}}</span>
                             </div>
-                            <span class="text-[10px] text-slate-400 mt-1 block">Metode pembayaran dapat diubah sampai kamu
-                                mengonfirmasi pesanan.</span>
+                            <span class="text-[10px] text-slate-400 mt-1 block">{{__('titiper.PaymentSummaryPage.PaymentNotes')}}</span>
                         </div>
                     </div>
 
@@ -168,23 +165,23 @@
                     <div class="bg-white rounded-xl p-5 shadow-sm border border-slate-100">
                         <div class="space-y-2 text-sm text-slate-600 mb-4">
                             <div class="flex justify-between">
-                                <span>Sub Total</span>
+                                <span>{{__('titiper.PaymentSummaryPage.Subtotal')}}</span>
                                 <span id="subtotalDisplay">Rp. {{ number_format($subtotal, 0, ',', '.') }}</span>
                             </div>
                             <div class="flex justify-between">
-                                <span>Biaya Antar</span>
+                                <span>{{__('titiper.PaymentSummaryPage.Service')}}</span>
                                 <span>Rp. {{ number_format($serviceFee, 0, ',', '.') }}</span>
                             </div>
                             <hr class="border-slate-200 my-2">
                             <div class="flex justify-between font-bold text-lg text-slate-800">
-                                <span>Total</span>
+                                <span>{{__('titiper.PaymentSummaryPage.Total')}}</span>
                                 <span id="totalPriceDisplay">Rp. {{ number_format($totalPrice, 0, ',', '.') }}</span>
                             </div>
                         </div>
 
                         <button type="submit"
                             class="w-full bg-blue-700 hover:bg-blue-800 text-white font-bold py-3 rounded-xl shadow-lg transition transform hover:-translate-y-0.5">
-                            Titip Sekarang
+                            {{__('titiper.PaymentSummaryPage.TitipNow')}}
                         </button>
                     </div>
 
@@ -199,7 +196,7 @@
         <div class="bg-white rounded-xl w-full max-w-sm p-6 mx-4 shadow-2xl relative animate-fadeIn">
 
             <div class="flex justify-between items-center mb-4">
-                <h3 class="text-lg font-bold text-slate-800">Tambah Lokasi Baru</h3>
+                <h3 class="text-lg font-bold text-slate-800">{{__('titiper.PaymentSummaryPage.AddNewLocations')}}</h3>
                 <button type="button" onclick="closeLocModal()" class="text-slate-400 hover:text-slate-600">✕</button>
             </div>
 
@@ -212,8 +209,8 @@
 
                     {{-- INPUT NAMA --}}
                     <div>
-                        <label class="block text-xs font-bold text-slate-500 mb-1">Nama Ruangan / Lokasi</label>
-                        <input type="text" name="name" id="newLocName" placeholder="Contoh: R. 301, Kantin, Lobby"
+                        <label class="block text-xs font-bold text-slate-500 mb-1">{{__('titiper.PaymentSummaryPage.AddNewLocationName')}}</label>
+                        <input type="text" name="name" id="newLocName" placeholder="{{__('titiper.PaymentSummaryPage.AddNewLocationNamePlaceholder')}}"
                             class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm text-slate-900 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder:text-slate-400 transition-colors">
 
                         {{-- Error Message Placeholders --}}
@@ -222,8 +219,8 @@
 
                     {{-- INPUT LANTAI --}}
                     <div>
-                        <label class="block text-xs font-bold text-slate-500 mb-1">Lantai (Angka)</label>
-                        <input type="number" name="floor_number" id="newLocFloor" placeholder="0 untuk Basement"
+                        <label class="block text-xs font-bold text-slate-500 mb-1">{{__('titiper.PaymentSummaryPage.AddNewLocationFloor')}}</label>
+                        <input type="number" name="floor_number" id="newLocFloor" placeholder="{{__('titiper.PaymentSummaryPage.AddNewLocationFloorPlaceholder')}}"
                             class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm text-slate-900 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder:text-slate-400 transition-colors">
 
                         {{-- Error Message Placeholders --}}
@@ -233,9 +230,9 @@
 
                 <div class="mt-6 flex gap-3">
                     <button type="button" onclick="closeLocModal()"
-                        class="flex-1 py-2 border border-slate-300 rounded-lg text-slate-600 text-sm font-semibold hover:bg-slate-50">Batal</button>
+                        class="flex-1 py-2 border border-slate-300 rounded-lg text-slate-600 text-sm font-semibold hover:bg-slate-50">{{__('titiper.PaymentSummaryPage.Cancel')}}</button>
                     <button type="submit" id="saveLocBtn"
-                        class="flex-1 py-2 bg-blue-600 text-white rounded-lg text-sm font-semibold hover:bg-blue-700 shadow-sm transition">Simpan</button>
+                        class="flex-1 py-2 bg-blue-600 text-white rounded-lg text-sm font-semibold hover:bg-blue-700 shadow-sm transition">{{__('titiper.PaymentSummaryPage.Save')}}</button>
                 </div>
             </form>
         </div>
@@ -423,4 +420,19 @@
                 });
         });
     </script>
+
+<style>
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+        background: inherit !important;
+        border: none;
+        width: 16px;
+        height: 100%;
+    }
+
+    input[type=number] {
+        -moz-appearance: textfield;
+        background-color: inherit !important;
+    }
+</style>
 @endsection

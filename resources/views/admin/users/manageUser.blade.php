@@ -6,16 +6,16 @@
     <div class="flex items-center justify-between mb-4 gap-2">
         <a href="{{ route('admin.manage') }}" class="btn btn-secondary rounded-xl text-sm sm:text-base px-3 sm:px-4">
             <i class="fa-solid fa-backward"></i>
-            <span class="hidden sm:inline">Back</span>
+            <span class="hidden sm:inline">{{ __('admin.Back') }}</span>
         </a>
 
         <h1 class="text-lg sm:text-2xl md:text-3xl font-bold text-blue-800 text-center flex-1">
-            Manage Users
+            {{ __('admin.UserTable.Title') }}
         </h1>
 
         <a href="{{ route('users.create') }}" class="btn btn-primary rounded-xl text-sm sm:text-base md:text-lg px-3 sm:px-4">
             <i class="fa-solid fa-plus mr-1"></i> 
-            <span class="hidden sm:inline">Add</span>
+            <span class="hidden sm:inline">{{ __('admin.Add') }}</span>
         </a>
     </div>
 
@@ -33,11 +33,11 @@
             <!-- head -->
             <thead class="border-b-4 border-gray-800">
                 <tr class="text-black">
-                    <th class="text-xl text-center">No.</th>
-                    <th class="text-xl">Name</th>
-                    <th class="text-xl text-center">Role</th>
-                    <th class="text-xl text-center">Average Rating</th>
-                    <th class="text-xl text-center">Action</th>
+                    <th class="text-xl text-center">{{__('admin.UserTable.No')}}</th>
+                    <th class="text-xl">{{__('admin.UserTable.Name')}}</th>
+                    <th class="text-xl text-center">{{__('admin.UserTable.Role')}}</th>
+                    <th class="text-xl text-center">{{__('admin.UserTable.AvgRating')}}</th>
+                    <th class="text-xl text-center">{{__('admin.UserTable.Action')}}</th>
                 </tr>
             </thead>
 
@@ -83,15 +83,15 @@
                             <td class="flex justify-around gap-2">
                                 <a href="{{ route('users.show', $user->id) }}" class="btn btn-l bg-blue-800 hover:bg-blue-900 hover:text-white">
                                     <i class="fa-solid fa-circle-info mr-1"></i>
-                                    Details
+                                    {{__('admin.Details')}}
                                 </a>
                                 <a href="{{ route('users.edit', $user->id) }}" class="btn btn-l bg-amber-500 hover:bg-amber-700 hover:text-white">
                                     <i class="fa-solid fa-pen-to-square mr-1"></i>
-                                    Update
+                                    {{__('admin.Update')}}
                                 </a>
                                 <label for="deleteModal_{{ $user->id }}" class="btn btn-l bg-red-500 hover:bg-red-700 hover:text-white">
                                     <i class="fa-solid fa-trash mr-1"></i>
-                                    Delete
+                                    {{__('admin.Delete')}}
                                 </label>
                             </td>
                         </tr>
@@ -102,20 +102,20 @@
                                 
                                 <h3 class="font-bold text-xl mb-4 text-red-600">
                                     <i class="fa-solid fa-triangle-exclamation mr-2"></i>
-                                    Konfirmasi Penghapusan
+                                    {{ __('admin.UserDeleteModal.Title') }}
                                 </h3>
                     
                                 <p class="mb-6">
-                                    Apakah Anda Yakin Ingin Menghapus
+                                    {{ __('admin.UserDeleteModal.Message1') }}
                                     <span class="font-bold">{{ $user->name }}</span>? 
-                                    Aksi Ini Bersifat Permanen
+                                    {{ __('admin.UserDeleteModal.Message2') }}
                                 </p>
                     
                                 <div class="modal-action flex justify-end gap-3">
                                     
                                     {{-- Cancel Button --}}
                                     <label for="deleteModal_{{ $user->id }}" class="btn btn-ghost rounded-xl">
-                                        Cancel
+                                        {{ __('admin.UserDeleteModal.Cancel') }}
                                     </label>
                     
                                     {{-- Confirm Delete --}}
@@ -125,7 +125,7 @@
                     
                                         <button type="submit" 
                                                 class="btn bg-red-600 hover:bg-red-700 text-white rounded-xl">
-                                            Ya, Delete
+                                            {{ __('admin.Delete') }}
                                         </button>
                                     </form>
                                 </div>

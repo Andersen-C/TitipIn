@@ -29,13 +29,13 @@ class ManageCategoryController extends Controller
         ];
 
         $messages = [
-            'name.required' => 'Nama kategori wajib diisi',
-            'name.string' => 'Nama kategori harus berupa teks',
-            'name.min' => 'Nama kategori minimal memiliki 1 karakter',
-            'name.max' => 'Nama kategori maksimal memiliki 255 karakter',
-            'name.unique' => 'Nama kategori sudah digunakan',
-            'group.string' => 'Group harus berupa teks',
-            'group.max' => "Group maksimal memiliki 255 kararkter"
+            'name.required' => __('validation.ManageCat.name.required'),
+            'name.string' => __('validation.ManageCat.name.string'),
+            'name.min' => __('validation.ManageCat.name.min'),
+            'name.max' => __('validation.ManageCat.name.max'),
+            'name.unique' => __('validation.ManageCat.name.unique'),
+            'group.string' => __('validation.ManageCat.Group.string'),
+            'group.max' => __('validation.ManageCat.Group.max')
         ];
         
         try {
@@ -51,7 +51,7 @@ class ManageCategoryController extends Controller
             'group' => $validated['group'] ? $validated['group'] : null
         ]);
 
-        return redirect()->route('categories.index')->with('success', 'Kategori berhasil dibuat!');
+        return redirect()->route('categories.index')->with('success', __('admin.AddCatSuccessTitle'));
     }
 
     public function show($id)
@@ -73,13 +73,13 @@ class ManageCategoryController extends Controller
         ];
 
         $messages = [
-            'name.required' => 'Nama kategori wajib diisi',
-            'name.string' => 'Nama kategori harus berupa teks',
-            'name.min' => 'Nama kategori minimal memiliki 1 karakter',
-            'name.max' => 'Nama kategori maksimal memiliki 255 karakter',
-            'name.unique' => 'Nama kategori sudah digunakan',
-            'group.string' => 'Group harus berupa teks',
-            'group.max' => "Group maksimal memiliki 255 kararkter"
+            'name.required' => __('validation.ManageCat.name.required'),
+            'name.string' => __('validation.ManageCat.name.string'),
+            'name.min' => __('validation.ManageCat.name.min'),
+            'name.max' => __('validation.ManageCat.name.max'),
+            'name.unique' => __('validation.ManageCat.name.unique'),
+            'group.string' => __('validation.ManageCat.Group.string'),
+            'group.max' => __('validation.ManageCat.Group.max')
         ];
         
         try {
@@ -97,7 +97,7 @@ class ManageCategoryController extends Controller
             'group' => $validated['group'] ? $validated['group'] : null
         ]);
 
-        return redirect()->route('categories.index')->with('success', 'Kategori berhasil diperbarui!');
+        return redirect()->route('categories.index')->with('success', __('admin.UpdateCatSuccessTitle'));
     }
 
     public function destroy($id)
@@ -106,6 +106,6 @@ class ManageCategoryController extends Controller
         $category = Category::findOrFail($id);
 
         $category->delete();
-        return redirect()->route('categories.index')->with('success', 'Kategori Berhasil Dihapus!');
+        return redirect()->route('categories.index')->with('success', __('admin.DeleteCatSuccessTitle'));
     }
 }
