@@ -20,16 +20,16 @@
     {{-- CARD --}}
     <div class="bg-white rounded-3xl shadow-xl p-8 overflow-x-auto">
 
-        <table class="min-w-full text-sm text-gray-800">
+        <table class="min-w-full text-sm text-black">
             <thead>
-                <tr class="text-left text-gray-600">
-                    <th class="py-4 px-4">{{ __('admin.OrderTable.No') }}</th>
-                    <th class="py-4 px-4">{{ __('admin.OrderTable.Titiper') }}</th>
-                    <th class="py-4 px-4">{{ __('admin.OrderTable.Runner') }}</th>
-                    <th class="py-4 px-4">{{ __('admin.OrderTable.Status') }}</th>
-                    <th class="py-4 px-4">{{ __('admin.OrderTable.Total') }}</th>
-                    <th class="py-4 px-4">{{ __('admin.OrderTable.Date') }}</th>
-                    <th class="py-4 px-4 text-center">{{ __('admin.OrderTable.Action') }}</th>
+                <tr class="text-left text-black">
+                    <th class="text-l">{{ __('admin.OrderTable.No') }}</th>
+                    <th class="text-l">{{ __('admin.OrderTable.Titiper') }}</th>
+                    <th class="text-l">{{ __('admin.OrderTable.Runner') }}</th>
+                    <th class="text-l">{{ __('admin.OrderTable.Status') }}</th>
+                    <th class="text-l">{{ __('admin.OrderTable.Total') }}</th>
+                    <th class="text-l">{{ __('admin.OrderTable.Date') }}</th>
+                    <th class="text-l text-center">{{ __('admin.OrderTable.Action') }}</th>
                 </tr>
             </thead>
 
@@ -47,7 +47,7 @@
                     </td>
 
                     <td class="py-5 px-4">
-                        {{ $order->runner->name ?? '-' }}
+                        {{ $order->runner->name ?? __('admin.OrderTable.None') }}
                     </td>
 
                     {{-- STATUS --}}
@@ -102,8 +102,7 @@
             </tbody>
         </table>
 
-        {{-- PAGINATION --}}
-        <div class="mt-8">
+        <div class="mt-8 ml-4 mr-4 mb-4">
             {{ $orders->links() }}
         </div>
 

@@ -3,6 +3,6 @@
 return [
     'Menu1' => 'Home',
     'Menu2' => 'Menu',
-    'Menu3' => 'Orders',
+    'Menu3' => 'Titipan',
     'Menu4' => 'Profile'
 ];

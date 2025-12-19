@@ -6,18 +6,18 @@
         'UserCard' => 'Total User',
         'RunnerCard' => 'Total Active Runner',
         'MenuCard' => 'Total Menu',
-        'OrderCard' => 'Total Orders',
+        'OrderCard' => 'Total Titipan',
         'Stat1' => [
-            'Title' => 'Total Order Revenue for the Last 7 Days'
+            'Title' => 'Total Titipan Revenue for the Last 7 Days'
         ],
         'Stat2' => [
-            'Title' => 'Number of Orders During the Last 7 Days'
+            'Title' => 'Number of Titipan During the Last 7 Days'
         ],
         'LeftTable' => [
             'Title' => 'Runner Leaderboard',
             'Rank' => 'Rank',
             'Name' => 'Name',
-            'Order' => 'Total Orders'
+            'Order' => 'Total Titipan'
         ],
         'RightTable' => [
             'Title' => 'Menu Leaderboard',
@@ -50,8 +50,8 @@
         ],
         'ManageOrders' => [
             'Title1' => 'Manage',
-            'Title2' => 'Orders',
-            'Desc' => 'View and manage all orders and order items in the system.'
+            'Title2' => 'Titipan',
+            'Desc' => 'View and manage all titipan and titipan items in the system.'
         ],
         'ManageReview' => [
             'Title1' => 'Manage',
@@ -259,47 +259,48 @@
 
         // Manage Order Page
         'OrderTable' => [
-            'Title' => 'Manage Orders',
+            'Title' => 'Manage Titipan',
             'No' => 'No.',
             'Titiper' => 'Titiper',
             'Runner' => 'Runner',
             'Status' => 'Status',
             'Total' => 'Total',
             'Date' => 'Date',
-            'Action' => 'Action'
+            'Action' => 'Action',
+            'None' => 'None'
         ],
 
         'OrderDeleteModal' => [
             'Title' => 'Confirm Deletion',
-            'Message' => 'Are you sure you want to delete this order?',
+            'Message' => 'Are you sure you want to delete this titipan?',
             'Cancel' => 'Cancel',
             'Delete' => 'Delete'
         ],
 
         'OrderUpdatePage' => [
-            'Title' => 'Update Order Status',
-            'OrderID' => 'Order ID',
-            'Status' => 'Order Status',
+            'Title' => 'Update Titipan Status',
+            'OrderID' => 'Titipan ID',
+            'Status' => 'Titipan Status',
             'Waiting' => 'Waiting Runner',
             'Accepted' => 'Accepted',
             'Arrived' => 'Arrived at Pickup',
             'Completed' => 'Completed',
             'Cancelled' => 'Cancelled',
-            'OrderStatusDesc1' => 'Order With Status',
+            'OrderStatusDesc1' => 'Titipan With Status',
             'OrderStatusDesc2' => 'cannot be changed',
             'Update' => 'Update Status'
         ],
 
         'OrderDetailPage' => [
-            'Title' => 'Order Detail',
-            'OrderID' => 'Order ID',
+            'Title' => 'Titipan Detail',
+            'OrderID' => 'Titipan ID',
             'Date' => 'Date',
             'Status' => 'Status',
             'Titiper' => 'Titiper',
             'Runner' => 'Runner',
             'Pickup' => "Pickup Location",
             'Delivery' => 'Delivery Location',
-            'Items' => 'Order Items',
+            'Items' => 'Titipan Items',
             'Menu' => 'Menu',
             'Qty' => 'Qty',
             'Price' => 'Price',
@@ -308,14 +309,14 @@
             'Service' => 'Service Fee',
         ],
 
-        'UpdateOrderSuccessTitle' => 'Order updated successfully!',
-        'DeleteOrderSuccessTitle' => 'Order deleted successfully!',
+        'UpdateOrderSuccessTitle' => 'Titipan updated successfully!',
+        'DeleteOrderSuccessTitle' => 'Titipan deleted successfully!',
 
         // Manage Review Page
         'ReviewTable' => [
             'Title' => 'Manage Reviews',
             'No' => 'No.',
-            'OrderID' => 'Order ID',
+            'OrderID' => 'Titipan ID',
             'Titiper' => 'Titiper',
             'Runner' => 'Runner',
             'Rating' => 'Rating',
@@ -332,7 +333,7 @@
 
         'ReviewDetailPage' => [
             'Title' => 'Review Detail',
-            'OrderID' => 'Order ID',
+            'OrderID' => 'Titipan ID',
             'Titiper' => 'Titiper',
             'Runner' => 'Runner',
             'Rating' => 'Rating',

@@ -97,10 +97,10 @@
                             </label>
                             <ul tabindex="0"
                                 class="dropdown-content menu p-1 shadow-lg bg-white rounded-box w-40 text-gray-800 mt-1 z-[50]">
-                                <li><a href="{{ route('lang.switch', 'en') }}"
-                                        class="{{ session('locale') != 'en' ? 'font-bold text-blue-700' : '' }}">{{__('profile.language.indonesian')}}</a></li>
                                 <li><a href="{{ route('lang.switch', 'id') }}"
-                                        class="{{ session('locale') == 'en' ? 'font-bold text-blue-700' : '' }}">{{__('profile.language.english')}}</a>
+                                        class="{{ session('locale') === 'id' ? 'font-bold text-blue-700' : '' }}">{{__('profile.language.indonesian')}}</a></li>
+                                <li><a href="{{ route('lang.switch', 'en') }}"
+                                        class="{{ session('locale') === 'en' ? 'font-bold text-blue-700' : '' }}">{{__('profile.language.english')}}</a>
                                 </li>
                             </ul>
                         </div>

@@ -6,7 +6,7 @@
 @section('Content')
 <div class="max-w-7xl mx-auto px-6 py-10">
   <div class="bg-white rounded-lg p-8 shadow-sm border">
-    <h2 class="text-2xl font-semibold text-sky-700 mb-6">{{__('titiper.MenuDetailPage.Title')}}</h2>
+    <h2 class="text-2xl font-bold text-blue-700 mb-6">{{__('titiper.MenuDetailPage.Title')}}</h2>
 
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
       
@@ -19,11 +19,11 @@
 
             if (!empty($menu->image)) {
                 // full absolute URL?
-                if (\Illuminate\Support\Str::startsWith($menu->image, ['http://', 'https://'])) {
+                if (Str::startsWith($menu->image, ['http://', 'https://'])) {
                     $imgUrl = $menu->image;
                 }
                 // already contains /storage or storage/
-                elseif (\Illuminate\Support\Str::startsWith($menu->image, ['/storage/', 'storage/'])) {
+                elseif (Str::startsWith($menu->image, ['/storage/', 'storage/'])) {
                     $imgUrl = asset(ltrim($menu->image, '/'));
                 }
                 else {

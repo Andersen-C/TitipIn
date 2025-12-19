@@ -10,7 +10,7 @@ class ManageLocationController extends Controller
 {
     public function index()
     {
-        $locations = Location::all();
+        $locations = Location::paginate(10)->onEachSide(1);
         return view('admin.locations.manageLocations', compact('locations'));
     }
 

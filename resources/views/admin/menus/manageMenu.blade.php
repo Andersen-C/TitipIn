@@ -32,16 +32,16 @@
     {{-- CARD --}}
     <div class="bg-white rounded-3xl shadow-xl p-8 overflow-x-auto">
 
-        <table class="min-w-full text-sm text-gray-800">
+        <table class="min-w-full text-sm text-black">
             <thead>
-                <tr class="text-gray-600">
-                    <th class="py-4 px-4 text-center">{{ __('admin.MenuTable.No') }}</th>
-                    <th class="py-4 px-4">{{ __('admin.MenuTable.Image') }}</th>
-                    <th class="py-4 px-4 text-center">{{ __('admin.MenuTable.Price') }}</th>
-                    <th class="py-4 px-4">{{ __('admin.MenuTable.Name') }}</th>
-                    <th class="py-4 px-4 text-center">{{__('admin.MenuTable.Location')}}</th>
-                    <th class="py-4 px-4">{{ __('admin.MenuTable.Desc') }}</th>
-                    <th class="py-4 px-4 text-center">{{ __('admin.MenuTable.Action') }}</th>
+                <tr class="text-black">
+                    <th class="text-l text-center">{{ __('admin.MenuTable.No') }}</th>
+                    <th class="text-l">{{ __('admin.MenuTable.Image') }}</th>
+                    <th class="text-l text-center">{{ __('admin.MenuTable.Price') }}</th>
+                    <th class="text-l">{{ __('admin.MenuTable.Name') }}</th>
+                    <th class="text-l text-center">{{__('admin.MenuTable.Location')}}</th>
+                    <th class="text-l">{{ __('admin.MenuTable.Desc') }}</th>
+                    <th class="text-l text-center">{{ __('admin.MenuTable.Action') }}</th>
                 </tr>
             </thead>
 

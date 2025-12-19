@@ -150,7 +150,7 @@
                                     $placeholder = 'https://via.placeholder.com/120?text=No+Image';
 
                                     $isAbsolute = $rawImg
-                                        ? \Illuminate\Support\Str::startsWith($rawImg, ['http://', 'https://'])
+                                        ? Str::startsWith($rawImg, ['http://', 'https://'])
                                         : false;
 
                                     if ($rawImg) {

@@ -11,7 +11,7 @@ class ManageUserController extends Controller
 {
     public function index(Request $request)
     {
-        $users = User::all();
+        $users = User::paginate(10)->onEachSide(1);
         return view('admin.users.manageUser', compact('users'));
     }
 

@@ -18,7 +18,7 @@
     @endif
 
     <div class='items-center'>
-        <h1 class="text-3xl sm:flex sm:flex-row font-bold text-blue-900 mb-6">{{ __('runner.Orders') }}</h1>
+        <h1 class="text-3xl sm:flex sm:flex-row font-bold text-blue-700 mb-6">{{ __('runner.Orders') }}</h1>
         
         @forelse($orders as $order)
         <div class='container mb-4'>

@@ -2,5 +2,5 @@
 
 return [
     'Menu1' => 'Login',
-    'Menu2' => 'Register'
+    'Menu2' => 'Daftar'
 ];
