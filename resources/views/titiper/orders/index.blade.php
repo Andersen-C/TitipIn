@@ -47,7 +47,7 @@
                         if ($menu && !empty($menu->image)) {
                             if (Str::startsWith($menu->image, ['http://', 'https://'])) {
                                 $imgUrl = $menu->image;
-                            } elseif (startsWith($menu->image, ['/storage/', 'storage/'])) {
+                            } elseif (Str::startsWith($menu->image, ['/storage/', 'storage/'])) {
                                 $imgUrl = asset(ltrim($menu->image, '/'));
                             } else {
                                 $imgUrl = asset('storage/' . ltrim($menu->image, '/'));
@@ -223,7 +223,7 @@
                                         {{__('titiper.OrdersListPage.Cancelled')}}
                                     </button>
                                     <span class="text-[10px] text-red-500 font-medium block mt-1">
-                                        {{limit($order->cancellation_reason, 20) }}
+                                        {{Str::limit($order->cancellation_reason, 20) }}
                                     </span>
                                 </div>
                             @endif

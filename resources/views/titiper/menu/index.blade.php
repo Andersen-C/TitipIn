@@ -74,11 +74,11 @@
 
                 if (!empty($menu->image)) {
                     // if already full URL, use it
-                    if (startsWith($menu->image, ['http://', 'https://'])) {
+                    if (Str::startsWith($menu->image, ['http://', 'https://'])) {
                         $img = $menu->image;
                     }
                     // if already begins with /storage or storage/, normalize to asset()
-                    elseif (startsWith($menu->image, ['/storage/', 'storage/'])) {
+                    elseif (Str::startsWith($menu->image, ['/storage/', 'storage/'])) {
                         $path = ltrim($menu->image, '/');
                         $img = asset($path);
                     }

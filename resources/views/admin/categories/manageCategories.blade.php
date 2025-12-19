@@ -33,10 +33,10 @@
             <!-- head -->
             <thead class="border-b-4 border-gray-800">
                 <tr class="text-black">
-                    <th class="text-xl text-center">{{__('admin.CatTable.No')}}</th>
-                    <th class="text-xl">{{__('admin.CatTable.Name')}}</th>
-                    <th class="text-xl text-center">{{__('admin.CatTable.Group')}}</th>
-                    <th class="text-xl text-center">{{__('admin.CatTable.Action')}}</th>
+                    <th class="text-l text-center">{{__('admin.CatTable.No')}}</th>
+                    <th class="text-l">{{__('admin.CatTable.Name')}}</th>
+                    <th class="text-l text-center">{{__('admin.CatTable.Group')}}</th>
+                    <th class="text-l text-center">{{__('admin.CatTable.Action')}}</th>
                 </tr>
             </thead>
 
@@ -156,6 +156,11 @@
                 @endforeach
             </tbody>
         </table>
+
+        <div class="mt-8 ml-4 mr-4 mb-4">
+            {{ $categories->links() }}
+        </div>
+
     </div>
 </div>
 

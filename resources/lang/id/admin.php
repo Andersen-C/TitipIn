@@ -71,7 +71,7 @@ return [
         'Title' => 'Kelola Pengguna',
         'No' => 'No.',
         'Name' => 'Nama',
-        'Role' => 'peran',
+        'Role' => 'Role',
         'AvgRating' => 'Rata-rata Penilaian',
         'Action' => 'Aksi'
     ],
@@ -98,8 +98,8 @@ return [
             'Placeholder' => 'Masukkan Email'
         ],
         'Role' => [
-            'Title' => 'Peran',
-            'Placeholder' => 'Pilih Peran'
+            'Title' => 'Role',
+            'Placeholder' => 'Pilih Role'
         ],
         'Mode' => [
             'Title' => 'Mode',
@@ -266,7 +266,8 @@ return [
         'Status' => 'Status',
         'Total' => 'Total',
         'Date' => 'Tanggal',
-        'Action' => 'Aksi'
+        'Action' => 'Aksi',
+        'None' => 'Tidak Ada'
     ],
 
     'OrderDeleteModal' => [
@@ -305,7 +306,7 @@ return [
         'Price' => 'Harga',
         'Total' => 'Total',
         'Subtotal' => 'Subtotal',
-        'Service' => 'Biaya Service',
+        'Service' => 'Biaya Layanan',
     ],
 
     'UpdateOrderSuccessTitle' => 'Titipan Berhasil Diperbarui!',

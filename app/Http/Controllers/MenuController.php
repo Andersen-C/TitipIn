@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class MenuController extends Controller
 {
@@ -120,9 +121,9 @@ class MenuController extends Controller
 
         $imgUrl = 'https://via.placeholder.com/150';
         if (!empty($menu->image)) {
-            if (startsWith($menu->image, ['http://', 'https://'])) {
+            if (Str::startsWith($menu->image, ['http://', 'https://'])) {
                 $imgUrl = $menu->image;
-            } elseif (startsWith($menu->image, ['/storage/', 'storage/'])) {
+            } elseif (Str::startsWith($menu->image, ['/storage/', 'storage/'])) {
                 $imgUrl = asset(ltrim($menu->image, '/'));
             } else {
                 $imgUrl = asset('storage/' . ltrim($menu->image, '/'));

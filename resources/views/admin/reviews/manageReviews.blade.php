@@ -20,17 +20,17 @@
     {{-- CARD --}}
     <div class="bg-white rounded-3xl shadow-xl p-8 overflow-x-auto">
 
-        <table class="min-w-full text-sm text-gray-800">
+        <table class="min-w-full text-sm text-black">
             <thead>
-                <tr class="text-left text-gray-600">
-                    <th class="py-4 px-4">{{ __('admin.ReviewTable.No') }}</th>
-                    <th class="py-4 px-4">{{ __('admin.ReviewTable.OrderID') }}</th>
-                    <th class="py-4 px-4">{{ __('admin.ReviewTable.Titiper') }}</th>
-                    <th class="py-4 px-4">{{ __('admin.ReviewTable.Runner') }}</th>
-                    <th class="py-4 px-4">{{ __('admin.ReviewTable.Rating') }}</th>
-                    <th class="py-4 px-4">{{ __('admin.ReviewTable.Comment') }}</th>
-                    <th class="py-4 px-4">{{ __('admin.ReviewTable.Date') }}</th>
-                    <th class="py-4 px-4 text-center">{{ __('admin.ReviewTable.Action') }}</th>
+                <tr class="text-left text-black">
+                    <th class="text-l">{{ __('admin.ReviewTable.No') }}</th>
+                    <th class="text-l">{{ __('admin.ReviewTable.OrderID') }}</th>
+                    <th class="text-l">{{ __('admin.ReviewTable.Titiper') }}</th>
+                    <th class="text-l">{{ __('admin.ReviewTable.Runner') }}</th>
+                    <th class="text-l">{{ __('admin.ReviewTable.Rating') }}</th>
+                    <th class="text-l">{{ __('admin.ReviewTable.Comment') }}</th>
+                    <th class="text-l">{{ __('admin.ReviewTable.Date') }}</th>
+                    <th class="text-l text-center">{{ __('admin.ReviewTable.Action') }}</th>
                 </tr>
             </thead>
 

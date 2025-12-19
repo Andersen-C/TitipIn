@@ -11,7 +11,7 @@
 </head>
 <body class="bg-gray-50">
     @include('template.admin.navbarAdmin')
-
+    
     @yield('Content')
 
     @include('template.admin.footerAdmin')

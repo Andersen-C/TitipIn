@@ -33,11 +33,11 @@
             <!-- head -->
             <thead class="border-b-4 border-gray-800">
                 <tr class="text-black">
-                    <th class="text-xl text-center">{{__('admin.UserTable.No')}}</th>
-                    <th class="text-xl">{{__('admin.UserTable.Name')}}</th>
-                    <th class="text-xl text-center">{{__('admin.UserTable.Role')}}</th>
-                    <th class="text-xl text-center">{{__('admin.UserTable.AvgRating')}}</th>
-                    <th class="text-xl text-center">{{__('admin.UserTable.Action')}}</th>
+                    <th class="text-l text-center">{{__('admin.UserTable.No')}}</th>
+                    <th class="text-l">{{__('admin.UserTable.Name')}}</th>
+                    <th class="text-l text-center">{{__('admin.UserTable.Role')}}</th>
+                    <th class="text-l text-center">{{__('admin.UserTable.AvgRating')}}</th>
+                    <th class="text-l text-center">{{__('admin.UserTable.Action')}}</th>
                 </tr>
             </thead>
 
@@ -134,6 +134,10 @@
                 @endforeach
             </tbody>
         </table>
+
+        <div class="mt-8 ml-4 mr-4 mb-4">
+            {{ $users->links() }}
+        </div>
     </div>
 </div>
 

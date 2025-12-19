@@ -6,8 +6,8 @@ return [
     'Email' => 'Email',
     'Password' => 'Password',
     
-    'PasswordPlaceH' => 'Enter Your Password',
-    'EmailPlaceH' => 'Enter Your Email',
+    'PasswordPlaceH' => 'Enter Password',
+    'EmailPlaceH' => 'Enter Email',
     
     'Button' => 'Login',
     'NotRegister' => 'Not registered yet?',

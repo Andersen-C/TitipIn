@@ -11,7 +11,7 @@ class ManageCategoryController extends Controller
     public function index()
     {
         // menampilkan semua data
-        $categories = Category::all();
+        $categories = Category::paginate(10)->onEachSide(1);
         return view('admin.categories.manageCategories', compact('categories'));
     }
 

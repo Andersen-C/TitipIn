@@ -19,25 +19,20 @@ class SetLocale
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (session()->has('locale') && in_array(session('locale'), $this->supportedLocales)) {
-            App::setLocale(session('locale'));
-        }
-        elseif (Cookie::has('locale') && in_array(Cookie::get('locale'), $this->supportedLocales)) {
-            App::setLocale(Cookie::get('locale'));
-            session(['locale' => Cookie::get('locale')]);
-        }
-        else {
-            $browserLocale = substr($request->server('HTTP_ACCEPT_LANGUAGE') ?? '', 0, 2);
-
-            if (in_array($browserLocale, $this->supportedLocales)) {
-                App::setLocale($browserLocale);
-                session(['locale' => $browserLocale]);
-            } else {
-                App::setLocale(config('app.fallback_locale'));
-                session(['locale' => config('app.fallback_locale')]);
-            }
+        if (Cookie::has('locale')) {
+            $locale = Cookie::get('locale');
+        } elseif (session()->has('locale')) {
+            $locale = session('locale');
+        } else {
+            $locale = substr($request->server('HTTP_ACCEPT_LANGUAGE'), 0, 2);
+            $locale = in_array($locale, ['en', 'id'])
+                ? $locale
+                : config('app.fallback_locale');
         }
 
+        App::setlocale($locale);
+        session(['locale' => $locale]);
+        
         return $next($request);
     }
 }

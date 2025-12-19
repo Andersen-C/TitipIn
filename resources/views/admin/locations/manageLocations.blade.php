@@ -33,10 +33,10 @@
             <!-- head -->
             <thead class="border-b-4 border-gray-800">
                 <tr class="text-black">
-                    <th class="text-xl text-center">{{ __('admin.LocTable.No') }}</th>
-                    <th class="text-xl">{{ __('admin.LocTable.Name') }}</th>
-                    <th class="text-xl text-center">{{ __('admin.LocTable.Floor') }}</th>
-                    <th class="text-xl text-center">{{ __('admin.LocTable.Action') }}</th>
+                    <th class="text-l text-center">{{ __('admin.LocTable.No') }}</th>
+                    <th class="text-l">{{ __('admin.LocTable.Name') }}</th>
+                    <th class="text-l text-center">{{ __('admin.LocTable.Floor') }}</th>
+                    <th class="text-l text-center">{{ __('admin.LocTable.Action') }}</th>
                 </tr>
             </thead>
 
@@ -156,6 +156,10 @@
                 @endforeach
             </tbody>
         </table>
+
+        <div class="mt-8 ml-4 mr-4 mb-4">
+            {{ $locations->links() }}
+        </div>
     </div>
 </div>
 
