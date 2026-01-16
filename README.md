@@ -7,51 +7,76 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## TitipIn
-Cara berkontribusi pada project TitipIn
-1. Clone Repository jika belum. (jika sudah clone, maka setiap pengerjaan selalu update pull dari branch utama)
-```
+# TitipIn
+TitipIn is a campus-based web platform project designed to help university students purchase food and beverages during short breaks between classes without having to visit crowded canteen or restaurant areas. Imagine you are in the middle of short breaks between classes, a dozen, or even hundreds of students are heading to the campus canteens and restaurants, and the campus canteens and restaurants often become overcrowded, causing long queues and inefficient use of students’ limited time.
+
+TitipIn solves this by enabling peer-to-peer food ordering within the campus. Students who want to buy food (Titipers) can place orders through the platform, while other students (Runners) fulfill and deliver those orders. This distributed purchasing model reduces crowd concentration, speeds up transactions, and creates a smoother break-time experience for everyone.
+<br>
+
+# :star: How It Works
+## Titiper (Buyer)
+- Places food or beverage orders via the website
+- Specifies pickup vendor and delivery location on campus
+- Receives orders without leaving classrooms
+
+## Runner (Purchaser & Courier)
+- Accepts orders through the platform
+- Purchases items from the selected vendor
+- Delivers orders directly to the Titiper
+<br>
+
+# :bookmark_tabs: Getting Started
+Follow the steps below to set up **TitipIn** on your local machine.
+
+## Prerequisites
+1. Git
+2. PHP >= 8.1
+3. Composer
+4. Node.js & NPM
+5. XAMPP or any MySQL-compatible database
+
+## Setup Instructions
+```bash
+# clone this repository
 git clone https://github.com/Andersen-C/TitipIn.git
-```
-2. install seluruh dependencies
-```
+cd TitipIn
+
+# Install PHP Dependencies 
 composer install
-```
-3. Buat file .env baru
-4. Copy isi file .env.example ke file .env baru
-5. Generate App Key
-```
+
+# Create a new .env file
+
+# Copy the content of the .env.example file to the .env file
+
+# Generate application key
 php artisan key:generate
-```
-6. Jalankan Apache dan MySQL pada XAMPP
-7. Buat database dengan nama yang sesuai pada .env
-8. lakukan migration dan seeder
-```
+
+# create a new MySQL database
+
+# Open the .env file and update the database:
+DB_DATABASE=your_database_name
+
+# Run the migrations and seeder file
 php artisan migrate
 php artisan db:seed
-```
-9. Install Tailwindcss v4.1 dan Daisy UI
-```
+
+# Install Tailwindcss v4.1 and Daisy UI
 npm install -D tailwindcss postcss autoprefixer
 npm install daisyui
-```
-10. Jalankan npm
-```
-npm run dev
-```
-11. Jalankan local development laravel
-```
-php artisan serve
-```
-12. buka localhost pada browser
-13. silahkan kerjakan
 
-## Panduan Kontribusi
-1. Buat branch baru (**JANGAN LANGSUNG DI MAIN BRANCH**)
+# Run NPM
+npm run dev
+
+# Run the Laravel Development Server
+php artisan serve
+
+# Access the application via your browser at http://127.0.0.1:8000
 ```
-contoh: feature\<nama-fitur>
-```
-2. commmit secara berkala
-3. push branch ke Github
-4. Buat Pull Request (PR)
-5. Jika disetujui, merge ke main
+<br>
+
+## :man: Contributors
+<a href="https://github.com/Andersen-C/TitipIn/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=Andersen-C/TitipIn" />
+</a>
+
+Made with [contributors-img](https://contrib.rocks).
