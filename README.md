@@ -8,7 +8,9 @@
 </p>
 
 # TitipIn
-TitipIn is a campus-based web platform project designed to help university students purchase food and beverages during short breaks between classes without having to visit crowded canteen or restaurant areas. Imagine you are in the middle of short breaks between classes, a dozen, or even hundreds of students are heading to the campus canteens and restaurants, and the campus canteens and restaurants often become overcrowded, causing long queues and inefficient use of students’ limited time.
+TitipIn is a campus-based web platform project designed to help university students purchase food and beverages during short breaks between classes without having to visit crowded canteen or restaurant areas. 
+
+Imagine you are in the middle of short breaks between classes, a dozen, or even hundreds of students are heading to the campus canteens and restaurants, and the campus canteens and restaurants often become overcrowded, causing long queues and inefficient use of students’ limited time.
 
 TitipIn solves this by enabling peer-to-peer food ordering within the campus. Students who want to buy food (Titipers) can place orders through the platform, while other students (Runners) fulfill and deliver those orders. This distributed purchasing model reduces crowd concentration, speeds up transactions, and creates a smoother break-time experience for everyone.
 <br>
