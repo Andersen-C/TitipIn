@@ -15,7 +15,7 @@
             
             <div class="flex items-center gap-3">
                 <div class="w-12 h-12 rounded-full bg-blue-700 flex items-center justify-center text-white shadow-lg shadow-blue-200">
-                    <img src="{{ asset('storage/check.png') }}" alt="">
+                    <img src="{{ asset('check.png') }}" alt="">
                 </div>
                 <div class="text-blue-700 font-semibold">
                     {{__('runner.OrderAcceptStatus1')}}<br>{{__('runner.OrderAcceptStatus2')}}
@@ -26,7 +26,7 @@
 
             <div class="flex items-center gap-3 ">
                  <div class="w-12 h-12 rounded-full bg-blue-700 flex items-center justify-center text-white shadow-lg shadow-blue-200">
-                    <img src="{{ asset('storage/check.png') }}" alt="">
+                    <img src="{{ asset('check.png') }}" alt="">
                 </div>
                 <div class="text-blue-700 font-medium ">
                     {{ __('runner.PickupOrder1') }}<br>{{ __('runner.PickupOrder2') }}
@@ -37,7 +37,7 @@
 
             <div class="flex items-center gap-3 ">
                 <div class="w-12 h-12 rounded-full flex items-center justify-center bg-blue-700  mx-4 text-white shadow-lg shadow-blue-200">
-                    <img src="{{ asset('storage/im_on_the_way.png') }}" alt="">
+                    <img src="{{ asset('im_on_the_way.png') }}" alt="">
                 </div>
                 <div class="text-blue-700 font-medium ">
                     {{__('runner.OnTheWay1')}}<br>{{ __('runner.OnTheWay2') }}
@@ -48,7 +48,7 @@
 
             <div class="flex items-center gap-3 opacity-50">
                 <div class="w-12 h-12 rounded-full flex items-center justify-center bg-slate-300 mx-4 text-white shadow-lg shadow-blue-200">
-                    <img src="{{ asset('storage/check.png') }}" alt="">
+                    <img src="{{ asset('check.png') }}" alt="">
                 </div>
                 <div class="text-slate-500 font-medium text-sm">
                     {{ __('runner.Completed') }}
@@ -63,7 +63,7 @@
         <div class="flex items-center justify-between">
             <div class="flex  items-center justify-center gap-3">
                 <div class="w-12 h-12  rounded-full bg-blue-700 flex items-center justify-center text-white shadow-lg shadow-blue-200">
-                    <img src="{{ asset('storage/hand.png') }}" alt="">
+                    <img src="{{ asset('hand.png') }}" alt="">
                 </div>
                 <div class="text-blue-700 font-semibold text-lg hover:bg-blue-950">
                     {{ __('runner.Delivery1') }}
@@ -155,7 +155,7 @@
                 
                 <a href="#" class="flex items-center gap-3 text-left hover:bg-slate-50 p-2 rounded-lg transition">
                     <div class="w-8 h-8 rounded-full flex items-center justify-center">
-                        <img src="{{ asset('storage/chat.png') }}" alt="">
+                        <img src="{{ asset('chat.png') }}" alt="">
                     </div>
                     <div>
                         <span class="text-md font-semibold block">{{__("runner.ChatTitipers")}}</span>
@@ -165,14 +165,14 @@
 
                 <a href="#" class="flex items-center gap-3 text-left hover:bg-slate-50 p-2 rounded-lg transition">
                     <div class="w-8 h-8 rounded-full flex items-center justify-center">
-                        <img src="{{ asset('storage/call.png') }}" alt="">
+                        <img src="{{ asset('call.png') }}" alt="">
                     </div>
                     <span class=" text-md font-semibold">{{__("runner.CallTitipers")}}</span>
                 </a>
 
                 <a href="#" class="flex items-center  text-left hover:bg-slate-50 p-2 rounded-lg transition">
                     <div class="w-8 h-8 rounded-full flex items-center justify-center">
-                        <img src="{{ asset('storage/report.png') }}" alt="">
+                        <img src="{{ asset('report.png') }}" alt="">
                     </div>
                     <span class="font-semibold text-md">{{ __('runner.Report') }}</span>
                 </a>
