@@ -18,12 +18,19 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call([
-            UserSeeder::class,
-            LocationSeeder::class,
-            CategorySeeder::class,
-            MenuSeeder::class,
-            OrderSeeder::class,
-            ReviewSeeder::class
+            AdminSeeder::class
         ]);
+
+        if (app()->environment('local')) {
+            $this->call([
+                UserSeeder::class,
+                LocationSeeder::class,
+                CategorySeeder::class,
+                MenuSeeder::class,
+                OrderSeeder::class,
+                ReviewSeeder::class,
+                OrderTestingSeeder::class,
+            ]);
+        }
     }
 }
