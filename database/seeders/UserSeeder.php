@@ -13,17 +13,7 @@ class UserSeeder extends Seeder
      * Run the database seeds.
      */
     public function run(): void
-    {
-        User::create([
-            'name' => 'Admin',
-            'email' => 'admin@campus.ac.id',
-            'role' => 'admin',
-            'mode' => 'titiper',
-            'phone_number' => '081234567890',
-            'password' => Hash::make('password1234'),
-            'email_verified_at' => now(),
-        ]);
-        
+    {        
         User::create([
             'name' => 'Spongebob Runner',
             'email' => 'spongebob@campus.ac.id',

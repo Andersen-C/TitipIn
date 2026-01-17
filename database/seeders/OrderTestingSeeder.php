@@ -20,7 +20,7 @@ class OrderTestingSeeder extends Seeder
             ['email' => 'theo@gmail.com'],
             [
                 'name' => 'Theo (Titiper)',
-                'password' => 'titiper1',
+                'password' => Hash::make('titiper1'),
                 'role' => 'user',
                 'mode' => 'titiper',
                 'phone_number' => '0812123456789'
@@ -31,7 +31,7 @@ class OrderTestingSeeder extends Seeder
             ['email' => 'kevin@gmail.com'],
             [
                 'name' => 'Kevin (Runner)',
-                'password' => 'runner1',
+                'password' => Hash::make('runner1'),
                 'role' => 'user',
                 'mode' => 'runner',
                 'phone_number' => '089876543111'
