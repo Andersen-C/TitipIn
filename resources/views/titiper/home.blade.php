@@ -146,7 +146,7 @@
                             @foreach ($recommended as $menu)
                                 @php
                                     $rawImg = $menu->image ?? ($menu->image_path ?? ($menu->image_url ?? null));
-
+                                   
                                     $placeholder = 'https://via.placeholder.com/120?text=No+Image';
 
                                     $isAbsolute = $rawImg
@@ -159,7 +159,7 @@
                                         $imgUrl = $placeholder;
                                     }
                                 @endphp
-
+                                
                                 <div class="flex items-center gap-3 p-3 rounded-lg bg-slate-50">
                                     <div class="w-20 h-20 bg-white rounded-lg overflow-hidden flex-shrink-0">
                                         <img src="{{ $imgUrl }}" alt="{{ $menu->name }}"

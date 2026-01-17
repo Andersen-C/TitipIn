@@ -26,7 +26,14 @@
             <div class="flex flex-col p-4 border-2 border-zinc-500 rounded-lg sm:flex-row bg-white relative">
                 
                 <div class="flex flex-col sm:justify-center w-full sm:w-1/4 sm:h-max">
-                    <img class="justify-center rounded-md object-cover h-32 w-full" src="https://picsum.photos/200/100?random={{ $order->id }}" alt="Menu Image">
+                    @php
+                        
+                    $firstItem = $order->orderItems->first();
+                    $imgUrl = optional($firstItem->menu)->image 
+                    ? asset('/storage/'.$firstItem->menu->image)
+                    : 'https://picsum.photos/200/100?random=' . $order->id;
+                    @endphp
+                    <img class="justify-center rounded-md object-cover h-32 w-full" src="{{ $imgUrl }}" alt="Menu Image">
                 </div>
                 
                 <div class="flex flex-col sm:w-1/2 ml-0 p-6">

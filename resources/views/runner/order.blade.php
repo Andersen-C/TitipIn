@@ -27,7 +27,16 @@
                 
                 {{-- GAMBAR --}}
                 <div class="flex flex-col sm:justify-center w-full sm:w-1/4 sm:h-max">
-                    <img class="justify-center rounded-md object-cover h-32 w-full" src="https://picsum.photos/200/100?random={{ $order->id }}" alt="Menu Image">
+                   
+                    @php
+                        
+                    $firstItem = $order->orderItems->first();
+                    $imgUrl = optional($firstItem->menu)->image 
+                    ? asset('/storage/'.$firstItem->menu->image)
+                    : 'https://picsum.photos/200/100?random=' . $order->id;
+                    @endphp
+                    {{-- {{ dd(asset($firstItem->menu->image)) }} --}}
+                    <img class="justify-center rounded-md object-cover h-32 w-full" src="{{ $imgUrl }}" alt="Menu Image">
                 </div>
                 
                 {{-- INFO PESANAN --}}
