@@ -69,6 +69,9 @@ npm install daisyui
 # Run NPM
 npm run dev
 
+# link the storage/app/public directory to the public directory using:
+php artisan storage:link 
+
 # Run the Laravel Development Server
 php artisan serve
 
